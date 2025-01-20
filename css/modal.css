@@ -1,0 +1,107 @@
+/* Modal container styling */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1000; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgba(0, 0, 0, 0.8); /* Black background with opacity */
+  overflow: auto; /* Enable scrolling if needed */
+  backdrop-filter: blur(1px); /* Add blur to background */
+}
+
+/* Modal content */
+.modal-content {
+  background-color: #fff;
+  margin: 5% auto; /* 5% from the top and centered */
+  padding: 0;
+  border-radius: 10px;
+  width: 60%; /* Could be more or less, depending on screen size */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+  animation: slideDown 0.5s ease-out;
+  overflow: hidden; /* Hide content that overflows */
+}
+
+/* Modal Header */
+.modal-header {
+  background-color: #007bff; /* Custom header color */
+  color: white;
+  padding: 15px;
+  font-size: 24px;
+  text-align: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* Close button */
+.modal-header .close {
+  color: white;
+  float: right;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-header .close:hover {
+  color: #ff5f5f;
+}
+
+/* Modal body */
+.modal-body {
+  padding: 20px;
+  font-size: 16px;
+  line-height: 1.6;
+  background-color: #f8f9fa;
+}
+
+/* Modal footer */
+.modal-footer {
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #f1f1f1;
+}
+
+/* Modal buttons */
+.modal-footer button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.modal-footer .modal-button-primary {
+  background-color: #28a745;
+  color: white;
+}
+
+.modal-footer .modal-button-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.modal-footer button:hover {
+  opacity: 0.9;
+}
+
+/* Slide down animation */
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive styling for smaller screens */
+@media screen and (max-width: 768px) {
+  .modal-content {
+    width: 90%;
+  }
+}
