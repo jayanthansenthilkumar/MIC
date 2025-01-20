@@ -1,4 +1,4 @@
-<?php //include("h.php"); 
+    <?php //include("h.php"); 
 //require 'fconfig.php';
 
 
@@ -44,7 +44,7 @@ if (mysqli_num_rows($query_run) > 0) {
                 </li>
 
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="hrleave"
-                        aria-expanded="false"><img src="images/icon/student.png" class="custom-svg-icon"
+                        aria-expanded="false"><img src="images/icon/attendance.png" class="custom-svg-icon"
                             alt="Dashboard Icon"><span class="hide-menu">&nbsp;Wallet HR</span></a></li>
 
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="fview"
@@ -57,7 +57,7 @@ if (mysqli_num_rows($query_run) > 0) {
 
                         ?>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completedtable"
-                        aria-expanded="false"><img src="images/icon/student.png" class="custom-svg-icon"
+                        aria-expanded="false"><img src="images/icon/feedback1.png" class="custom-svg-icon"
                             alt="Dashboard Icon"><span class="hide-menu">&nbsp;Complaint</span></a></li>
                             <?php
                         }
