@@ -39,7 +39,9 @@
 						<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="sview" aria-expanded="false"><img src="images/icon/student.png" class="custom-svg-icon" alt="Dashboard Icon"><span class="hide-menu">&nbsp;Student</span></a></li>
 					
 					<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="fview" aria-expanded="false"><img src="images/icon/student_a.png" class="custom-svg-icon" alt="Dashboard Icon"><span class="hide-menu">&nbsp;Mentees</span></a></li>
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ffeedback" aria-expanded="false"><img src="images/icon/feedback1.png" class="custom-svg-icon" alt="Dashboard Icon"><span class="hide-menu">&nbsp;Feedback Corner</span></a></li>				
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ffeedback" aria-expanded="false"><img src="images/icon/feedback1.png" class="custom-svg-icon" alt="Dashboard Icon"><span class="hide-menu">&nbsp;Feedback Corner</span></a></li>	
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="hod" aria-expanded="false"><img src="images/icon/feedback1.png" class="custom-svg-icon" alt="Dashboard Icon"><span class="hide-menu">&nbsp;Complaint</span></a></li>				
+			
 						<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pwd" aria-expanded="false"><img src="images/icon/keys.png" class="custom-svg-icon" alt="Dashboard Icon"><span class="hide-menu">&nbsp;Change Password</span></a></li>
                     </ul>
                 </nav>
