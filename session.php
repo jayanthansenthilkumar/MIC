@@ -16,13 +16,14 @@ if (mysqli_num_rows($query_run) > 0) {
 	$sayear = $srow['ayear'];
 }
 
-$query2 = "SELECT name,dept,role FROM faculty WHERE id='$s'";
+$query2 = "SELECT id,name,dept,role FROM faculty WHERE id='$s'";
 $query_run2 = mysqli_query($db, $query2);
 if (mysqli_num_rows($query_run2) > 0) {
 	$frow = mysqli_fetch_assoc($query_run2);
 	$fdept = $frow['dept'];
 	$fname = $frow['name'];
 	$frole = $frow['role'];
+	$fac_id = $frow['id'];
 }
 
 

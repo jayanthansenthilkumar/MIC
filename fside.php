@@ -2,12 +2,14 @@
 //require 'fconfig.php';
 
 
-$query = "SELECT dept,role FROM faculty WHERE id='$s'";
+
+$query = "SELECT id,dept,role FROM faculty WHERE id='$s'";
 $query_run = mysqli_query($db, $query);
 if (mysqli_num_rows($query_run) > 0) {
     $row = mysqli_fetch_assoc($query_run);
     $dept = $row['dept'];
     $role = $row['role'];
+    $fac_id = $row['id'];
 }
 
 
@@ -48,6 +50,18 @@ if (mysqli_num_rows($query_run) > 0) {
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="fview"
                         aria-expanded="false"><img src="images/icon/student.png" class="custom-svg-icon"
                             alt="Dashboard Icon"><span class="hide-menu">&nbsp;Student</span></a></li>
+                        <?php
+                        $query2 = "SELECT * FROM faculty_details WHERE faculty_id='$fac_id'";
+                        $query_run2 = mysqli_query($db,$query2);
+                        if (mysqli_num_rows($query_run2) > 0) {
+
+                        ?>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completedtable"
+                        aria-expanded="false"><img src="images/icon/student.png" class="custom-svg-icon"
+                            alt="Dashboard Icon"><span class="hide-menu">&nbsp;Complaint</span></a></li>
+                            <?php
+                        }
+                            ?>
 
 
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pwd"
