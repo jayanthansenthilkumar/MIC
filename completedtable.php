@@ -83,6 +83,7 @@ if (isset($_POST['facdet'])) {
 
     <!-- Matrix Template Custom CSS -->
     <link href="dist/css/style.min.css" rel="stylesheet">
+    <link href="css/dboardstyles.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/styles.css">
 
     <!-- Favicon -->
