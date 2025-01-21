@@ -378,7 +378,7 @@ $notcount = mysqli_num_rows($result4);
                         <li class="sidebar-item"> <a id="view-work-task-history"
                                 class="sidebar-link waves-effect waves-dark sidebar-link" href="workall.php"
                                 aria-expanded="false"><img src="images/icon/wrench.png" class="custom-svg-icon"
-                                    alt="Dashboard Icon"><span class="hide-menu">&nbsp <?php echo $row['worker_dept'] ?></span></a></li>
+                                    alt="Dashboard Icon"><span class="hide-menu">&nbsp <?php echo $worker_id; ?></span></a></li>
                     </ul>
                 </nav>
             </div>
@@ -1476,7 +1476,7 @@ $notcount = mysqli_num_rows($result4);
                 console.log(worker_dept);
 
                 $.ajax({
-                    url: 'cms_backend.php?action=wbeforeimg',
+                    url: 'cms_backend.php?action=wworkerassign',
                     type: "POST",
                     data: {
                         "worker_dept": worker_dept

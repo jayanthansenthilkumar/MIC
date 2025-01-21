@@ -491,7 +491,7 @@ $options = '';
                                     Manager Worker</a>
                                 <a class="dropdown-item fetchdept" href="javascript:void(0)" data-toggle="modal" data-target="#manageusermodal"><i class="ti-user m-r-5 m-l-5"></i>
                                     Manager User</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i
+                                <a class="dropdown-item" href="Logout"><i
                                         class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
                             </div>
                         </li>

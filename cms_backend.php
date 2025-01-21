@@ -2,7 +2,6 @@
 require 'config.php';
 include("session.php");
 
-$faculty_id = $fac_id;
 
 
 // Define the counter file path
