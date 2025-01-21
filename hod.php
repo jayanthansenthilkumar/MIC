@@ -2,29 +2,33 @@
 require 'config.php';
 include("session.php");
 $hod_id =  $fac_id;
+$hdept = "SELECT * FROM faculty WHERE id='$hod_id'";
+$hdept_run = mysqli_query($db,$hdept);
+$hdept_data = mysqli_fetch_array($hdept_run);
+$dept = $hdept_data['dept'];
 $sql = "
 SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
 FROM complaints_detail cd
 JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
-WHERE cd.status = '2'
+WHERE cd.status = '2'AND faculty_details.department = '$dept'
 ";
 $sql1 = "
 SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
 FROM complaints_detail cd
 JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
-WHERE cd.status IN (4, 6, 7, 10, 11, 13, 14, 15, 17, 18)
+WHERE cd.status IN (4, 6, 7, 10, 11, 13, 14, 15, 17, 18, 22) AND faculty_details.department = '$dept'
 ";
 $sql2 = "
 SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
 FROM complaints_detail cd
 JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
-WHERE cd.status = '16'
+WHERE cd.status = '16' AND faculty_details.department = '$dept'
 ";
 $sql3 = "
 SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
 FROM complaints_detail cd
 JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
-WHERE cd.status IN (19, 20, 23)
+WHERE cd.status IN (19, 20, 23) AND faculty_details.department = '$dept'
 ";
 $result = mysqli_query($db, $sql);
 $pending = mysqli_num_rows($result);
@@ -199,8 +203,10 @@ $rejected = mysqli_num_rows($result3);
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
-        <?php
-        include("side.php");
+        <?php 
+			
+            include("side.php"); 
+
         ?>
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->

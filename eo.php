@@ -1,8 +1,7 @@
 <?php
-include("db.php");
-session_start();
-$_session['eo_id'] = 123456;
-$eo_id = $_session['eo_id'];
+require 'config.php';
+include("session.php");
+$eo_id = $fac_id;
 $sql = "
 SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
 FROM complaints_detail cd
@@ -27,13 +26,13 @@ FROM complaints_detail cd
 JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
 WHERE cd.status IN (19, 20)
 ";
-$result = mysqli_query($conn, $sql);
+$result = mysqli_query($db, $sql);
 $pending = mysqli_num_rows($result);
-$result1 = mysqli_query($conn, $sql1);
+$result1 = mysqli_query($db, $sql1);
 $approved = mysqli_num_rows($result1);
-$result2 = mysqli_query($conn, $sql2);
+$result2 = mysqli_query($db, $sql2);
 $completed = mysqli_num_rows($result2);
-$result3 = mysqli_query($conn, $sql3);
+$result3 = mysqli_query($db, $sql3);
 $rejected = mysqli_num_rows($result3);
 ?>
 
@@ -187,22 +186,11 @@ $rejected = mysqli_num_rows($result3);
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
-        <aside class="left-sidebar" data-sidebarbg="skin5">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav" class="p-t-30 in">
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="hod.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">Complaints</span></a>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-        </aside>
+        <?php 
+			
+            include("side.php"); 
+
+        ?>
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
