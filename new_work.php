@@ -899,7 +899,7 @@ $result4 = mysqli_query($db, $sql4);
             //for sending mail as accepted
             $.ajax({
                 type: "POST",
-                url: "mail.php",
+                url: "email.php",
                 data: {
                     approved: true,
                     id: user_id,
