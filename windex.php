@@ -295,7 +295,7 @@ $notcount = mysqli_num_rows($result4);
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
                         <li class="sidebar-item"> <a id="view-work-task-history"
-                                class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php"
+                                class="sidebar-link waves-effect waves-dark sidebar-link" href="windex.php"
                                 aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span
                                     class="hide-menu">Dashboard</span></a></li>
                         <li class="sidebar-item"> <a id="view-work-task-history"

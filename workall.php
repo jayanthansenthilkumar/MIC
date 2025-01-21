@@ -306,7 +306,7 @@ $notcount = mysqli_num_rows($result4);
                     <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
 
                     <!-- Logo -->
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="">
 
                         <span class="logo-text">
                             <img src="assets/images/mkcenavlogo.png" alt="homepage" class="light-logo" />
@@ -345,7 +345,7 @@ $notcount = mysqli_num_rows($result4);
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                 <ul id="sidebarnav" class="p-t-30">
-                <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Dashboard</span></a></li>
+                <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="windex.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Dashboard</span></a></li>
                         <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="new_work.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Work Asign</span></a></li>
                         <li class="sidebar-item"> <a id="view-work-task-history" class="sidebar-link waves-effect waves-dark sidebar-link" href="workall.php" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu"><?php echo $srow['worker_dept'] ?></span></a></li>
                     </ul>
@@ -372,7 +372,7 @@ $notcount = mysqli_num_rows($result4);
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="windex.php">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page"></li>
                                 </ol>
                             </nav>
