@@ -597,7 +597,7 @@ if (isset($_POST['facdet'])) {
                                                             // Check if the count exceeds the limit
                                                             if ($count_val >= 5) {
                                                         ?>
-                                                                <button type="button" disabled class="btn btn-info float-right fac" data-toggle="modal" data-target="#cmodal">Raise Complaint</button>
+                                                                <button type="button"class="btn btn-warning float-right limitovr" >Raise Complaint</button>
                                                                 <br><br>
                                                             <?php
                                                             } else {
@@ -1482,6 +1482,11 @@ if (isset($_POST['facdet'])) {
                 }
             });
         });
+
+        $(document).on("click",".limitovr",function(e){
+            e.preventDefault();
+            swal("Warning!", "You have crossed your complaint limit!", "warning");
+        })
 
 
         $(document).on('click', '.extenddeadline', function() {
