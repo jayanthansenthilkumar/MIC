@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
    
 
     if ($type == "faculty") {
-        if ($myusername == "hroffice" || $myusername == "hr" || $myusername == "busadmin" || $myusername=="principal") {
+                if ($myusername == "hroffice" || $myusername == "hr" || $myusername == "busadmin" || $myusername=="principal" || $myusername == "civil" || $myusername == "electrical" || $myusername == "itkm" || $myusername == "transport" || $myusername == "house") {
             $sql = "SELECT * FROM ofaculty WHERE uname = ? AND pass = ?";
             $stmt = $db->prepare($sql);
             $stmt->bind_param("ss", $myusername, $mypassword);
@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['loggedin'] = TRUE;
         $_SESSION['login_user'] = $myusername;
 
-        $redirectUrl = ($type == "student") ? "smain" : ($myusername == "hroffice" ? "hr" :($myusername == "principal" ? "p_index" : ($myusername == "hr" ? "Codes/HRM/HR/dash.php" : ($myusername == "busadmin" ? "busadmin/index" : "main") )));
+        $redirectUrl = ($type == "student") ? "smain" : ($myusername == "hroffice" ? "hr" :($myusername == "principal" ? "p_index" : ($myusername == "hr" ? "Codes/HRM/HR/dash.php" : ($myusername == "busadmin" ? "busadmin/index" : ($myusername == "civil" || "electrical" || "itkm" || "transport" || "house" ? "windex" :  "main")) )));
         echo "<script>
                 swal.fire({
                     icon: 'success',
