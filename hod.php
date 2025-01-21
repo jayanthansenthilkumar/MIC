@@ -299,8 +299,8 @@ $rejected = mysqli_num_rows($result3);
                                                 </a>
                                             </li>
                                         </ul>
-                                                                                <!-------------------------dashboard------------------------------>
-                                                                                <div class="tab-content tabcontent-border">
+                                        <!-------------------------dashboard------------------------------>
+                                        <div class="tab-content tabcontent-border">
                                             <div class="tab-pane p-20 active show" id="dashboard" role="tabpanel">
                                                 <div class="card">
                                                     <div class="card-body">
@@ -859,7 +859,7 @@ $rejected = mysqli_num_rows($result3);
                                         </div>
                                     </div>
                                 </div>
-                        </div>
+                            </div>
                         </form>
                     </div>
                 </div>

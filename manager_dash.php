@@ -1,9 +1,9 @@
 <?php
 include("db.php");
 
-$sql1 = "SELECT * FROM complaints_detail WHERE status IN ('4')";
-$result1 = mysqli_query($conn, $sql1);
-$row_count1 = mysqli_num_rows($result1);
+$sql13 = "SELECT * FROM complaints_detail WHERE status IN ('4')";
+$result13 = mysqli_query($conn, $sql13);
+$row_count13 = mysqli_num_rows($result13);
 
 $sql7 = "SELECT * FROM complaints_detail WHERE status IN ('15','17','18')";
 $result7 = mysqli_query($conn, $sql7);
@@ -13,9 +13,9 @@ $sql3 = "SELECT * FROM complaints_detail WHERE status IN ('7','10','11','13')";
 $result3 = mysqli_query($conn, $sql3);
 $row_count3 = mysqli_num_rows($result3);
 
-$sql2 = "SELECT * FROM complaints_detail WHERE status IN ('16')";
-$result2 = mysqli_query($conn, $sql2);
-$row_count2 = mysqli_num_rows($result2);
+$sql12 = "SELECT * FROM complaints_detail WHERE status IN ('16')";
+$result12 = mysqli_query($conn, $sql12);
+$row_count12 = mysqli_num_rows($result12);
 
 ?>
 <!DOCTYPE html>
@@ -76,20 +76,9 @@ $row_count2 = mysqli_num_rows($result2);
                 </div>
             </nav>
         </header>
-        <aside class="left-sidebar" data-sidebarbg="skin5">
-            <div class="scroll-sidebar"><br>
-            <nav class="sidebar-nav">
-                    <ul id="sidebarnav" class="p-t-30">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="manager_dash.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="manager.php" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span
-                                    class="hide-menu">Complaints</span></a></li>
-                    </ul>
-                </nav>
-            </div>
-        </aside>
+        <?php
+        include("side.php");
+        ?>
         <div class="page-wrapper">
              <div class="page-breadcrumb">
                 <div class="row">
