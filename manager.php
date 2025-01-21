@@ -1921,8 +1921,8 @@ $options = '';
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form id="principal_Form">
-                                                <input type="hidden" name="id" id="complaint_id89">
+                                            <form id="partially_completed">
+                                                <input type="hidden" name="id" id="complaint_id119">
                                                 <div class="form-group">
                                                     <label for="partiallyReason" class="form-label">Reason</label>
                                                     <textarea readonly class="form-control" name="reason"
