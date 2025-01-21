@@ -8,7 +8,10 @@
 				include("Hside.php");
 			} else if ($frole == "Faculty") {
 				include("fside.php");
-			} else if ($frole == "DSA") {
+			} else if($frole == "Student"){
+				include("sside.php");
+			}
+			else if ($frole == "DSA") {
 				include("DAside.php");
 			} else {
 				include("fside.php");

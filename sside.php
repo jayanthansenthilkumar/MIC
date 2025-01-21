@@ -1,4 +1,13 @@
 <?php //include("h.php"); 
+$query = "SELECT * FROM faculty_details WHERE faculty_id='$s' ";
+$query_run = mysqli_query($db, $query);
+$res = mysqli_fetch_array($query_run);
+
+    
+
+
+
+
 ?>
 <aside class="left-sidebar" data-sidebarbg="skin5">
     <!-- Sidebar scroll-->
@@ -22,6 +31,14 @@
                 </li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="bus_booking" aria-expanded="false"><img src="images/icon/busN.png" class="custom-svg-icon" alt="Bus"><span class="hide-menu">&nbsp;Bus Booking</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="sfeedback" aria-expanded="false"><img src="images/icon/feedback1.png" class="custom-svg-icon" alt="Bus"><span class="hide-menu">&nbsp;Feedback Corner</span></a></li>
+                <?php
+                if($res){
+
+                ?>
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completedtable" aria-expanded="false"><img src="images/icon/feedback1.png" class="custom-svg-icon" alt="Bus"><span class="hide-menu">&nbsp;Complaints</span></a></li>
+<?php
+                }
+?>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="spwd" aria-expanded="false"><img src="images/icon/keys.png" class="custom-svg-icon" alt="Password"><span class="hide-menu">&nbsp;Change Password</span></a></li>
             </ul>
         </nav>
