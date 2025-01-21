@@ -545,7 +545,7 @@ $row_count13 = mysqli_num_rows($result13);
                                                         <span class="hidden-xs-down"><i
                                                                 class="mdi mdi-view-grid"></i><b>&nbsp Dashboard</b></span></a>
                                                 </li>
-                                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#complain"
+                                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#complain"
                                                         role="tab"><span class="hidden-sm-up"></span>
                                                         <div id="navref1"> <span
                                                                 class="hidden-xs-down"><b>Complaint Raised (<?php echo $row_count1; ?>)</b></span></div>
@@ -654,7 +654,7 @@ $row_count13 = mysqli_num_rows($result13);
                                             <div class="tab-content tabcontent-border">
 
                                                 <!--Complaint start-->
-                                                <div class="tab-pane active p-20" id="complain" role="tabpanel">
+                                                <div class="tab-pane p-20" id="complain" role="tabpanel">
                                                     <div class="p-20">
                                                         <div class="table-responsive">
                                                             <h5 class="card-title">Complaint Raised</h5>

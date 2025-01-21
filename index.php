@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['loggedin'] = TRUE;
         $_SESSION['login_user'] = $myusername;
 
-        $redirectUrl = ($type == "student") ? "smain" : ($myusername == "hroffice" ? "hr" :($uname == "principal" ? "p_index" : ($myusername == "hr" ? "Codes/HRM/HR/dash.php" : ($myusername == "busadmin" ? "busadmin/index" : "main") )));
+        $redirectUrl = ($type == "student") ? "smain" : ($myusername == "hroffice" ? "hr" :($myusername == "principal" ? "p_index" : ($myusername == "hr" ? "Codes/HRM/HR/dash.php" : ($myusername == "busadmin" ? "busadmin/index" : "main") )));
         echo "<script>
                 swal.fire({
                     icon: 'success',
