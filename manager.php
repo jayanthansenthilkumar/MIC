@@ -34,6 +34,7 @@ $row_count5 = mysqli_num_rows($result5);
 //work completed table
 $sql6 = "SELECT * FROM complaints_detail WHERE status='16'";
 $result6 = mysqli_query($db, $sql6);
+$row_count2 = mysqli_num_rows($result6);
 //work reassigned table
 $sql7 = "SELECT * FROM complaints_detail WHERE status IN ('15','17','18')";
 $result7 = mysqli_query($db, $sql7);
@@ -76,6 +77,8 @@ $row_count13 = mysqli_num_rows($result13);
     <link href="dist/css/style.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link href="assets/libs/flot/css/float-chart.css" rel="stylesheet">
+    <link href="css/dboardstyles.css" rel="stylesheet">
+
 
     <!-- CSS Alertify-->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css" />
@@ -539,12 +542,11 @@ $row_count13 = mysqli_num_rows($result13);
                                         <div id="navref">
                                             <!-- Nav tabs -->
                                             <ul class="nav nav-tabs" role="tablist" id="navli">
-                                                <li class="nav-item">
-                                                    <a class="nav-link active show" data-toggle="tab" href="#dashboard"
-                                                        role="tab" aria-selected="true"><span class="hidden-sm-up"></span>
-                                                        <span class="hidden-xs-down"><i
-                                                                class="mdi mdi-view-grid"></i><b>&nbsp Dashboard</b></span></a>
-                                                </li>
+                                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#dashboard"
+                                                        role="tab"><span class="hidden-sm-up"></span>
+                                                         <span
+                                                                class="hidden-xs-down"><b>Dashboard</b></span>
+                                                    </a> </li>
                                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#complain"
                                                         role="tab"><span class="hidden-sm-up"></span>
                                                         <div id="navref1"> <span
@@ -650,8 +652,7 @@ $row_count13 = mysqli_num_rows($result13);
                                                 </div>
                                             </div>
 
-                                            <!-- Tab panes -->
-                                            <div class="tab-content tabcontent-border">
+                                           
 
                                                 <!--Complaint start-->
                                                 <div class="tab-pane p-20" id="complain" role="tabpanel">
