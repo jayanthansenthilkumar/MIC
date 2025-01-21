@@ -1,6 +1,5 @@
 <?php
 require 'config.php';
-
 ?>
 
 <!DOCTYPE html>
@@ -15,14 +14,13 @@ require 'config.php';
   <meta name="author" content="">
   <!-- Favicon icon -->
   <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-  <title>Mkce Complain Management Systems</title>
+  <title>MIC</title>
   <!-- Custom CSS -->
   <link href="assets/libs/flot/css/float-chart.css" rel="stylesheet">
   <!-- Custom CSS -->
   <link href="dist/css/style.min.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
-
-
+  <link href="css/dboardstyles.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -45,7 +43,8 @@ require 'config.php';
       -webkit-box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
       box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
     }
-    .bo{
+
+    .bo {
       margin-top: 20px;
 
     }
@@ -72,20 +71,31 @@ require 'config.php';
           <!-- This is for the sidebar toggle which is visible on mobile only -->
           <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
               class="ti-menu ti-close"></i></a>
-          <a class="navbar-brand" href="p_index.php">
+          <!-- ============================================================== -->
+          <!-- Logo -->
+          <!-- ============================================================== -->
+          <a class="navbar-brand" href="smain">
             <!-- Logo icon -->
-            <b class="logo-icon p-l-8">
-              <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-              <!-- Dark Logo icon -->
-              <img src="assets/images/logo-icon.png" alt="homepage" class="light-logo" />
-            </b>
+
             <!--End Logo icon -->
             <!-- Logo text -->
             <span class="logo-text">
               <!-- dark Logo text -->
-              <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" />
+              <img src="assets/images/srms33333.png" alt="homepage" class="light-logo" />
+
             </span>
+            <!-- Logo icon -->
+            <!-- <b class="logo-icon"> -->
+            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+            <!-- Dark Logo icon -->
+            <!-- <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
+
+            <!-- </b> -->
+            <!--End Logo icon -->
           </a>
+          <!-- ============================================================== -->
+          <!-- End Logo -->
+          <!-- ============================================================== -->
           <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
             data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
@@ -104,9 +114,7 @@ require 'config.php';
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
                   src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
               <div class="dropdown-menu dropdown-menu-right user-dd animated">
-                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i>
-                  My Profile</a>
-                <a class="dropdown-item" href="javascript:void(0)"><i
+                <a class="dropdown-item" href="Logout"><i
                     class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
                 <div class="dropdown-divider"></div>
               </div>
@@ -126,17 +134,16 @@ require 'config.php';
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
           <ul id="sidebarnav" class="p-t-30">
-            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="p_index.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
-            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="complaint.php" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Complaint Status</span></a></li>
-
-
+            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="p_index"
+                aria-expanded="false"><img src="images/icon/dash.png" class="custom-svg-icon"
+                  alt="Dashboard Icon"><span class="hide-menu">&nbsp;Dashboard</span></a></li>
+            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="complaint"
+                aria-expanded="false"><img src="images/icon/feedback1.png" class="custom-svg-icon"
+                  alt="Dashboard Icon"><span class="hide-menu">&nbsp;Complaints</span></a></li>
           </ul>
-
         </nav>
       </div>
     </aside>
-
-
 
     <div class="page-wrapper">
 
@@ -145,14 +152,6 @@ require 'config.php';
           <div class="col-12 d-flex no-block align-items-center">
             <h4 class="page-title">Welcome Principal,</h4>
             <div class="ml-auto text-right">
-
-              <!-- to show an work category  modal -->
-              <nav aria-label="breadcrumb">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#piechart">
-                  Work Category
-                </button>
-              </nav>
-
             </div>
           </div>
         </div>
@@ -259,7 +258,7 @@ require 'config.php';
                           <div class="stats-box text-center p-3"
                             style="background-color: #f1521b;">
                             <i class="fas fa-question m-b-5 font-16"></i>
-                            
+
                             <h5 class="text-white"><span id="pendingCount"></span></h5>
                             <small class="font-light">Pending</small>
                           </div>
@@ -295,8 +294,8 @@ require 'config.php';
                       </div>
                     </div>
                   </div>
-                  
-                  
+
+
                 </div>
               </div>
             </div>
@@ -322,28 +321,6 @@ require 'config.php';
   </div>
 
   </div>
-
-  <!--to display piechart using modal-->
-  <div class="modal fade" id="piechart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Work Category</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <canvas id="chartId" aria-label="chart" style="max-width: 100%; max-height: auto;" height="350" width="580"></canvas>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-        </div>
-      </div>
-    </div>
-  </div>
-
 
 
 
@@ -383,7 +360,7 @@ require 'config.php';
 
     function fetchComplaintCounts() {
       $.ajax({
-        url: 'ubackend.php', // URL to the PHP file
+        url: 'diamondbackend.php', // URL to the PHP file
         method: 'POST',
         data: {}, // Additional data can be sent if needed
         dataType: 'json',
@@ -420,48 +397,6 @@ require 'config.php';
       });
     }
 
-    //pie chart code
-    async function fetchData() {
-      const response = await fetch('diamondbackend.php', {
-        method: 'POST' // Ensuring it's a POST request as required by your PHP
-      });
-      const data = await response.json();
-      return data.typeOfProblemCounts; // Accessing the specific key where the data is stored
-    }
-
-    function createChart(labels, data) {
-      var ctx = document.getElementById("chartId").getContext("2d");
-      new Chart(ctx, {
-        type: 'pie',
-        data: {
-          labels: labels,
-          datasets: [{
-            label: "Problem Types",
-            data: data,
-            backgroundColor: ['#ff953c', 'aqua', 'pink', 'lightgreen', 'gold', 'lightblue'],
-            hoverOffset: 5
-          }],
-        },
-        options: {
-          responsive: false,
-          plugins: {
-            legend: {
-              position: 'right',
-              align: 'center',
-            },
-          },
-        },
-      });
-    }
-
-    async function initializeChart() {
-      const data = await fetchData();
-      const labels = data.map(item => item.type_of_problem); // Mapping labels from fetched data
-      const counts = data.map(item => item.count); // Mapping counts from fetched data
-      createChart(labels, counts);
-    }
-
-    initializeChart();
   </script>
 
 
