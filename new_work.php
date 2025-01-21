@@ -1,13 +1,7 @@
 <?php
 require "config.php";
 include ("session.php");
-
-
-
-
-
-
-    $worker_id = $s;
+$worker_id = $s;
 
 //fetching worker details using department in session
 $qry = "SELECT * FROM worker_details WHERE worker_id='$worker_id'";
@@ -64,7 +58,7 @@ $result4 = mysqli_query($db, $sql4);
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
-    <title>worker</title>
+    <title>MIC</title>
     <!-- Custom CSS -->
     <link href="dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -135,16 +129,31 @@ $result4 = mysqli_query($db, $sql4);
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin5">
                     <!-- Sidebar toggle for mobile -->
-                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
-                            class="ti-menu ti-close"></i></a>
-
+                    <!-- ============================================================== -->
                     <!-- Logo -->
-                    <a class="navbar-brand" href="index.html">
+                    <!-- ============================================================== -->
+                    <a class="navbar-brand" href="smain">
+                        <!-- Logo icon -->
 
+                        <!--End Logo icon -->
+                        <!-- Logo text -->
                         <span class="logo-text">
-                            <img src="assets/images/mkcenavlogo.png" alt="homepage" class="light-logo" />
+                            <!-- dark Logo text -->
+                            <img src="assets/images/srms33333.png" alt="homepage" class="light-logo" />
+
                         </span>
+                        <!-- Logo icon -->
+                        <!-- <b class="logo-icon"> -->
+                        <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                        <!-- Dark Logo icon -->
+                        <!-- <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
+
+                        <!-- </b> -->
+                        <!--End Logo icon -->
                     </a>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
 
                     <!-- Toggle for mobile -->
                     <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
@@ -162,11 +171,20 @@ $result4 = mysqli_query($db, $sql4);
                         </li>
                         <!-- Additional items can be added here -->
                     </ul>
-                    <a href="login.php" class="btn btn-danger">
-                        <i class=" fas fa-sign-out-alt" style="font-size: 15px;"></i>
-                    </a>
 
+                    <ul class="navbar-nav float-right">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href=""
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
+                                    src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
+                            <div class="dropdown-menu dropdown-menu-right user-dd animated">
+                            <a class="dropdown-item" href="Logout"><i class="fa fa-power-off m-r-5 m-l-5"></i>
+                            Logout</a>
+                                <div class="dropdown-divider"></div>
+                            </div>
+                        </li>
 
+                    </ul>
                 </div>
             </nav>
         </header>
@@ -177,28 +195,26 @@ $result4 = mysqli_query($db, $sql4);
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
         <aside class="left-sidebar" data-sidebarbg="skin5">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
+            <div class="scroll-sidebar"><br>
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
-                        <li class="sidebar-item"> <a id="view-work-task-history"
-                                class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php"
-                                aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span
-                                    class="hide-menu">Dashboard</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="windex"
+                                aria-expanded="false"><img src="images/icon/dash.png" class="custom-svg-icon"
+                                    alt="Dashboard Icon"><span class="hide-menu">&nbsp;Dashboard</span></a></li>
+
                         <li class="sidebar-item"> <a id="view-work-task-history"
                                 class="sidebar-link waves-effect waves-dark sidebar-link" href="new_work.php"
-                                aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Work
-                                    Asign</span></a></li>
+                                aria-expanded="false"><img src="images/icon/construction-worker.png" class="custom-svg-icon"
+                                alt="Dashboard Icon"><span class="hide-menu">&nbsp Work
+                                    Assign</span></a></li>
+
                         <li class="sidebar-item"> <a id="view-work-task-history"
                                 class="sidebar-link waves-effect waves-dark sidebar-link" href="workall.php"
-                                aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span
-                                    class="hide-menu"><?php echo $srow['worker_dept'] ?></span></a></li>
+                                aria-expanded="false"><img src="images/icon/wrench.png" class="custom-svg-icon"
+                                alt="Dashboard Icon"><span class="hide-menu">&nbsp <?php echo $row['worker_dept'] ?></span></a></li>
                     </ul>
                 </nav>
-                <!-- End Sidebar navigation -->
             </div>
-            <!-- End Sidebar scroll-->
         </aside>
 
         <!-- ============================================================== -->
