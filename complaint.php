@@ -1,27 +1,28 @@
 <?php
-include("db.php");
+require 'config.php';
+
 //work completed table
 $sql1 = "SELECT * FROM complaints_detail WHERE status='16'";
-$result1 = mysqli_query($conn, $sql1);
+$result1 = mysqli_query($db, $sql1);
 
 
 //pending count
 $sql3 = "SELECT complaints_detail.*,manager.* FROM complaints_detail LEFT JOIN manager on complaints_detail.id=manager.problem_id WHERE status = 7";
-$result3 = mysqli_query($conn, $sql3);
+$result3 = mysqli_query($db, $sql3);
 $compcount1 = mysqli_num_rows($result3);
 
 //inprogress count
 $sql4 = "SELECT complaints_detail.*,manager.* FROM complaints_detail LEFT JOIN manager on complaints_detail.id=manager.problem_id WHERE status = 10";
-$result4 = mysqli_query($conn, $sql4);
+$result4 = mysqli_query($db, $sql4);
 $compcount2 = mysqli_num_rows($result4);
 
 //reassigned work
 $sql5 = "SELECT complaints_detail.*,manager.* FROM complaints_detail LEFT JOIN manager on complaints_detail.id=manager.problem_id WHERE status = 14";
-$result5 = mysqli_query($conn, $sql5);
+$result5 = mysqli_query($db, $sql5);
 $compcount3 = mysqli_num_rows($result5);
 
 $sql11 = "SELECT * FROM complaints_detail WHERE status='6'";
-$result11 = mysqli_query($conn, $sql11);
+$result11 = mysqli_query($db, $sql11);
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -444,7 +445,7 @@ $result11 = mysqli_query($conn, $sql11);
                                                             <tbody>
                                                                 <?php
                                                                 $sql2 = "SELECT complaints_detail.*,manager.* FROM complaints_detail LEFT JOIN manager on complaints_detail.id=manager.problem_id WHERE status IN (7,10,14)";
-                                                                $result2 = mysqli_query($conn, $sql2);
+                                                                $result2 = mysqli_query($db, $sql2);
                                                                 $s = 1;
                                                                 while ($row = mysqli_fetch_array($result2)) {
                                                                     $modal_id = "problem1" . $s;
