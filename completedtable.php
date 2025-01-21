@@ -280,12 +280,7 @@ if (isset($_POST['facdet'])) {
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
                                     src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated">
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i>
-                                    My Profile</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i
-                                        class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-                                <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#passmodal"><i class="ti-user m-r-5 m-l-5"></i>
-                                    Change Password</a>
+                                <a class="dropdown-item" href="Logout"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
                                 <div class="dropdown-divider"></div>
                             </div>
                         </li>
@@ -300,9 +295,7 @@ if (isset($_POST['facdet'])) {
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
         <?php 
-			
             include("side.php"); 
-
         ?>
         <div class="modal fade" id="passmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -1090,16 +1083,11 @@ if (isset($_POST['facdet'])) {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>    
             </div>
         </div>
-        <footer class="footer text-center">
-            <b> 2024 © M.Kumarasamy College of Engineering All Rights Reserved.
-                <br> Developed and Maintained by Technology Innovation Hub</b>.
-        </footer>
+        <?php include "./footer.html" ?>
     </div>
-
-
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
