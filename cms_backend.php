@@ -347,52 +347,61 @@ switch ($action) {
         break;
 
         //add new user for raise complaints
-    case 'add_user':
-        try {
-
-            $id = $_POST["userid"];
-            $dept = $_POST["u_dept"];
-            $role = $_POST["u_role"];   
-            
-            if($role == "infra"){
-
-            $selectquery = "SELECT * FROM basic WHERE id = '$id'";
-            $selectrun = mysqli_query($db,$selectquery);
-            $selectval = mysqli_fetch_assoc($selectrun);
-
-            $name = $selectval["fname"];            
-            $phone = $selectval["mobile"];
-            $email = $selectval["email"];
-
-        }
-        else if($role == "student"){
-
-            $selectquery1 = "SELECT * FROM sbasic WHERE sid = '$id'";
-            $selectrun1 = mysqli_query($db,$selectquery1);
-            $selectval1 = mysqli_fetch_array($selectrun1);
-
-            $name = $selectval1["fname"];            
-            $phone = $selectval1["mobile"];
-            $email = $selectval1["email"];
-
-        }
-            
-
-            $query = "INSERT INTO faculty_details (faculty_id, faculty_name, department, faculty_contact, faculty_mail, role)
-                      VALUES (?, ?, ?, ?, ?, ?)";
-            $stmt = $db->prepare($query);
-            $stmt->bind_param('ssssss', $id, $name, $dept, $phone, $email, $role);
-
-            if ($stmt->execute()) {
-                echo json_encode(['status' => 200, 'msg' => 'Successfully stored']);
-            } else {
-                throw new Exception('Query Failed: ' . $stmt->error);
+        case 'add_user':
+            try {
+                $id = $_POST["userid"];
+                $dept = $_POST["u_dept"];
+                $role = $_POST["u_role"];
+        
+                $name = $phone = $email = '';
+        
+                if ($role == "infra") {
+                    $selectquery = "SELECT fname, mobile, email FROM basic WHERE id = ?";
+                    $stmt = $db->prepare($selectquery);
+                    $stmt->bind_param('s', $id);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+        
+                    if ($result->num_rows > 0) {
+                        $selectval = $result->fetch_assoc();
+                        $name = $selectval["fname"];
+                        $phone = $selectval["mobile"];
+                        $email = $selectval["email"];
+                    } else {
+                        throw new Exception("No data found for the provided ID in 'basic' table.");
+                    }
+                } else if ($role == "student") {
+                    $selectquery1 = "SELECT fname, mobile, email FROM sbasic WHERE sid = ?";
+                    $stmt = $db->prepare($selectquery1);
+                    $stmt->bind_param('s', $id);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+        
+                    if ($result->num_rows > 0) {
+                        $selectval1 = $result->fetch_assoc();
+                        $name = $selectval1["fname"];
+                        $phone = $selectval1["mobile"];
+                        $email = $selectval1["email"];
+                    } else {
+                        throw new Exception("No data found for the provided ID in 'sbasic' table.");
+                    }
+                }
+        
+                $query = "INSERT INTO faculty_details (faculty_id, faculty_name, department, faculty_contact, faculty_mail, role)
+                          VALUES (?, ?, ?, ?, ?, ?)";
+                $stmt = $db->prepare($query);
+                $stmt->bind_param('ssssss', $id, $name, $dept, $phone, $email, $role);
+        
+                if ($stmt->execute()) {
+                    echo json_encode(['status' => 200, 'msg' => 'Successfully stored']);
+                } else {
+                    throw new Exception('Query Failed: ' . $stmt->error);
+                }
+            } catch (Exception $e) {
+                echo json_encode(['status' => 500, 'message' => 'Error: ' . $e->getMessage()]);
             }
-        } catch (Exception $e) {
-            echo json_encode(['status' => 500, 'message' => 'Error: ' . $e->getMessage()]);
-        }
-        break;
-
+            break;
+        
         //delete workers
     case 'delete_worker':
         $id = $_POST['id'];
