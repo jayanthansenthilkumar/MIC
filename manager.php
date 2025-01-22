@@ -63,43 +63,6 @@ $options = '';
 
 }
 
-if (isset($_POST['dateapply'])) {
-
-    $from_date = $_POST['from_date'];
-    $to_date = $_POST['to_date'];
-
-    $sql19 = "SELECT worker_details.worker_id, worker_details.worker_first_name, worker_details.worker_dept, 
-                COUNT(complaints_detail.id) AS total_completed_works,
-                AVG(complaints_detail.rating) AS avg_faculty_rating, 
-                AVG(complaints_detail.mrating) AS avg_manager_rating 
-              FROM worker_details 
-              INNER JOIN complaints_detail 
-              ON worker_details.worker_id = complaints_detail.worker_id 
-              WHERE worker_details.usertype = 'worker' 
-              AND complaints_detail.status = '16'
-              AND complaints_detail.date_of_completion BETWEEN ? AND ?
-              GROUP BY worker_details.worker_id";
-
-    $stmt = $db->prepare($sql19);
-    $stmt->bind_param('ss', $from_date, $to_date);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $data = [];
-    while ($row = $result->fetch_assoc()) {
-        $row['avg_faculty_rating'] = $row['avg_faculty_rating'] ? round($row['avg_faculty_rating'], 2) : 'N/A';
-        $row['avg_manager_rating'] = $row['avg_manager_rating'] ? round($row['avg_manager_rating'], 2) : 'N/A';
-        $row['avg_rating'] = ($row['avg_faculty_rating'] != 'N/A' && $row['avg_manager_rating'] != 'N/A') 
-                            ? round(($row['avg_faculty_rating'] + $row['avg_manager_rating']) / 2, 2) 
-                            : 'N/A';
-        $data[] = $row;
-    }
-
-    echo json_encode(['status' => 200, 'data' => $data]);
-    exit;
-}
-
-
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -3211,33 +3174,7 @@ if (isset($_POST['dateapply'])) {
                 XLSX.writeFile(we, 'workers_data.xlsx');
             });
 
-            /* //worker phone number fertch
-            $(document).on('click', ".worker_det", function(e) {
-                e.preventDefault();
-                var prblm_id = $(this).val();
-                console.log(prblm_id);
-                $.ajax({
-                    type: "POST",
-                    url: "testbackend.php",
-                    data: {
-                        get_worker_phone: true,
-                        prblm_id: prblm_id,
-                    },
-                    success: function(response) {
-                        var res = jQuery.parseJSON(response);
-                        console.log(res);
-                        if (res.status == 500) {
-                            alert(res.message);
-                        } else {
-                            $("#worker_mobile").text(res.data.worker_mobile);
-                            // Set the href attribute for the call button to dial the worker's mobile number
-                            $('#callWorkerBtn').attr('href', 'tel:' + response.worker_mobile);
-                            $("#workerdetailmodal").modal("show");
-                        }
-                    },
-                });
-            }); */
-
+           
             //exctend deadline
             $(document).on("click", ".deadline_extend", function(e) {
                 e.preventDefault();
@@ -3462,111 +3399,7 @@ if (isset($_POST['dateapply'])) {
 
 
 
-            /*
-                            $(document).ready(function() {
-                                $('.totalworks').each(function() {
-                                    var works = $(this);
-                                    var id = works.data('value');
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "worker_count.php",
-                                        data: {
-                                            count: true,
-                                            id: id
-                                        },
-                                        success: function(response) {
-                                            var res = jQuery.parseJSON(response);
-                                            if (res.status == 200) {
-                                                works.text(res.data);
-                                            } else {
-                                                console.log("error");
-                                            }
-                                        }
-
-
-                                    })
-                                });
-                                $('.facultyr').each(function() {
-                                    var ratings = $(this);
-                                    var id = ratings.data('value');
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "worker_count.php",
-                                        data: {
-                                            fratings: true,
-                                            id: id
-                                        },
-                                        success: function(response) {
-                                            console.log(response);
-                                            var res = jQuery.parseJSON(response);
-                                            if (res.status == 200) {
-                                                ratings.text(res.data);
-                                            } else {
-                                                console.log(error);
-                                            }
-                                        }
-                                    })
-
-                                });
-                                $('.managerr').each(function() {
-                                    var ratings = $(this);
-                                    var id = ratings.data('value');
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "worker_count.php",
-                                        data: {
-                                            mratings: true,
-                                            id: id
-                                        },
-                                        success: function(response) {
-                                            console.log(response);
-                                            var res = jQuery.parseJSON(response);
-                                            if (res.status == 200) {
-                                                ratings.text(res.data);
-                                            } else {
-                                                console.log(error);
-                                            }
-                                        }
-                                    })
-
-                                })
-                                $('.average').each(function() {
-                                    var average = $(this);
-                                    var id = average.data('value');
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "worker_count.php",
-                                        data: {
-                                            average: true,
-                                            id: id
-                                        },
-                                        success: function(response) {
-                                            console.log(response);
-                                            var res = jQuery.parseJSON(response);
-                                            if (res.status == 200) {
-                                                average.text(res.data);
-                                            } else {
-                                                console.log("error");
-                                            }
-                                        }
-                                    })
-                                })
-                            });
-
-
-                            document.addEventListener("DOMContentLoaded", function() {
-                                const tableRows = document.querySelectorAll("#Rworkers tbody tr");
-                                tableRows.forEach(row => {
-                                    const works = parseInt(row.querySelector(".totalworks").textContent) || 0;
-                                    const ratings = parseInt(row.querySelector(".totalratings").textContent) || 0;
-                                    const avg = row.querySelector(".average");
-                                    console.log(avg);
-                                    const average = ratings / works;
-                                    avg.textContent = average;
-                                });
-                            });
-            */
-
+          
             //delete user
             $(document).on("click", ".deleteuser", function(e) {
                 e.preventDefault();
@@ -3675,27 +3508,7 @@ if (isset($_POST['dateapply'])) {
                 })
             })
 
-            /*  $(document), on("click", "#datesubmit", function(e) {
-                 e.preventDefault();
-                 var form = new FormData(this);
-                 form.append("date", true);
-                 $.ajax({
-                     type: "POST",
-                     url: "testbackend.php",
-                     data: form,
-                     processData:false,
-                     contentType:false,
-                     success: function(response) {
-                         var res = jQuery.parseJSON(response);
-                         if (res.status == 200) {
-                             console.log("success");
-                         } else {
-                             console.log("failed");
-                         }
-                     }
-
-                 })
-             }) */
+           
 
             $(document).on("click", ".partially", function(e) {
                 e.preventDefault();
@@ -3740,11 +3553,11 @@ if (isset($_POST['dateapply'])) {
             $(document).on("submit", "#date-form", function (e) {
     e.preventDefault();
     var form = new FormData(this);
-    form.append("dateapply", true);
+   
 
     $.ajax({
         type: "POST",
-        url: "manager.php",
+        url: "cms_backend.php?action=dateapply",
         data: form,
         processData: false,
         contentType: false,

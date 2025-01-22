@@ -567,6 +567,47 @@ switch ($action) {
         }
         break;
 
+        //get workers record
+        case 'dateapply':
+            try {
+                $from_date = $_POST['from_date'];
+                $to_date = $_POST['to_date'];
+            
+                $sql19 = "SELECT worker_details.worker_id, worker_details.worker_first_name, worker_details.worker_dept, 
+                            COUNT(complaints_detail.id) AS total_completed_works,
+                            AVG(complaints_detail.rating) AS avg_faculty_rating, 
+                            AVG(complaints_detail.mrating) AS avg_manager_rating 
+                          FROM worker_details 
+                          INNER JOIN complaints_detail 
+                          ON worker_details.worker_id = complaints_detail.worker_id 
+                          WHERE worker_details.usertype = 'worker' 
+                          AND complaints_detail.status = '16'
+                          AND complaints_detail.date_of_completion BETWEEN ? AND ?
+                          GROUP BY worker_details.worker_id";
+            
+                $stmt = $db->prepare($sql19);
+                $stmt->bind_param('ss', $from_date, $to_date);
+                $stmt->execute();
+                $result = $stmt->get_result();
+            
+                $data = [];
+                while ($row = $result->fetch_assoc()) {
+                    $row['avg_faculty_rating'] = $row['avg_faculty_rating'] ? round($row['avg_faculty_rating'], 2) : 'N/A';
+                    $row['avg_manager_rating'] = $row['avg_manager_rating'] ? round($row['avg_manager_rating'], 2) : 'N/A';
+                    $row['avg_rating'] = ($row['avg_faculty_rating'] != 'N/A' && $row['avg_manager_rating'] != 'N/A') 
+                                        ? round(($row['avg_faculty_rating'] + $row['avg_manager_rating']) / 2, 2) 
+                                        : 'N/A';
+                    $data[] = $row;
+                }
+            
+                echo json_encode(['status' => 200, 'data' => $data]);
+                exit;
+            } catch (Exception $e) {
+                echo json_encode(['status' => 500, 'message' => 'Error: ' . $e->getMessage()]);
+            }
+            break;
+
+
 
 
         //HOD backend
