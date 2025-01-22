@@ -1561,7 +1561,6 @@ switch ($action) {
     case 'facraisecomp':
         $faculty_id = mysqli_real_escape_string($db, $_POST['faculty_id']);
         $fac_id = mysqli_real_escape_string($db, $_POST['cfaculty']);
-        $fac_id = preg_replace('/\D/', '', $fac_id);
         $block_venue = mysqli_real_escape_string($db, $_POST['block_venue']);
         $venue_name = mysqli_real_escape_string($db, $_POST['venue_name']);
         $type_of_problem = mysqli_real_escape_string($db, $_POST['type_of_problem']);

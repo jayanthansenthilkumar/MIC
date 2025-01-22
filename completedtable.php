@@ -2,14 +2,21 @@
 require 'config.php';
 include("session.php");
 
+if (!empty($fac_id)) {
+    $faculty_id = $fac_id;
+    $qrydata = "SELECT dept FROM faculty WHERE id = '$faculty_id'";
+    $run = mysqli_query($db, $qrydata);
+    $runs = mysqli_fetch_array($run);
+    $dept = $runs['dept'];
+} elseif (!empty($sid)) {
+    $faculty_id = $sid;
+    $qrydata = "SELECT dept FROM student WHERE sid = '$faculty_id'";
+    $run = mysqli_query($db, $qrydata);
+    $runs = mysqli_fetch_array($run);
+    $dept = $runs['dept'];
+}
 
 
-
-$faculty_id = $fac_id; 
-$qrydata = "SELECT * FROM faculty WHERE id='$faculty_id'";
-$run = mysqli_query($db, $qrydata);
-$runs = mysqli_fetch_array($run);
-$dept = $runs['dept'];
 
 
 $query = "SELECT * FROM complaints_detail WHERE faculty_id = '$faculty_id'";
@@ -295,8 +302,12 @@ if (isset($_POST['facdet'])) {
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
         <?php 
+        if (!empty($fac_id)) {
             include("side.php"); 
-        ?>
+        }
+        elseif (!empty($sid)) {
+            include("sside.php");
+                }        ?>
         <div class="modal fade" id="passmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content" style="border-radius: 8px; border: 1px solid #ccc;">
@@ -500,11 +511,26 @@ if (isset($_POST['facdet'])) {
                                                                 <input type="hidden" id="hidden_faculty_id" value="<?php echo $faculty_id;?>">
                                                                 <input type="hidden" class="form-control" name="faculty_id" id="faculty_id" value="<?php echo $faculty_id; ?>" readonly>
                                                             </div>
+                                                            <?php
+                                                            
+                                                            if(!empty($fac_id)){
+                                                                ?>
                                                             <div class="form-group" style="margin-bottom: 15px;">
                                                                 <label for="faculty" class="font-weight-bold" style="display: block; margin-bottom: 5px;">Choose Faculty <span style="color: red;">*</span></label>
                                                                 <select class="form-control" name="cfaculty" id="cfaculty" style="width: 100%; height: 40px; border-radius: 4px; border: 1px solid #ccc;">
                                                                 </select>
                                                             </div>
+                                                            <?php
+                                                            }
+                                                            elseif(!empty($sid))
+                                                            {
+
+                                                            
+                                                            ?>
+                                                            <input type="hidden" name="cfaculty" value="<?php echo $faculty_id; ?>">
+                                                            <?php
+                                                            }
+                                                            ?>
 
                                                             <div class="mb-3">
                                                                 <label for="type_of_problem" class="form-label">Type of Problem <span style="color: red;">*</span></label>

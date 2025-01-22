@@ -7,13 +7,14 @@ if (!isset($_SESSION['loggedin'])) {
 } else {
 	$s = $_SESSION['login_user'];
 }
-$query = "SELECT sname, dept,ayear FROM student WHERE sid='$s'";
+$query = "SELECT sid,sname, dept,ayear FROM student WHERE sid='$s'";
 $query_run = mysqli_query($db, $query);
 if (mysqli_num_rows($query_run) > 0) {
 	$srow = mysqli_fetch_assoc($query_run);
 	$sdept = $srow['dept'];
 	$sname = $srow['sname'];
 	$sayear = $srow['ayear'];
+	$sid = $srow['sid'];
 }
 
 $query2 = "SELECT id,name,dept,role FROM faculty WHERE id='$s'";
