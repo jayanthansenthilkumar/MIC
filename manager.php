@@ -62,6 +62,43 @@ $options = '';
         exit;
 
 }
+if(isset($_POST['dateapply'])){
+
+    $from_date = $_POST['from_date'];
+    $to_date = $_POST['to_date'];
+
+    $sql9 = "SELECT worker_details.worker_id, worker_details.worker_first_name, worker_details.worker_dept, 
+    COUNT(complaints_detail.id) AS total_completed_works,
+    AVG(complaints_detail.rating) AS avg_faculty_rating, 
+    AVG(complaints_detail.mrating) AS avg_manager_rating 
+    FROM worker_details INNER JOIN complaints_detail 
+    ON worker_details.worker_id = complaints_detail.worker_id 
+    WHERE worker_details.usertype = 'worker' AND complaints_detail.status = '16'
+    AND ( (complaints_detail.date_of_completion >= '$from_date' AND complaints_detail.date_of_completion <= '$to_date') )
+    GROUP BY worker_details.worker_id";
+
+
+    $result9 = mysqli_query($db, $sql9);
+    if($result9){
+        $res=[
+            "status"=>200,
+            "message"=>"date done"
+        ];
+        echo json_encode($res);
+        exit;
+    }
+    else{
+        $res=[
+            "status"=>500,
+            "message"=>"error",
+        ];
+        echo json_encode($res);
+        exit;
+
+    }
+
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -76,7 +113,6 @@ $options = '';
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
     <title>MIC - MKCE</title>
     <link href="dist/css/style.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -1487,35 +1523,14 @@ $options = '';
 
                                 <!-- Workers Record Table -->
 
-                                <?php
-
-                                $from_date = isset($_POST['from_date']) ? $_POST['from_date'] : '';
-                                $to_date = isset($_POST['to_date']) ? $_POST['to_date'] : '';
-
-                                $sql9 = "SELECT worker_details.worker_id, worker_details.worker_first_name, worker_details.worker_dept, 
-                                COUNT(complaints_detail.id) AS total_completed_works,
-                                AVG(complaints_detail.rating) AS avg_faculty_rating, 
-                                AVG(complaints_detail.mrating) AS avg_manager_rating 
-                                FROM worker_details INNER JOIN complaints_detail 
-                                ON worker_details.worker_id = complaints_detail.worker_id 
-                                WHERE worker_details.usertype = 'worker' AND complaints_detail.status = '16'
-                                AND ( (complaints_detail.date_of_completion >= '$from_date' AND complaints_detail.date_of_completion <= '$to_date') )
-                                GROUP BY worker_details.worker_id";
-
-
-                                $result9 = mysqli_query($db, $sql9);
-
-
-
-
-                                ?>
+                                
 
                                 <div class="tab-pane p-20" id="workersr" role="tabpanel">
                                     <div class="p-20">
                                         <div class="table-responsive">
                                             <h5 class="card-title">Worker's Record</h5>
 
-                                            <form method="POST" action="">
+                                            <form id="date-form">
                                                 <label for="from_date">From Date: </label>
                                                 <input type="date" name="from_date" value="<?php echo $from_date; ?>"
                                                     required>
@@ -3764,6 +3779,29 @@ $options = '';
 
                     }
                 })
+            });
+
+            $(document).on("submit","#date-form",function(e){
+                e.preventDefault();
+                var form = new FormData(this);
+                form.append("dateapply",true);
+                $.ajax({
+                    type:"POST",
+                    url:"manager.php",
+                    data:form,
+                    processData:false,
+                    contentType:false,
+                    success:function(response){
+                        var res = jQuery.parseJSON(response);
+                        if(res.status==200){
+                            console.log("Date applied");
+                        }
+                        else{
+                            console.log("Error");
+                        }
+                    }
+
+                });
             })
             </script>
 
