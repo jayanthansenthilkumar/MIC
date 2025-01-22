@@ -1022,28 +1022,27 @@ $rejected = mysqli_num_rows($result3);
         </div>
     </div>
 
-    <!-- Raise Complaint Modal -->
-    <div class="modal fade" id="cmodal" tabindex="-1"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
-                    <h5 class="modal-title" id="exampleModalLabel">
-                        After Image</h5>
-                    <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <img id="afterimgcomp" src="" alt="Image Preview" style="max-width: 100%; display: none;" />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- After Image Modal -->
+    <div class="modal fade" id="afterImageModal" tabindex="-1" role="dialog"
+                                aria-labelledby="afterImageModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="afterImageModalLabel">After Picture</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            <img id="modalImage2" src="" alt="After" class="img-fluid">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
     <div class="modal fade" id="bmodalImage" tabindex="-1"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1578,31 +1577,39 @@ $rejected = mysqli_num_rows($result3);
 
             //After Image Modal
             $(document).on('click', '.viewafterimgcomp', function() {
-                var task_id = $(this).data('imgs-id');
-                $('#task_id').val(task_id);
+                var task_id = $(this).val();
+                console.log(task_id);
 
                 // Fetch the image from the server
                 $.ajax({
                     type: "POST",
-                    url: 'cms_backend.php?action=aimgforhod',
+                  url: 'cms_backend.php?action=get_aimage',
                     data: {
                         'after_image': true,
-                        'task_id': task_id
+                        'problem2_id': task_id
                     },
                     dataType: "json",
                     success: function(response) {
-                        if (response.status == 200) {
-                            $('#afterimgcomp').attr('src', response.data.after_photo).show();
+                        console.log(response); // Log the parsed JSON response
+                        if (response.status == 200) { // Use 'response' instead of 'res'
+                            // Dynamically set the image source
+                            $("#modalImage2").attr("src", response.data.after_photo);
+                            // Show the modal
+                            $("#afterImageModal").modal("show");
                         } else {
-                            $('afterimgcomp').hide();
-                            alert(response.message);
+                            // Handle case where no image is found
+                            alert(response.message ||
+                                "An error occurred while retrieving the image.");
                         }
-                        $('#viewimgaftercomp').modal('show');
                     },
                     error: function(xhr, status, error) {
-                        alert('An error occurred while retrieving the image.');
+                        console.error("AJAX Error: ", status, error);
                     }
                 });
+            });
+            $('#afterImageModal').on('hidden.bs.modal', function() {
+                // Reset the image source to a default or blank placeholder
+                $("#modalImage2").attr("src", "path/to/placeholder_image.jpg");
             });
 
             function checkIfOthers() {
