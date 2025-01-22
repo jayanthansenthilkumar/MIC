@@ -352,7 +352,9 @@ switch ($action) {
 
             $id = $_POST["userid"];
             $dept = $_POST["u_dept"];
-            $role = $_POST["u_role"];         
+            $role = $_POST["u_role"];   
+            
+            if($role == "infra"){
 
             $selectquery = "SELECT * FROM basic WHERE id = '$id'";
             $selectrun = mysqli_query($db,$selectquery);
@@ -362,6 +364,18 @@ switch ($action) {
             $phone = $selectval["mobile"];
             $email = $selectval["email"];
 
+        }
+        else if($role == "student"){
+
+            $selectquery1 = "SELECT * FROM sbasic WHERE sid = '$id'";
+            $selectrun1 = mysqli_query($db,$selectquery1);
+            $selectval1 = mysqli_fetch_array($selectrun1);
+
+            $name = $selectval1["fname"];            
+            $phone = $selectval1["mobile"];
+            $email = $selectval1["email"];
+
+        }
             
 
             $query = "INSERT INTO faculty_details (faculty_id, faculty_name, department, faculty_contact, faculty_mail, role)
