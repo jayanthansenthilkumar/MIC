@@ -1526,10 +1526,21 @@ $rejected = mysqli_num_rows($result3);
                             $("#ifaculty_name").text(res.data.faculty_name);
                             $("#ifaculty_mail").text(res.data.faculty_mail);
                             $("#ifaculty_contact").text(res.data.faculty_contact);
-                            $('#faculty_name').text(res.data1.name);
+                            
+                            if(res.data1){
                             $('#faculty_id').text(res.data1.id);
+                            $('#faculty_name').text(res.data1.name);
                             $('#faculty_dept').text(res.data1.dept);
                             $('#faculty_desg').text(res.data1.design);
+                            }
+                            else{
+                                $('#faculty_id').text("N/A");
+
+                            $('#faculty_name').text("N/A");
+                            $('#faculty_dept').text("N/A");
+                            $('#faculty_desg').text("N/A");
+
+                            }
                             $('#facultymodal').modal('show');
                         }
                     }
