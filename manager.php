@@ -3709,7 +3709,13 @@ if(isset($_POST['dateapply'])){
                                 });
                             });
                         } else {
-                            alert("user not added");
+                            swal({
+                                title: "Warning!",
+                                text: "Invalid user Id!",
+                                icon: "warning",
+                                button: "Ok",
+                                timer: null
+                            });
                         }
                     }
                 })
