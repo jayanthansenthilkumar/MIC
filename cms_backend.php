@@ -58,7 +58,7 @@ switch ($action) {
         mysqli_stmt_close($stmt1);
 
         // Response
-        if ($User_data && $fac_data) {
+        if ($User_data || $fac_data){
             echo json_encode([
                 'status' => 200,
                 'message' => 'Details fetched successfully by ID',

@@ -1211,8 +1211,17 @@ $result11 = mysqli_query($db, $sql11);
                         $("#faculty_contact").text(res.data.faculty_contact);
                         $("#block_venue").text(res.data.block_venue);
                         $("#venue_name").text(res.data.venue_name);
+                        if(res.data1){
+
+                        
                         $("#fac_name").text(res.data1.name);
                         $("#fac_id").text(res.data1.id);
+                        }
+                        else{
+                        $("#fac_name").text("N/A");
+                        $("#fac_id").text("N/A");
+
+                        }
                         $("#complaintDetailsModal").modal("show");
                     }
                 },
