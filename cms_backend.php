@@ -58,7 +58,7 @@ switch ($action) {
         mysqli_stmt_close($stmt1);
 
         // Response
-        if ($User_data || $fac_data){
+        if ($User_data || $fac_data) {
             echo json_encode([
                 'status' => 200,
                 'message' => 'Details fetched successfully by ID',
@@ -345,61 +345,61 @@ switch ($action) {
         break;
 
         //add new user for raise complaints
-        case 'add_user':
-            try {
-                $id = $_POST["userid"];
-                $dept = $_POST["u_dept"];
-                $role = $_POST["u_role"];
-        
-                $name = $phone = $email = '';
-        
-                if ($role == "infra") {
-                    $selectquery = "SELECT fname, mobile, email FROM basic WHERE id = ?";
-                    $stmt = $db->prepare($selectquery);
-                    $stmt->bind_param('s', $id);
-                    $stmt->execute();
-                    $result = $stmt->get_result();
-        
-                    if ($result->num_rows > 0) {
-                        $selectval = $result->fetch_assoc();
-                        $name = $selectval["fname"];
-                        $phone = $selectval["mobile"];
-                        $email = $selectval["email"];
-                    } else {
-                        throw new Exception("No data found for the provided ID in 'basic' table.");
-                    }
-                } else if ($role == "student") {
-                    $selectquery1 = "SELECT fname, mobile, email FROM sbasic WHERE sid = ?";
-                    $stmt = $db->prepare($selectquery1);
-                    $stmt->bind_param('s', $id);
-                    $stmt->execute();
-                    $result = $stmt->get_result();
-        
-                    if ($result->num_rows > 0) {
-                        $selectval1 = $result->fetch_assoc();
-                        $name = $selectval1["fname"];
-                        $phone = $selectval1["mobile"];
-                        $email = $selectval1["email"];
-                    } else {
-                        throw new Exception("No data found for the provided ID in 'sbasic' table.");
-                    }
-                }
-        
-                $query = "INSERT INTO faculty_details (faculty_id, faculty_name, department, faculty_contact, faculty_mail, role)
-                          VALUES (?, ?, ?, ?, ?, ?)";
-                $stmt = $db->prepare($query);
-                $stmt->bind_param('ssssss', $id, $name, $dept, $phone, $email, $role);
-        
-                if ($stmt->execute()) {
-                    echo json_encode(['status' => 200, 'msg' => 'Successfully stored']);
+    case 'add_user':
+        try {
+            $id = $_POST["userid"];
+            $dept = $_POST["u_dept"];
+            $role = $_POST["u_role"];
+
+            $name = $phone = $email = '';
+
+            if ($role == "infra") {
+                $selectquery = "SELECT fname, mobile, email FROM basic WHERE id = ?";
+                $stmt = $db->prepare($selectquery);
+                $stmt->bind_param('s', $id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                if ($result->num_rows > 0) {
+                    $selectval = $result->fetch_assoc();
+                    $name = $selectval["fname"];
+                    $phone = $selectval["mobile"];
+                    $email = $selectval["email"];
                 } else {
-                    throw new Exception('Query Failed: ' . $stmt->error);
+                    throw new Exception("No data found for the provided ID in 'basic' table.");
                 }
-            } catch (Exception $e) {
-                echo json_encode(['status' => 500, 'message' => 'Error: ' . $e->getMessage()]);
+            } else if ($role == "student") {
+                $selectquery1 = "SELECT fname, mobile, email FROM sbasic WHERE sid = ?";
+                $stmt = $db->prepare($selectquery1);
+                $stmt->bind_param('s', $id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                if ($result->num_rows > 0) {
+                    $selectval1 = $result->fetch_assoc();
+                    $name = $selectval1["fname"];
+                    $phone = $selectval1["mobile"];
+                    $email = $selectval1["email"];
+                } else {
+                    throw new Exception("No data found for the provided ID in 'sbasic' table.");
+                }
             }
-            break;
-        
+
+            $query = "INSERT INTO faculty_details (faculty_id, faculty_name, department, faculty_contact, faculty_mail, role)
+                          VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param('ssssss', $id, $name, $dept, $phone, $email, $role);
+
+            if ($stmt->execute()) {
+                echo json_encode(['status' => 200, 'msg' => 'Successfully stored']);
+            } else {
+                throw new Exception('Query Failed: ' . $stmt->error);
+            }
+        } catch (Exception $e) {
+            echo json_encode(['status' => 500, 'message' => 'Error: ' . $e->getMessage()]);
+        }
+        break;
+
         //delete workers
     case 'delete_worker':
         $id = $_POST['id'];
@@ -486,7 +486,7 @@ switch ($action) {
         }
         break;
 
-    //partially completed
+        //partially completed
     case 'partially_reason':
         $id = $_POST['id'];
         // First query
@@ -566,6 +566,88 @@ switch ($action) {
             echo json_encode(['status' => 500, 'message' => 'Error: ' . $e->getMessage()]);
         }
         break;
+
+        //get workers record
+    case 'dateapply':
+        try {
+            $from_date = $_POST['from_date'];
+            $to_date = $_POST['to_date'];
+
+            $sql19 = "SELECT worker_details.worker_id, worker_details.worker_first_name, worker_details.worker_dept, 
+                            COUNT(complaints_detail.id) AS total_completed_works,
+                            AVG(complaints_detail.rating) AS avg_faculty_rating, 
+                            AVG(complaints_detail.mrating) AS avg_manager_rating 
+                          FROM worker_details 
+                          INNER JOIN complaints_detail 
+                          ON worker_details.worker_id = complaints_detail.worker_id 
+                          WHERE worker_details.usertype = 'worker' 
+                          AND complaints_detail.status = '16'
+                          AND complaints_detail.date_of_completion BETWEEN ? AND ?
+                          GROUP BY worker_details.worker_id";
+
+            $stmt = $db->prepare($sql19);
+            $stmt->bind_param('ss', $from_date, $to_date);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            $data = [];
+            while ($row = $result->fetch_assoc()) {
+                $row['avg_faculty_rating'] = $row['avg_faculty_rating'] ? round($row['avg_faculty_rating'], 2) : 'N/A';
+                $row['avg_manager_rating'] = $row['avg_manager_rating'] ? round($row['avg_manager_rating'], 2) : 'N/A';
+                $row['avg_rating'] = ($row['avg_faculty_rating'] != 'N/A' && $row['avg_manager_rating'] != 'N/A')
+                    ? round(($row['avg_faculty_rating'] + $row['avg_manager_rating']) / 2, 2)
+                    : 'N/A';
+                $data[] = $row;
+            }
+
+            echo json_encode(['status' => 200, 'data' => $data]);
+            exit;
+        } catch (Exception $e) {
+            echo json_encode(['status' => 500, 'message' => 'Error: ' . $e->getMessage()]);
+        }
+        break;
+
+    case 'workrecord':
+        try {
+            $from_date = $_POST['from_date'];
+            $to_date = $_POST['to_date'];
+
+            $sql8 = "SELECT * FROM complaints_detail 
+             WHERE status = '16' 
+             AND date_of_completion BETWEEN '$from_date' AND '$to_date'";
+            $result8 = mysqli_query($db, $sql8);
+
+            $data = [];
+            while ($row = mysqli_fetch_assoc($result8)) {
+                $pid = $row['id'];
+
+                // Fetch worker details for completed work
+                $manager_query = "SELECT * FROM manager WHERE problem_id = $pid";
+                $manager_result = mysqli_query($db, $manager_query);
+                $manager_data = mysqli_fetch_assoc($manager_result);
+
+                $worker_query = "SELECT * FROM worker_details WHERE worker_id = '{$manager_data['worker_id']}'";
+                $worker_result = mysqli_query($db, $worker_query);
+                $worker_data = mysqli_fetch_assoc($worker_result);
+
+                $row['completed_by'] = $worker_data['worker_first_name'] ?? 'N/A';
+                $row['department'] = $worker_data['worker_dept'] ?? 'N/A';
+
+                $row['average_rating'] = ($row['rating'] && $row['mrating'])
+                    ? round(($row['rating'] + $row['mrating']) / 2, 2)
+                    : 'N/A';
+
+                $data[] = $row;
+            }
+
+            echo json_encode(['status' => 200, 'data' => $data]);
+            exit;
+        } catch (Exception $e) {
+            echo json_encode(['status' => 500, 'message' => 'Error: ' . $e->getMessage()]);
+        }
+        break;
+
+
 
 
 
@@ -1781,7 +1863,7 @@ switch ($action) {
 
 
 
-        
+
 
     case 'getfaculty':
         $sql8 =  "SELECT * FROM faculty WHERE dept=(SELECT department FROM faculty_details WHERE faculty_id='$faculty_id')";
