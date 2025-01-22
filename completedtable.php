@@ -601,10 +601,9 @@ if (isset($_POST['facdet'])) {
                                                 <div class="card-body">
                                                     <div id="raise_complaint">
                                                         <?php
-                                                        $query_count = "SELECT COUNT(DISTINCT complaints_detail.id) AS comp_count
+                                                        $query_count = "SELECT COUNT(DISTINCT id) AS comp_count
                                                             FROM complaints_detail
-                                                            INNER JOIN faculty_details ON faculty_details.faculty_id = complaints_detail.faculty_id
-                                                            WHERE faculty_details.department = '$dept'
+                                                            WHERE faculty_id = '$faculty_id'
                                                             AND complaints_detail.status NOT IN (16, 5, 19, 23, 20);";
 
                                                         $query_runcount = mysqli_query($db, $query_count);
@@ -614,7 +613,7 @@ if (isset($_POST['facdet'])) {
                                                             $count_val = $row['comp_count']; // Access the 'comp_count' value
 
                                                             // Check if the count exceeds the limit
-                                                            if ($count_val >= 5) {
+                                                            if ($count_val >= 3) {
                                                         ?>
                                                                 <button type="button"class="btn btn-warning float-right limitovr" >Raise Complaint</button>
                                                                 <br><br>
