@@ -62,41 +62,41 @@ $options = '';
         exit;
 
 }
-if(isset($_POST['dateapply'])){
+
+if (isset($_POST['dateapply'])) {
 
     $from_date = $_POST['from_date'];
     $to_date = $_POST['to_date'];
 
-    $sql9 = "SELECT worker_details.worker_id, worker_details.worker_first_name, worker_details.worker_dept, 
-    COUNT(complaints_detail.id) AS total_completed_works,
-    AVG(complaints_detail.rating) AS avg_faculty_rating, 
-    AVG(complaints_detail.mrating) AS avg_manager_rating 
-    FROM worker_details INNER JOIN complaints_detail 
-    ON worker_details.worker_id = complaints_detail.worker_id 
-    WHERE worker_details.usertype = 'worker' AND complaints_detail.status = '16'
-    AND ( (complaints_detail.date_of_completion >= '$from_date' AND complaints_detail.date_of_completion <= '$to_date') )
-    GROUP BY worker_details.worker_id";
+    $sql19 = "SELECT worker_details.worker_id, worker_details.worker_first_name, worker_details.worker_dept, 
+                COUNT(complaints_detail.id) AS total_completed_works,
+                AVG(complaints_detail.rating) AS avg_faculty_rating, 
+                AVG(complaints_detail.mrating) AS avg_manager_rating 
+              FROM worker_details 
+              INNER JOIN complaints_detail 
+              ON worker_details.worker_id = complaints_detail.worker_id 
+              WHERE worker_details.usertype = 'worker' 
+              AND complaints_detail.status = '16'
+              AND complaints_detail.date_of_completion BETWEEN ? AND ?
+              GROUP BY worker_details.worker_id";
 
+    $stmt = $db->prepare($sql19);
+    $stmt->bind_param('ss', $from_date, $to_date);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    $result9 = mysqli_query($db, $sql9);
-    if($result9){
-        $res=[
-            "status"=>200,
-            "message"=>"date done"
-        ];
-        echo json_encode($res);
-        exit;
-    }
-    else{
-        $res=[
-            "status"=>500,
-            "message"=>"error",
-        ];
-        echo json_encode($res);
-        exit;
-
+    $data = [];
+    while ($row = $result->fetch_assoc()) {
+        $row['avg_faculty_rating'] = $row['avg_faculty_rating'] ? round($row['avg_faculty_rating'], 2) : 'N/A';
+        $row['avg_manager_rating'] = $row['avg_manager_rating'] ? round($row['avg_manager_rating'], 2) : 'N/A';
+        $row['avg_rating'] = ($row['avg_faculty_rating'] != 'N/A' && $row['avg_manager_rating'] != 'N/A') 
+                            ? round(($row['avg_faculty_rating'] + $row['avg_manager_rating']) / 2, 2) 
+                            : 'N/A';
+        $data[] = $row;
     }
 
+    echo json_encode(['status' => 200, 'data' => $data]);
+    exit;
 }
 
 
@@ -1581,32 +1581,7 @@ if(isset($_POST['dateapply'])){
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php
-                                                    $s = 1;
-                                                    while ($row = mysqli_fetch_assoc($result9)) {
-                                                        $worker_id = $row['worker_id'];
-                                                        $completed_works = $row['total_completed_works'];
-                                                        $avg_faculty_rating = $row['avg_faculty_rating'] ? round($row['avg_faculty_rating'], 2) : 'N/A';
-                                                        $avg_manager_rating = $row['avg_manager_rating'] ? round($row['avg_manager_rating'], 2) : 'N/A';
-                                                        $avg_rating = ($avg_faculty_rating != 'N/A' && $avg_manager_rating != 'N/A')
-                                                            ? round(($avg_faculty_rating + $avg_manager_rating) / 2, 2)
-                                                            : 'N/A';
-                                                    ?>
-                                                    <tr>
-                                                        <td class="text-center"><?php echo $s; ?></td>
-                                                        <td class="text-center"><?php echo $row['worker_id']; ?></td>
-                                                        <td class="text-center"><?php echo $row['worker_first_name']; ?>
-                                                        </td>
-                                                        <td class="text-center"><?php echo $row['worker_dept']; ?></td>
-                                                        <td class="text-center"><?php echo $completed_works; ?></td>
-                                                        <td class="text-center"><?php echo $avg_faculty_rating; ?></td>
-                                                        <td class="text-center"><?php echo $avg_manager_rating; ?></td>
-                                                        <td class="text-center"><?php echo $avg_rating; ?></td>
-                                                    </tr>
-                                                    <?php
-                                                        $s++;
-                                                    }
-                                                    ?>
+                                                   
                                                 </tbody>
                                             </table>
                                         </div>
@@ -1766,9 +1741,7 @@ if(isset($_POST['dateapply'])){
                                                                             <h5>Department</h5>
                                                                         </b></th>
 
-                                                                    <th class="col-md-2 text-center"><b>
-                                                                            <h5>Role</h5>
-                                                                        </b></th>
+                                            
                                                                     <th class=" col-md-2 text-center"><b>
                                                                             <h5>Action</h5>
                                                                         </b></th>
@@ -1786,8 +1759,7 @@ if(isset($_POST['dateapply'])){
                                                                         <?php echo $row['worker_first_name'] ?></td>
                                                                     <td class="text-center">
                                                                         <?php echo $row['worker_dept'] ?></td>
-                                                                    <td class="text-center">
-                                                                        <?php echo $row['usertype'] ?></td>
+                                                                    
                                                                     <td class="text-center"><button tupe="button"
                                                                             class="btn btn-danger deleteworker"
                                                                             value="<?php echo $row["id"] ?>">Delete</button>
@@ -1885,26 +1857,8 @@ if(isset($_POST['dateapply'])){
                                                     <option value="transport">Transport</option>
                                                     <option value="house">House Keeping</option>
 
-                                                </select>
-                                                <select id="role" name="w_role"
-                                                    style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
-                                                    <option value="all">Select Role</option>
-                                                    <option value="head">Head</option>
-                                                    <option value="worker">Worker</option>
-
-
-                                                </select>
-
-
-                                                <select id="gender" name="w_gender"
-                                                    style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
-                                                    <option value="all">Select Gender</option>
-                                                    <option value="male">Male</option>
-                                                    <option value="female">Female</option>
-                                                </select>
-
-
-
+                                                </select>                                          
+                               
                                                 <input type="text" name="w_phone" placeholder="Enter Phone Number"
                                                     style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
                                             </div>
@@ -2034,7 +1988,7 @@ if(isset($_POST['dateapply'])){
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-danger">Submit</button>
+                                    
                                                 </div>
                                             </form>
                                         </div>
@@ -3783,28 +3737,56 @@ if(isset($_POST['dateapply'])){
                 })
             });
 
-            $(document).on("submit","#date-form",function(e){
-                e.preventDefault();
-                var form = new FormData(this);
-                form.append("dateapply",true);
-                $.ajax({
-                    type:"POST",
-                    url:"manager.php",
-                    data:form,
-                    processData:false,
-                    contentType:false,
-                    success:function(response){
-                        var res = jQuery.parseJSON(response);
-                        if(res.status==200){
-                            console.log("Date applied");
-                        }
-                        else{
-                            console.log("Error");
-                        }
-                    }
+            $(document).on("submit", "#date-form", function (e) {
+    e.preventDefault();
+    var form = new FormData(this);
+    form.append("dateapply", true);
 
+    $.ajax({
+        type: "POST",
+        url: "manager.php",
+        data: form,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            console.log(response);
+            var res = jQuery.parseJSON(response);
+
+            if (res.status == 200) {
+                console.log("Date applied");
+                
+                // Clear the existing table rows
+                $("#Rworkers tbody").empty();
+
+                // Add new rows dynamically
+                res.data.forEach((row, index) => {
+                    var avgFacultyRating = row.avg_faculty_rating !== "N/A" ? row.avg_faculty_rating : "N/A";
+                    var avgManagerRating = row.avg_manager_rating !== "N/A" ? row.avg_manager_rating : "N/A";
+                    var avgRating = row.avg_rating !== "N/A" ? row.avg_rating : "N/A";
+
+                    $("#Rworkers tbody").append(`
+                        <tr>
+                            <td class="text-center">${index + 1}</td>
+                            <td class="text-center">${row.worker_id}</td>
+                            <td class="text-center">${row.worker_first_name}</td>
+                            <td class="text-center">${row.worker_dept}</td>
+                            <td class="text-center">${row.total_completed_works}</td>
+                            <td class="text-center">${avgFacultyRating}</td>
+                            <td class="text-center">${avgManagerRating}</td>
+                            <td class="text-center">${avgRating}</td>
+                        </tr>
+                    `);
                 });
-            })
+            } else {
+                console.log("Error: " + res.message);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("AJAX Error:", error);
+        },
+    });
+});
+
             </script>
 
 

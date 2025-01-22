@@ -317,9 +317,7 @@ switch ($action) {
     case 'addworker':
         $name = $_POST['w_name'];
         $contact = $_POST['w_phone'];
-        $gender = $_POST['w_gender'];
         $dept = $_POST['w_dept'];
-        $role = $_POST['w_role'];
 
         $dept_prefix = strtoupper(substr($dept, 0, 3));
 
@@ -335,10 +333,10 @@ switch ($action) {
         $number = ($row = $result->fetch_assoc()) ? intval($row['id_number']) + 1 : 1;
         $worker_id = $dept_prefix . str_pad($number, 2, '0', STR_PAD_LEFT);
 
-        $insertQuery = "INSERT INTO worker_details (worker_id, worker_first_name, worker_dept, worker_mobile, worker_gender, usertype) 
-                    VALUES (?, ?, ?, ?, ?, ?)";
+        $insertQuery = "INSERT INTO worker_details (worker_id, worker_first_name, worker_dept, worker_mobile) 
+                    VALUES (?, ?, ?, ?)";
         $stmtInsert = $db->prepare($insertQuery);
-        $stmtInsert->bind_param('ssssss', $worker_id, $name, $dept, $contact, $gender, $role);
+        $stmtInsert->bind_param('ssss', $worker_id, $name, $dept, $contact);
         if ($stmtInsert->execute()) {
             echo json_encode(['status' => 200, 'message' => "Worker added with ID $worker_id!"]);
         } else {
@@ -1566,7 +1564,7 @@ switch ($action) {
         //worker assign in completion
     case 'wworkerassign':
         $work = $_POST['worker_dept'];
-        $sql8 = "SELECT worker_id, worker_first_name FROM worker_details WHERE worker_dept = ? AND usertype = 'worker'";
+        $sql8 = "SELECT worker_id, worker_first_name FROM worker_details WHERE worker_dept = ?";
         $stmt = $db->prepare($sql8);
         $stmt->bind_param("s", $work);
         $stmt->execute();
