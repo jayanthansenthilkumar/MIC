@@ -1270,7 +1270,7 @@ if (isset($_POST['fdept'])) {
                                 <div class="tab-pane p-20" id="completed" role="tabpanel">
                                     <div class="p-20">
                                         <div class="table-responsive">
-                                            <h5 class="card-title">Work's Completed</h5>
+                                           
                                             <table id="completed_table" class="table table-striped table-bordered">
                                                 <thead
                                                     style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
@@ -1360,52 +1360,63 @@ if (isset($_POST['fdept'])) {
                                 <!-- Record Table -->
 
                                 <div class="tab-pane p-20" id="record" role="tabpanel">
-    <div class="p-20">
-        <div class="table-responsive">
-            <h5 class="card-title">Work Completed Records</h5>
+                                    <div class="p-20">
+                                        <div class="table-responsive">
 
-            <!-- Date Range Filter Form -->
-            <form id="date-filter-form" style="margin-bottom: 20px;">
-                <label for="from_date" style="margin-right: 10px; font-weight: bold;">From Date:</label>
-                <input type="date" id="from_date" name="from_date" 
-                    style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; margin-right: 20px;" required>
-                
-                <label for="to_date" style="margin-right: 10px; font-weight: bold;">To Date:</label>
-                <input type="date" id="to_date" name="to_date" 
-                    style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; margin-right: 20px;" required>
-                
-                <button type="submit" class="btn btn-primary" 
-                    style="padding: 10px 20px; background-color: #007bff; border: none; border-radius: 5px; color: white;">Filter</button>
-            </form>
+                                        <h5 class="card-title">Work's Completed</h5>
 
-            <!-- Download Button -->
-            <button id="download" class="btn btn-success" 
-                style="float: right; padding: 10px 20px; background-color: #28a745; border: none; border-radius: 5px; color: white;">Download as Excel</button>
-            <br><br>
+                                            <!-- Date Range Filter Form -->
+                                            <form id="date-filter-form" style="margin: 20px auto; padding: 20px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 100%; max-width: 100%; font-family: Arial, sans-serif;">
+                                                <div style="margin-bottom: 15px; padding: 0 20px;">
+                                                    <label for="from_date" style="margin-right: 10px; font-weight: bold; font-size: 14px; color: #333;">From Date:</label>
+                                                    <input type="date" id="from_date" name="from_date"
+                                                        style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; width: 100%; max-width: 300px; font-size: 14px; color: #333;" required>
+                                                </div>
+                                                <div style="margin-bottom: 15px; padding: 0 20px;">
+                                                    <label for="to_date" style="margin-right: 10px; font-weight: bold; font-size: 14px; color: #333;">To Date:</label>
+                                                    <input type="date" id="to_date" name="to_date"
+                                                        style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; width: 100%; max-width: 300px; font-size: 14px; color: #333;" required>
+                                                </div>
+                                                <div style="text-align: center; padding: 10px;">
+                                                    <button type="submit" class="btn btn-primary"
+                                                        style="padding: 12px 30px; background-color: #007bff; border: none; border-radius: 8px; font-size: 16px; color: white; cursor: pointer; transition: background-color 0.3s ease;">
+                                                        Filter
+                                                    </button>
+                                                </div>
+                                            </form>
 
-            <!-- Table for Displaying Results -->
-            <table id="record_table" class="table table-striped table-bordered">
-                <thead style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
-                    <tr>
-                        <th class="text-center"><b>S.No</b></th>
-                        <th class="text-center"><b>Work ID</b></th>
-                        <th class="text-center"><b>Venue Details</b></th>
-                        <th class="text-center"><b>Completed Details</b></th>
-                        <th class="text-center"><b>Item No</b></th>
-                        <th class="text-center"><b>Amount Spent</b></th>
-                        <th class="text-center"><b>Faculty Feedback</b></th>
-                        <th class="text-center"><b>Manager Feedback</b></th>
-                        <th class="text-center"><b>Completed On</b></th>
-                        <th class="text-center"><b>Average Rating</b></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Rows will be dynamically added by jQuery -->
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+
+
+                                            <!-- Download Button -->
+                                            <button id="download" class="btn btn-success"
+                                                style="float: right; padding: 10px 20px; background-color: #28a745; border: none; border-radius: 5px; color: white;">Download as Excel</button>
+                                            <br><br>
+
+                                            <h5 class="card-title">Work Completed Records</h5>
+
+                                            <!-- Table for Displaying Results -->
+                                            <table id="record_table" class="table table-striped table-bordered">
+                                                <thead style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
+                                                    <tr>
+                                                        <th class="text-center"><b>S.No</b></th>
+                                                        <th class="text-center"><b>Work ID</b></th>
+                                                        <th class="text-center"><b>Venue Details</b></th>
+                                                        <th class="text-center"><b>Completed Details</b></th>
+                                                        <th class="text-center"><b>Item No</b></th>
+                                                        <th class="text-center"><b>Amount Spent</b></th>
+                                                        <th class="text-center"><b>Faculty Feedback</b></th>
+                                                        <th class="text-center"><b>Manager Feedback</b></th>
+                                                        <th class="text-center"><b>Completed On</b></th>
+                                                        <th class="text-center"><b>Average Rating</b></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!-- Rows will be dynamically added by jQuery -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <!-- Workers Record Table -->
 
@@ -1416,17 +1427,26 @@ if (isset($_POST['fdept'])) {
                                         <div class="table-responsive">
                                             <h5 class="card-title">Worker's Record</h5>
 
-                                            <form id="date-form">
-                                                <label for="from_date">From Date: </label>
-                                                <input type="date" name="from_date" value="<?php echo $from_date; ?>"
-                                                    required>
+                                            <form id="date-form" style="padding: 20px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: calc(100% - 50px); margin: 20px 0 20px 20px; font-family: Arial, sans-serif;">
+                                                <div style="margin-bottom: 15px;">
+                                                    <label for="from_date" style="margin-right: 10px; font-weight: bold; font-size: 14px; color: #333;">From Date:</label>
+                                                    <input type="date" name="from_date" value="<?php echo $from_date; ?>"
+                                                        style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; width: 100%; max-width: 300px; font-size: 14px; color: #333;" required>
+                                                </div>
+                                                <div style="margin-bottom: 15px;">
+                                                    <label for="to_date" style="margin-right: 10px; font-weight: bold; font-size: 14px; color: #333;">To Date:</label>
+                                                    <input type="date" name="to_date" value="<?php echo $to_date; ?>"
+                                                        style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; width: 100%; max-width: 300px; font-size: 14px; color: #333;" required>
+                                                </div>
+                                                <div style="text-align: center; padding: 10px;">
+                                                    <button type="submit" class="btn btn-primary"
+                                                        style="padding: 12px 30px; background-color: #007bff; border: none; border-radius: 8px; font-size: 16px; color: white; cursor: pointer; transition: background-color 0.3s ease;">
+                                                        Filter
+                                                    </button>
+                                                </div>
+                                            </form>
 
-                                                <label for="to_date">To Date: </label>
-                                                <input type="date" name="to_date" value="<?php echo $to_date; ?>"
-                                                    required>
-
-                                                <button type="submit" class="btn btn-primary">Filter</button>
-                                            </form><span style="float:right">
+                                            <span style="float:right">
                                                 <button id="download1" class="btn btn-success">Download as
                                                     Excel</button></span><br><br>
 
