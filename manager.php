@@ -1833,14 +1833,10 @@ if(isset($_POST['dateapply'])){
                                         </div>
                                         <form id="user_data">
                                             <div class="modal-body" style="padding: 20px; background-color: #f5f5f5;">
-                                                <input type="text" name="name" placeholder="Enter User Name"
-                                                    style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
+                                               
                                                 <input type="text" name="userid" placeholder="Enter User Id"
                                                     style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
-                                                <input type="tel" name="phone" placeholder="Enter Phone number"
-                                                    style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
-                                                <input type="email" name="email" placeholder="Enter Mail Id"
-                                                    style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
+                                                
                                                 <select id="department" name="u_dept"
                                                     style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
 

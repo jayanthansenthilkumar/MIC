@@ -349,17 +349,25 @@ switch ($action) {
         //add new user for raise complaints
     case 'add_user':
         try {
-            $name = $_POST["name"];
-            $id = $_POST["userid"];
-            $phone = $_POST["phone"];
-            $email = $_POST["email"];
-            $dept = $_POST["u_dept"];
-            $role = $_POST["u_role"];
 
-            $query = "INSERT INTO faculty_details (faculty_id, faculty_name, department, faculty_contact, faculty_mail, role, password)
-                      VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $id = $_POST["userid"];
+            $dept = $_POST["u_dept"];
+            $role = $_POST["u_role"];         
+
+            $selectquery = "SELECT * FROM basic WHERE id = '$id'";
+            $selectrun = mysqli_query($db,$selectquery);
+            $selectval = mysqli_fetch_assoc($selectrun);
+
+            $name = $selectval["fname"];            
+            $phone = $selectval["mobile"];
+            $email = $selectval["email"];
+
+            
+
+            $query = "INSERT INTO faculty_details (faculty_id, faculty_name, department, faculty_contact, faculty_mail, role)
+                      VALUES (?, ?, ?, ?, ?, ?)";
             $stmt = $db->prepare($query);
-            $stmt->bind_param('sssssss', $id, $name, $dept, $phone, $email, $role, $id);
+            $stmt->bind_param('ssssss', $id, $name, $dept, $phone, $email, $role);
 
             if ($stmt->execute()) {
                 echo json_encode(['status' => 200, 'msg' => 'Successfully stored']);
