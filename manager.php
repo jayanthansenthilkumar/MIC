@@ -1646,6 +1646,9 @@ if (isset($_POST['fdept'])) {
                                                                     <th class="text-center"><b>
                                                                             <h5>Department</h5>
                                                                         </b></th>
+                                                                    <th class="col-md-2 text-center"><b>
+                                                                            <h5>Role</h5>
+                                                                        </b></th>
 
 
                                                                     <th class=" col-md-2 text-center"><b>
@@ -1665,6 +1668,9 @@ if (isset($_POST['fdept'])) {
                                                                             <?php echo $row['worker_first_name'] ?></td>
                                                                         <td class="text-center">
                                                                             <?php echo $row['worker_dept'] ?></td>
+
+                                                                        <td class="text-center">
+                                                                            <?php echo $row['usertype'] ?></td>
 
                                                                         <td class="text-center"><button tupe="button"
                                                                                 class="btn btn-danger deleteworker"
@@ -1763,6 +1769,13 @@ if (isset($_POST['fdept'])) {
                                                     <option value="transport">Transport</option>
                                                     <option value="house">House Keeping</option>
 
+                                                </select>
+
+                                                <select id="role" name="w_role"
+                                                    style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
+                                                    <option value="all">Select Role</option>
+                                                    <option value="head">Head</option>
+                                                    <option value="worker">Worker</option>
                                                 </select>
 
                                                 <input type="text" name="w_phone" placeholder="Enter Phone Number"

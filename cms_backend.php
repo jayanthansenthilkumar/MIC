@@ -318,6 +318,9 @@ switch ($action) {
         $name = $_POST['w_name'];
         $contact = $_POST['w_phone'];
         $dept = $_POST['w_dept'];
+        $role = $_POST['w_role'];
+
+        if($role == "worker"){
 
         $dept_prefix = strtoupper(substr($dept, 0, 3));
 
@@ -333,10 +336,16 @@ switch ($action) {
         $number = ($row = $result->fetch_assoc()) ? intval($row['id_number']) + 1 : 1;
         $worker_id = $dept_prefix . str_pad($number, 2, '0', STR_PAD_LEFT);
 
-        $insertQuery = "INSERT INTO worker_details (worker_id, worker_first_name, worker_dept, worker_mobile) 
-                    VALUES (?, ?, ?, ?)";
+    }
+
+    elseif($role == "head"){
+        $worker_id = $dept;
+    }
+
+        $insertQuery = "INSERT INTO worker_details (worker_id, worker_first_name, worker_dept, worker_mobile,usertype) 
+                    VALUES (?, ?, ?, ?,?)";
         $stmtInsert = $db->prepare($insertQuery);
-        $stmtInsert->bind_param('ssss', $worker_id, $name, $dept, $contact);
+        $stmtInsert->bind_param('sssss', $worker_id, $name, $dept, $contact,$role);
         if ($stmtInsert->execute()) {
             echo json_encode(['status' => 200, 'message' => "Worker added with ID $worker_id!"]);
         } else {
