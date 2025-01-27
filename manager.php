@@ -2780,8 +2780,19 @@ if (isset($_POST['fdept'])) {
                 $(document).on("click", ".viewcomplaint", function(e) {
                     e.preventDefault();
                     var user_id = $(this).val();
-                    var fac_id = $(".viewcomplaint").data("value");
+                    var fac_id = $(this).data("value");
                     console.log(user_id);
+                        // Clear the modal fields
+    $("#id").text("");
+    $("#type_of_problem").text("");
+    $("#problem_description").text("");
+    $("#faculty_name").text("");
+    $("#faculty_mail").text("");
+    $("#faculty_contact").text("");
+    $("#block_venue").text("");
+    $("#venue_name").text("");
+    $("#fac_name").text("N/A");
+    $("#fac_id").text("N/A");
                     $.ajax({
                         type: "POST",
                         url: 'cms_backend.php?action=view_complaint',
@@ -2810,11 +2821,7 @@ if (isset($_POST['fdept'])) {
 
                                     $("#fac_name").text(res.data1.name);
                                     $("#fac_id").text(res.data1.id);
-                                } else {
-                                    $("#fac_name").text("N/A");
-                                    $("#fac_id").text("N/A");
-
-                                }
+                                } 
                                 $("#complaintDetailsModal").modal("show");
                             }
                         },
