@@ -1270,7 +1270,7 @@ if (isset($_POST['fdept'])) {
                                 <div class="tab-pane p-20" id="completed" role="tabpanel">
                                     <div class="p-20">
                                         <div class="table-responsive">
-                                           
+
                                             <table id="completed_table" class="table table-striped table-bordered">
                                                 <thead
                                                     style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
@@ -1363,7 +1363,7 @@ if (isset($_POST['fdept'])) {
                                     <div class="p-20">
                                         <div class="table-responsive">
 
-                                        <h5 class="card-title">Work's Completed</h5>
+                                            <h5 class="card-title">Work's Completed</h5>
 
                                             <!-- Date Range Filter Form -->
                                             <form id="date-filter-form" style="margin: 20px auto; padding: 20px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 100%; max-width: 100%; font-family: Arial, sans-serif;">
@@ -2782,17 +2782,17 @@ if (isset($_POST['fdept'])) {
                     var user_id = $(this).val();
                     var fac_id = $(this).data("value");
                     console.log(user_id);
-                        // Clear the modal fields
-    $("#id").text("");
-    $("#type_of_problem").text("");
-    $("#problem_description").text("");
-    $("#faculty_name").text("");
-    $("#faculty_mail").text("");
-    $("#faculty_contact").text("");
-    $("#block_venue").text("");
-    $("#venue_name").text("");
-    $("#fac_name").text("N/A");
-    $("#fac_id").text("N/A");
+                    // Clear the modal fields
+                    $("#id").text("");
+                    $("#type_of_problem").text("");
+                    $("#problem_description").text("");
+                    $("#faculty_name").text("");
+                    $("#faculty_mail").text("");
+                    $("#faculty_contact").text("");
+                    $("#block_venue").text("");
+                    $("#venue_name").text("");
+                    $("#fac_name").text("N/A");
+                    $("#fac_id").text("N/A");
                     $.ajax({
                         type: "POST",
                         url: 'cms_backend.php?action=view_complaint',
@@ -2821,7 +2821,7 @@ if (isset($_POST['fdept'])) {
 
                                     $("#fac_name").text(res.data1.name);
                                     $("#fac_id").text(res.data1.id);
-                                } 
+                                }
                                 $("#complaintDetailsModal").modal("show");
                             }
                         },
