@@ -1503,7 +1503,7 @@ $rejected = mysqli_num_rows($result3);
             $(document).on('click', '#facultyinfo', function(e) {
                 e.preventDefault();
                 var user_id = $(this).val();
-                var fac_id = $("#facultyinfo").data("value");
+                var fac_id = $(this).data("value");
 
                 console.log(user_id);
                 console.log(fac_id);
