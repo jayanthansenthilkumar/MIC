@@ -793,7 +793,7 @@ switch ($action) {
         //Raise complaint in HOD
     case 'addcomplaint':
         try {
-            $hod = 12345;
+            $hod =$fac_id ;
             $block_venue = mysqli_real_escape_string($db, $_POST['block_venue']);
             $venue_name = mysqli_real_escape_string($db, $_POST['venue_name']);
             $type_of_problem = mysqli_real_escape_string($db, $_POST['type_of_problem']);
@@ -1061,7 +1061,7 @@ switch ($action) {
         //EO raise complaint
     case 'EOaddcomplaint':
         try {
-            $eo_id = 123456;
+            $eo_id = $fac_id;
             $block_venue = mysqli_real_escape_string($db, $_POST['block_venue']);
             $venue_name = mysqli_real_escape_string($db, $_POST['venue_name']);
             $type_of_problem = mysqli_real_escape_string($db, $_POST['type_of_problem']);

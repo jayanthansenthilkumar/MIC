@@ -509,7 +509,6 @@ if (isset($_POST['facdet'])) {
                                                         <div class="modal-body">
                                                             <div class="mb-3">
                                                                 <input type="hidden" id="hidden_faculty_id" value="<?php echo $faculty_id;?>">
-                                                                <input type="hidden" class="form-control" name="faculty_id" id="faculty_id" value="<?php echo $faculty_id; ?>" readonly>
                                                             </div>
                                                             <?php
                                                             
@@ -520,6 +519,8 @@ if (isset($_POST['facdet'])) {
                                                                 <select class="form-control" name="cfaculty" id="cfaculty" style="width: 100%; height: 40px; border-radius: 4px; border: 1px solid #ccc;">
                                                                 </select>
                                                             </div>
+                                                            <input type="hidden" class="form-control" name="faculty_id" id="faculty_id" value="<?php echo $faculty_id; ?>" readonly>
+
                                                             <?php
                                                             }
                                                             elseif(!empty($sid))
@@ -528,6 +529,8 @@ if (isset($_POST['facdet'])) {
                                                             
                                                             ?>
                                                             <input type="hidden" name="cfaculty" value="<?php echo $faculty_id; ?>">
+                                                            <input type="hidden" name="faculty_id" id="faculty_id" value="<?php echo $faculty_id; ?>">
+
                                                             <?php
                                                             }
                                                             ?>
