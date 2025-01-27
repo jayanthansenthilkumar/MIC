@@ -2782,7 +2782,7 @@ if (isset($_POST['fdept'])) {
                     var user_id = $(this).val();
                     var fac_id = $(this).data("value");
                     console.log(user_id);
-                    // Clear the modal fields
+                    // Clear the previously entered modal
                     $("#id").text("");
                     $("#type_of_problem").text("");
                     $("#problem_description").text("");
