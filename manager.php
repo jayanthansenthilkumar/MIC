@@ -1270,7 +1270,7 @@ if (isset($_POST['fdept'])) {
                                 <div class="tab-pane p-20" id="completed" role="tabpanel">
                                     <div class="p-20">
                                         <div class="table-responsive">
-                                           
+
                                             <table id="completed_table" class="table table-striped table-bordered">
                                                 <thead
                                                     style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
@@ -1363,7 +1363,7 @@ if (isset($_POST['fdept'])) {
                                     <div class="p-20">
                                         <div class="table-responsive">
 
-                                        <h5 class="card-title">Work's Completed</h5>
+                                            <h5 class="card-title">Work's Completed</h5>
 
                                             <!-- Date Range Filter Form -->
                                             <form id="date-filter-form" style="margin: 20px auto; padding: 20px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 100%; max-width: 100%; font-family: Arial, sans-serif;">
@@ -1646,6 +1646,9 @@ if (isset($_POST['fdept'])) {
                                                                     <th class="text-center"><b>
                                                                             <h5>Department</h5>
                                                                         </b></th>
+                                                                    <th class="col-md-2 text-center"><b>
+                                                                            <h5>Role</h5>
+                                                                        </b></th>
 
 
                                                                     <th class=" col-md-2 text-center"><b>
@@ -1665,6 +1668,9 @@ if (isset($_POST['fdept'])) {
                                                                             <?php echo $row['worker_first_name'] ?></td>
                                                                         <td class="text-center">
                                                                             <?php echo $row['worker_dept'] ?></td>
+
+                                                                        <td class="text-center">
+                                                                            <?php echo $row['usertype'] ?></td>
 
                                                                         <td class="text-center"><button tupe="button"
                                                                                 class="btn btn-danger deleteworker"
@@ -1763,6 +1769,13 @@ if (isset($_POST['fdept'])) {
                                                     <option value="transport">Transport</option>
                                                     <option value="house">House Keeping</option>
 
+                                                </select>
+
+                                                <select id="role" name="w_role"
+                                                    style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
+                                                    <option value="all">Select Role</option>
+                                                    <option value="head">Head</option>
+                                                    <option value="worker">Worker</option>
                                                 </select>
 
                                                 <input type="text" name="w_phone" placeholder="Enter Phone Number"
@@ -2767,8 +2780,19 @@ if (isset($_POST['fdept'])) {
                 $(document).on("click", ".viewcomplaint", function(e) {
                     e.preventDefault();
                     var user_id = $(this).val();
-                    var fac_id = $(".viewcomplaint").data("value");
+                    var fac_id = $(this).data("value");
                     console.log(user_id);
+                    // Clear the previously entered modal
+                    $("#id").text("");
+                    $("#type_of_problem").text("");
+                    $("#problem_description").text("");
+                    $("#faculty_name").text("");
+                    $("#faculty_mail").text("");
+                    $("#faculty_contact").text("");
+                    $("#block_venue").text("");
+                    $("#venue_name").text("");
+                    $("#fac_name").text("N/A");
+                    $("#fac_id").text("N/A");
                     $.ajax({
                         type: "POST",
                         url: 'cms_backend.php?action=view_complaint',
@@ -2797,10 +2821,6 @@ if (isset($_POST['fdept'])) {
 
                                     $("#fac_name").text(res.data1.name);
                                     $("#fac_id").text(res.data1.id);
-                                } else {
-                                    $("#fac_name").text("N/A");
-                                    $("#fac_id").text("N/A");
-
                                 }
                                 $("#complaintDetailsModal").modal("show");
                             }
