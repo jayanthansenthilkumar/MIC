@@ -23,19 +23,24 @@ $query = "SELECT * FROM complaints_detail WHERE faculty_id = '$faculty_id'";
 $result = mysqli_query($db, $query);
 
 $sql5 = "SELECT * FROM complaints_detail WHERE status IN (1,2,4,6,8,9,22) AND faculty_id = '$faculty_id'";
-$sql1 = "SELECT * FROM complaints_detail WHERE status IN (7,10,11,17,18) AND faculty_id = '$faculty_id'";
+$sql1 = "SELECT * FROM complaints_detail WHERE status IN (7,10,17) AND faculty_id = '$faculty_id'";
+$sql11 ="SELECT * FROM complaints_detail WHERE status IN (11,18) AND faculty_id = '$faculty_id'";
 $sql2 = "SELECT * FROM complaints_detail WHERE status = 16 AND faculty_id = '$faculty_id'";
 $sql3 = "SELECT * FROM complaints_detail WHERE status IN (23,5,19,20) AND faculty_id = '$faculty_id'";
 $sql4 = "SELECT * FROM complaints_detail WHERE status = 15 AND faculty_id = '$faculty_id'";
 
 $result5 = mysqli_query($db, $sql5);
 $result1 = mysqli_query($db, $sql1);
+$result11 = mysqli_query($db, $sql11);
+
 $result2 = mysqli_query($db, $sql2);
 $result3 = mysqli_query($db, $sql3);
 $result4 = mysqli_query($db, $sql4);
 
 $row_count5 = mysqli_num_rows($result5);
 $row_count1 = mysqli_num_rows($result1);
+$row_count11 = mysqli_num_rows($result11);
+
 $row_count2 = mysqli_num_rows($result2);
 $row_count3 = mysqli_num_rows($result3);
 $row_count4 = mysqli_num_rows($result4);
@@ -372,6 +377,20 @@ if (isset($_POST['facdet'])) {
                                                     <i class="bi bi-people-fill"></i>
                                                     <i class="fas fa-clock"></i>
                                                     <b>&nbsp Work-In Progress (<?php echo $row_count1; ?>)</b>
+                                                </span>
+                                            </div>
+                                        </a>
+
+                                    </li>
+                                    <li class="nav-item">
+
+                                        <a class="nav-link" data-toggle="tab" href="#waitfeed" role="tab" aria-selected="false">
+                                            <span class="hidden-sm-up"></span>
+                                            <div id="navref33">
+                                                <span class="hidden-xs-down">
+                                                    <i class="bi bi-people-fill"></i>
+                                                    <i class="fas fa-clock"></i>
+                                                    <b>&nbsp Feedback (<?php echo $row_count11; ?>)</b>
                                                 </span>
                                             </div>
                                         </a>
@@ -746,7 +765,7 @@ if (isset($_POST['facdet'])) {
                                                             <th class="text-center"><b>Date Of submission</b></th>
                                                             <th class="text-center"><b>Deadline</b></th>
                                                             <th class="text-center"><b>Worker Details</b></th>
-                                                            <th class="text-center"><b>Feedback</b></th>
+                                                            <th class="text-center"><b>Status</b></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -791,12 +810,83 @@ if (isset($_POST['facdet'])) {
                                                                     </button>
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    <?php if ($row['status'] == 11 || $row['status'] == 18) { ?>
+                                                                    In Progress
+                                                                </td>
+                                                            </tr>
+                                                        <?php
+                                                            $s++;
+                                                        }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                 <!------------------FeedBack Table----------------->
+                                 <div class="tab-pane p-20" id="waitfeed" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table id="feedbackTable" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center"><b>S.No</b></th>
+                                                            <th class="text-center"><b>Problem_idb></th>
+                                                            <th class="text-center"><b>Venue</b></th>
+                                                            <th class="text-center"><b>Problem description</b></th>
+                                                            <th class="text-center"><b>Date Of submission</b></th>
+                                                            <th class="text-center"><b>Deadline</b></th>
+                                                            <th class="text-center"><b>Worker Details</b></th>
+                                                            <th class="text-center"><b>Feedback</b></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $s = 1;
+                                                        while ($row = mysqli_fetch_assoc($result11)) {
+                                                        ?>
+                                                            <tr>
+                                                                <td class="text-center"><?php echo $s; ?></td>
+                                                                <td class="text-center"><?php echo $row['id']; ?></td>
+                                                                <td class="text-center"><?php echo $row['block_venue']; ?></td>
+                                                                <td class="text-center"><?php echo $row['problem_description']; ?></td>
+                                                                <td class="text-center"><?php echo $row['date_of_reg']; ?></td>
+                                                                <td class="text-center">
+                                                                    <?php if ($row['extend_date'] == 1) { ?>
+                                                                        <button type="button" class="btn btn-danger extenddeadline"
+                                                                            id="extendbutton" value="<?php echo $row['id']; ?>"
+                                                                            data-toggle="modal"
+                                                                            data-target="#extendModal"
+                                                                            data-reason="<?php echo $row['extend_reason']; ?>">
+                                                                            <?php echo $row['days_to_complete']; ?>
+                                                                        </button>
+                                                                    <?php } else { ?>
+                                                                        <?php echo $row['days_to_complete']; ?>
+                                                                    <?php } ?>
+                                                                </td>
+
+
+                                                                <td class="text-center">
+                                                                    <button type="button" class="btn btn-light showWorkerDetails" value="<?php echo $row['id']; ?>">
+                                                                        <?php
+                                                                        $prblm_id = $row['id'];
+                                                                        $querry = "SELECT worker_first_name FROM worker_details WHERE worker_id = ( SELECT worker_dept FROM manager WHERE problem_id = '$prblm_id')";
+                                                                        $querry_run = mysqli_query($db, $querry);
+                                                                        $worker_name = mysqli_fetch_array($querry_run);
+                                                                        if ($worker_name['worker_first_name'] != null) {
+                                                                            echo $worker_name['worker_first_name'];
+                                                                        } else {
+                                                                            echo "NA";
+                                                                        }
+                                                                        ?>
+                                                                    </button>
+                                                                </td>
+                                                                <td class="text-center">
                                                                         <!-- Button to open the feedback modal -->
                                                                         <button type="button" class="btn btn-info feedbackBtn" data-problem-id="<?php echo $row['id']; ?>" data-toggle="modal" data-target="#feedback_modal">Feedback</button>
-                                                                    <?php } else { ?>
-                                                                        <button type="button" disabled>Feedback</button>
-                                                                    <?php } ?>
+                                                                    
                                                                 </td>
                                                             </tr>
                                                         <?php
@@ -1172,6 +1262,8 @@ if (isset($_POST['facdet'])) {
             $('#completedTable').DataTable();
             $('#RejectionTable').DataTable();
             $('#reassignTable').DataTable();
+            $('#feedbackTable').DataTable();
+
         });
     </script>
 
@@ -1377,11 +1469,18 @@ if (isset($_POST['facdet'])) {
                         $('#navref3').load(location.href + " #navref3");
                         $('#navref4').load(location.href + " #navref4");
                         $('#navref6').load(location.href + " #navref6");
+                        $('#navref33').load(location.href + " #navref33");
+
                         $('#dashref').load(location.href + " #dashref");
 
                         $('#ProgressTable').DataTable().destroy();
                         $("#ProgressTable").load(location.href + " #ProgressTable > *", function() {
                             $('#ProgressTable').DataTable();
+                        });
+
+                        $('#feedbackTable').DataTable().destroy();
+                        $("#feedbackTable").load(location.href + " #feedbackTable > *", function() {
+                            $('#feedbackTable').DataTable();
                         });
 
                         $('#completedTable').DataTable().destroy();
