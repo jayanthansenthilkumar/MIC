@@ -2200,54 +2200,14 @@ if (isset($_POST['fdept'])) {
                                             <input type="hidden" id="complaintfeed_id" value="">
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-success" data-dismiss="modal"
-                                                data-toggle="modal" data-target="#DoneModal">Done</button>
+                                            <button type="button" class="btn btn-success mfeed">Done</button>
                                             <button type="button" class="btn btn-danger reass">Reassign</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!--Manager Feedback Modal for complete work-->
-                            <div class="modal fade" id="DoneModal" tabindex="-1" aria-labelledby="DoneModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="principalModalLabel">Need Approval</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form id="manager_feedback">
-                                                <div class="stars" id="star-rating">
-                                                    <h5>Give Rating:</h5>
-                                                    <span data-value="1">&#9733;</span>
-                                                    <span data-value="2">&#9733;</span>
-                                                    <span data-value="3">&#9733;</span>
-                                                    <span data-value="4">&#9733;</span>
-                                                    <span data-value="5">&#9733;</span>
-                                                </div>
-                                                <p id="rating-value">Rating: <span id="ratevalue">0</span></p>
-
-                                                <div class="mb-3">
-                                                    <label for="feedback" class="form-label">Feedback</label>
-                                                    <textarea name="feedback12" id="mfeedback" class="form-control"
-                                                        placeholder="Enter Feedback" style="width: 100%; height: 150px;"
-                                                        require></textarea>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-danger">Submit</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                           
                             <!-- Reassign deadline Modal -->
                             <div class="modal fade" id="datePickerModal" tabindex="-1" role="dialog"
                                 aria-labelledby="datePickerModalLabel" aria-hidden="true">
@@ -3231,24 +3191,18 @@ if (isset($_POST['fdept'])) {
                     });
                 })
 
-                $(document).on("submit", "#manager_feedback", function(e) {
+                $(document).on("click", ".mfeed", function(e) {
                     e.preventDefault();
-                    var fd = new FormData(this);
-                    console.log(fd);
-
-                    var store_rating = $(document).data("ratings");
-                    console.log(store_rating);
-                    fd.append("ratings", store_rating);
+                   
                     var manfeed = $(document).data("feedid")
                     console.log(manfeed);
-                    fd.append("id", manfeed);
 
                     $.ajax({
                         type: "POST",
                         url: 'cms_backend.php?action=manager_feedbacks',
-                        data: fd,
-                        processData: false,
-                        contentType: false,
+                        data: {
+                            'id':manfeed,
+                        }
                         success: function(response) {
                             console.log(response);
                             var res = jQuery.parseJSON(response);
@@ -3262,7 +3216,7 @@ if (isset($_POST['fdept'])) {
                                     timer: null
                                 });
 
-                                $("#DoneModal").modal("hide");
+                                $("#exampleModal").modal("hide");
 
                                 // Reset the form
                                 $("#manager_feedback")[0].reset();

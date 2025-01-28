@@ -557,24 +557,39 @@ switch ($action) {
 
         //Manager feedback for complited work
     case 'manager_feedbacks':
-        try {
-            $id = $_POST['id'];
-            $feedback = $_POST['feedback12'];
-            $rating = $_POST['ratings'];
+        $id = $_POST['id'];
+        $deadline_query = "SELECT * FROM complaints_detail WHERE id ='$id'";
+        $dead_run = mysqli_query($db,$deadline_query);
+        $dead_array = mysqli_fetch_array($dead_run);
+        $deadline = $dead_array['days_to_complete'];
+        $date_of_completion = $dead_array['date_of_completion'];
+        $point= 0;
+        $q2 = "SELECT * FROM manager WHERE problem_id='$id'";
+        $q2_run = mysqli_query($db,$q2);
+        $q2_res = mysqli_fetch_array($q2_run);
+        $wname = $q2_res['worker_id'];
 
-            $query = "UPDATE complaints_detail SET mfeedback = ?, mrating = ?, status = '16' WHERE id = ?";
-            $stmt = $db->prepare($query);
-            $stmt->bind_param('ssi', $feedback, $rating, $id);
+       if(strtotime($date_of_completion)<= strtotime($deadline)){
+        $point = 1;
+       }
+        $worker_point = "UPDATE worker_details SET point= point+'$point' WHERE worker_id = '$wname'";
+        $point_run = mysqli_query($db,$worker_point);
+        
+        
 
-            if ($stmt->execute()) {
-                echo json_encode(['status' => 200]);
-            } else {
-                throw new Exception('Query Failed: ' . $stmt->error);
-            }
-        } catch (Exception $e) {
-            echo json_encode(['status' => 500, 'message' => 'Error: ' . $e->getMessage()]);
+
+
+        $insertQuery = "UPDATE manager SET point='$point' WHERE problem_id='$id'";
+        if(mysqli_query($insertQuery)){
+            $res=[
+                "status"=>200,
+                "message"=>"done",
+            ];
+            echo json_encode($res);
+        
         }
         break;
+
 
         //get workers record
     case 'dateapply':
@@ -1523,25 +1538,10 @@ switch ($action) {
         $p_id = $_POST['p_id'];
         $oname = $_POST['o_name'];
         $wname = $_POST['w_name'];
+        $date_of_completion = date('Y-m-d H:i:s');
         $amt = $_POST['amt'];
         $name = current(array_filter([$oname, $wname]));
-        $date_of_completion = date('Y-m-d H:i:s');
-        $deadline_query = "SELECT * FROM complaints_detail WHERE id = (SELECT problem_id FROM manager WHERE task_id = '$taskId')";
-        $dead_run = mysqli_query($db,$deadline_query);
-        $dead_array = mysqli_fetch_array($dead_run);
-        $deadline = $dead_array['days_to_complete'];
-        $point= 0;
-       if(strtotime($date_of_completion)<= strtotime($deadline)){
-        $point = 1;
-       }
-        $worker_point = "UPDATE worker_details SET point= point+'$point' WHERE worker_id = '$wname'";
-        $point_run = mysqli_query($db,$worker_point);
-        
-        
-
-
-
-        $insertQuery = "UPDATE manager SET worker_id='$name',point='$point' WHERE task_id='$taskId'";
+        $insertQuery = "UPDATE manager SET worker_id='$name' WHERE task_id='$taskId'";
         if (mysqli_query($db, $insertQuery)) {
 
 
