@@ -1918,4 +1918,17 @@ switch ($action) {
             echo json_encode($res);
             break;
         }
+    //hod approval sent
+    case 'hodapp':
+        $id = mysqli_real_escape_string($db,
+        $_POST['id']);
+        $reason = mysqli_real_escape_string($db,$_POST['reason']);
+        $sql = "UPDATE complaints_detail SET h_reason='$reason',status='2',faculty_id='$fac_id' WHERE id = '$id'";
+        if(mysqli_query($db,$sql)){
+            $res=[
+                "status"=>200,
+                "message"=>"done",
+            ];
+            echo json_encode($res);
+        }
 }

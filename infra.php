@@ -23,7 +23,7 @@ SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_d
 FROM complaints_detail cd
 JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
 WHERE cd.status = '16' AND faculty_details.department = '$dept'
-";
+    ";
 $sql3 = "
 SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
 FROM complaints_detail cd
@@ -45,6 +45,8 @@ $rejected = mysqli_num_rows($result3);
 <html dir="ltr" lang="en">
 
 <head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
@@ -1049,6 +1051,8 @@ $rejected = mysqli_num_rows($result3);
                                 </div>
                             </div>
 
+                            
+
                              <!-- HOD approval Modal -->
     <div class="modal fade" id="hod_approval" tabindex="-1" role="dialog"
                                 aria-labelledby="hod_approvalLabel" aria-hidden="true">
@@ -1061,7 +1065,7 @@ $rejected = mysqli_num_rows($result3);
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form id="principal_Form">
+                                            <form id="hod_Form">
                                                 <input type="hidden" name="id" id="complaint_id89">
                                                 <div class="form-group">
                                                     <label for="approvalReason" class="form-label">Reason for
@@ -1725,6 +1729,49 @@ $rejected = mysqli_num_rows($result3);
 }
 
                 });
+            });
+            $(document).on("click", ".hodApproval", function(e) {
+                    e.preventDefault();
+                    var user_id = $(this).val(); // Get the ID from the button's value
+                    console.log("User ID:", user_id);
+                    // Set the user_id in the hidden input field within the form
+                    $("#complaint_id89").val(user_id);
+                });
+
+            $(document).on("submit","#hod_Form",function(e){
+                e.preventDefault();
+                console.log("hiii")
+                var form = new FormData(this);
+                console.log(form);
+                $.ajax({
+                    type:"POST",
+                    url: 'cms_backend.php?action=hodapp',
+                    data:form,
+                    processData:false,
+                    contentType:false,
+                    success:function(response){
+                        var res = jQuery.parseJSON(response);
+                        if(res.status==200){
+                            swal("approval sent!", "", "success");
+                            $("#hod_Form")[0].reset();
+                            $("#hod_approval").modal('hide');
+                            $('#myTable1').load(location.href + " #myTable1");
+                            $('#navref1').load(location.href + " #navref1");
+                            $('#navref2').load(location.href + " #navref2");
+                            $('#navref3').load(location.href + " #navref3");
+                            $('#dashref').load(location.href + " #dashref");    
+
+
+                            
+                        }
+                        else{
+                            console.log("error");
+                        }
+                    }
+                })
+            
+
+
             });
         </script>
 </body>
