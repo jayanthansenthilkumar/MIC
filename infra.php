@@ -1,8 +1,8 @@
 <?php
 require 'config.php';
 include("session.php");
-$hod_id =  $fac_id;
-$hdept = "SELECT * FROM faculty WHERE id='$hod_id'";
+$infra_id =  $fac_id;
+$hdept = "SELECT * FROM faculty WHERE id='$i_id'";
 $hdept_run = mysqli_query($db,$hdept);
 $hdept_data = mysqli_fetch_array($hdept_run);
 $dept = $hdept_data['dept'];

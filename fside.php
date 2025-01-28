@@ -51,18 +51,6 @@ if (mysqli_num_rows($query_run) > 0) {
                         aria-expanded="false"><img src="images/icon/student.png" class="custom-svg-icon"
                             alt="Dashboard Icon"><span class="hide-menu">&nbsp;Student</span></a></li>
                         <?php
-                        $query2 = "SELECT * FROM faculty_details WHERE faculty_id='$fac_id'";
-                        $query_run2 = mysqli_query($db,$query2);
-                        if (mysqli_num_rows($query_run2) > 0) {
-
-                        ?>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completedtable"
-                        aria-expanded="false"><img src="images/icon/feedback1.png" class="custom-svg-icon"
-                            alt="Dashboard Icon"><span class="hide-menu">&nbsp;Complaint</span></a></li>
-                            <?php
-                        }
-                            ?>
-                        <?php
                         if($fac_id==1141014){
                     
                         
@@ -82,6 +70,28 @@ if (mysqli_num_rows($query_run) > 0) {
                             alt="Dashboard Icon"><span class="hide-menu">&nbsp;Complaint</span></a></li>
                         <?php
                         }
+
+                        
+                        $infraquery ="SELECT * FROM faculty WHERE role='infra' AND id='$fac_id'";
+                        $infraqueryrun= mysqli_query($db,$infraquery);
+
+                        if (mysqli_num_rows($infraqueryrun) > 0) {
+
+                            ?>
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="infra"
+                            aria-expanded="false"><img src="images/icon/feedback1.png" class="custom-svg-icon"
+                                alt="Dashboard Icon"><span class="hide-menu">&nbsp;Complaint</span></a></li>
+
+                        <?php
+                        }
+                        else{
+
+                            ?>
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completedtable"
+                            aria-expanded="false"><img src="images/icon/feedback1.png" class="custom-svg-icon"
+                                alt="Dashboard Icon"><span class="hide-menu">&nbsp;Complaint</span></a></li>
+                       <?php
+                            }
                         ?>
 
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pwd"
