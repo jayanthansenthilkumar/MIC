@@ -1,6 +1,7 @@
 <?php
 require "config.php";
 include("session.php");
+ 
 //query for 1st table input 
 //Faculty complaint table
 $sql1 = "
