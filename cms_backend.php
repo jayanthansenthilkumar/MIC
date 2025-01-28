@@ -1702,7 +1702,7 @@ switch ($action) {
         $problem_description = mysqli_real_escape_string($db, $_POST['problem_description']);
         $itemno = mysqli_real_escape_string($db, $_POST['itemno']);
         $date_of_reg = mysqli_real_escape_string($db, $_POST['date_of_reg']);
-        $status = $_POST['status'];
+        $status = 1;
 
         // Handle file upload
         $images = "";
@@ -1911,7 +1911,7 @@ switch ($action) {
         $newp = $_POST['pass'];
         $sql = "UPDATE faculty_details SET password = '$newp' WHERE faculty_id ='$fac_id'";
         if (mysqli_query($db, $sql)) {
-            $res = [
+            $res = [ 
                 "status" => 200,
                 "message" => "password changed",
             ];

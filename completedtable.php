@@ -541,7 +541,7 @@ if (isset($_POST['facdet'])) {
                                                                     <option>Select</option>
                                                                     <option value="elecrtical">ELECTRICAL</option>
                                                                     <option value="civil">CIVIL</option>
-                                                                    <option value="itkm">IT INFRA </option>
+                                                                    <option value="itkm">ITKM </option>
                                                                     <option value="transport">TRANSPORT</option>
                                                                     <option value="house">HOUSE KEEPING </option>
                                                                 </select>
@@ -585,7 +585,7 @@ if (isset($_POST['facdet'])) {
                                                                 <input type="hidden" class="form-control" name="date_of_reg" id="date_of_reg" required>
                                                             </div>
                                                         </div>
-                                                        <input type="hidden" name="status" value="2">
+
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -603,32 +603,11 @@ if (isset($_POST['facdet'])) {
                                             <div class="card">
                                                 <div class="card-body">
                                                     <div id="raise_complaint">
-                                                        <?php
-                                                        $query_count = "SELECT COUNT(DISTINCT id) AS comp_count
-                                                            FROM complaints_detail
-                                                            WHERE faculty_id = '$faculty_id'
-                                                            AND complaints_detail.status NOT IN (16, 5, 19, 23, 20);";
-
-                                                        $query_runcount = mysqli_query($db, $query_count);
-
-                                                        if ($query_runcount) {
-                                                            $row = mysqli_fetch_assoc($query_runcount); // Fetch the result row as an associative array
-                                                            $count_val = $row['comp_count']; // Access the 'comp_count' value
-
-                                                            // Check if the count exceeds the limit
-                                                            if ($count_val >= 3) {
-                                                        ?>
-                                                                <button type="button"class="btn btn-warning float-right limitovr" >Raise Complaint</button>
-                                                                <br><br>
-                                                            <?php
-                                                            } else {
-                                                            ?>
+     
+     
                                                                 <button type="button" class="btn btn-info float-right fac" data-toggle="modal" data-target="#cmodal">Raise Complaint</button>
                                                                 <br><br>
-                                                        <?php
-                                                            }
-                                                        }
-                                                        ?>
+                                                       
 
                                                     </div>
                                                     <div class="table-responsive">
@@ -655,13 +634,13 @@ if (isset($_POST['facdet'])) {
                                                                             $statusMessage = 'Pending';
                                                                             break;
                                                                         case 2:
-                                                                            $statusMessage = 'pending';
+                                                                            $statusMessage = 'Forwarded to Faculty Infra Coordinator';
                                                                             break;
                                                                         case 4:
-                                                                            $statusMessage = 'Approved by HOD';
+                                                                            $statusMessage = 'Forwarded to Estate Officer';
                                                                             break;
                                                                         case 6:
-                                                                            $statusMessage = 'Sent to Principal for Approval';
+                                                                            $statusMessage = 'Forwarded to Principal';
                                                                             break;
                                                                         case 8:
                                                                             $statusMessage = 'Approved by Principal ';
@@ -670,7 +649,7 @@ if (isset($_POST['facdet'])) {
                                                                             $statusMessage = ' Approved by Manager';
                                                                             break;
                                                                         case 22:
-                                                                            $statusMessage = ' Approved by EO';
+                                                                            $statusMessage = ' Forwarded to Manager';
                                                                             break;
                                                                         default:
                                                                             $statusMessage = 'Unknown Status';
@@ -690,7 +669,7 @@ if (isset($_POST['facdet'])) {
                                                                             </button>
                                                                         </td>
                                                                         <td class="text-center">
-                                                                            <?php if ($row['status'] == 2) { ?>
+                                                                            <?php if ($row['status'] == 1) { ?>
                                                                                 <center>
                                                                                     <button class="btn btndelete btn-danger" type="button" value="<?php echo $row['id']; ?>">
                                                                                         <i class="fas fa-times"></i>
@@ -724,7 +703,7 @@ if (isset($_POST['facdet'])) {
                                             $statusMessage = 'Pending';
                                             break;
                                         case 2:
-                                            $statusMessage = 'Approved by Infra';
+                                            $statusMessage = 'Approved by Faculty Infra Coordinator';
                                             break;
                                         case 4:
                                             $statusMessage = 'Approved by HOD';
@@ -1023,7 +1002,7 @@ if (isset($_POST['facdet'])) {
                                                     $statusMessage = '';
                                                     switch ($row['status']) {
                                                         case 3:
-                                                            $statusMessage = 'Rejected by Infra';
+                                                            $statusMessage = 'Rejected by Faculty Infra Coordinator';
                                                             break;
                                                         case 5:
                                                             $statusMessage = 'Rejected by HOD';

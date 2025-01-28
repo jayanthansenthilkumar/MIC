@@ -1,30 +1,34 @@
 <?php
 require 'config.php';
 include("session.php");
-$eo_id = $fac_id;
+$hod_id =  $fac_id;
+$hdept = "SELECT * FROM faculty WHERE id='$hod_id'";
+$hdept_run = mysqli_query($db,$hdept);
+$hdept_data = mysqli_fetch_array($hdept_run);
+$dept = $hdept_data['dept'];
 $sql = "
 SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
 FROM complaints_detail cd
 JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
-WHERE cd.status = '4'
+WHERE cd.status = '2'AND faculty_details.department = '$dept'
 ";
 $sql1 = "
 SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
 FROM complaints_detail cd
 JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
-WHERE cd.status IN (6,8,9, 7, 10, 11, 15,14, 22)
+WHERE cd.status IN (4, 6, 7, 10, 11, 13, 14, 15, 17, 18, 22) AND faculty_details.department = '$dept'
 ";
 $sql2 = "
 SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
 FROM complaints_detail cd
 JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
-WHERE cd.status = '16'
+WHERE cd.status = '16' AND faculty_details.department = '$dept'
 ";
 $sql3 = "
 SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
 FROM complaints_detail cd
 JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
-WHERE cd.status IN (19, 20)
+WHERE cd.status IN (19, 20, 23) AND faculty_details.department = '$dept'
 ";
 $result = mysqli_query($db, $sql);
 $pending = mysqli_num_rows($result);
@@ -34,6 +38,7 @@ $result2 = mysqli_query($db, $sql2);
 $completed = mysqli_num_rows($result2);
 $result3 = mysqli_query($db, $sql3);
 $rejected = mysqli_num_rows($result3);
+
 ?>
 
 <!DOCTYPE html>
@@ -598,21 +603,21 @@ $rejected = mysqli_num_rows($result3);
                                                                                             <?php
                                                                                             $statusMessages = [
                                                                                                 2 => 'Forwarded to HOD',
-                                                                                                4 => 'Forwaded to Estate Officer',
+                                                                                                4 => 'Forwaded to EO',
                                                                                                 5 => 'Rejected By HOD',
                                                                                                 6 => 'Sent to principal for approval',
                                                                                                 8 => 'Accepted by Principal',
                                                                                                 9 => 'Approved by Manager',
                                                                                                 10 => 'Approved By Worker',
                                                                                                 11 => 'Waiting for Approval',
-                                                                                                13 => 'Sent to Faculty Infra Coordinator for completion',
+                                                                                                13 => 'Sent to infra for completion',
                                                                                                 14 => 'Feedback by faculty',
                                                                                                 15 => 'Work is Reassigned',
                                                                                                 16 => 'Work is Completed',
                                                                                                 19 => 'Rejected By Principal',
                                                                                                 20 => 'Rejected by Manager',
-                                                                                                22 => 'Forwarded to Manager',
-                                                                                                23 => 'Rejected By Estate Officer',
+                                                                                                22 => 'Accepted by EO',
+                                                                                                23 => 'Rejected By EO',
                                                                                             ];
 
                                                                                             $status = $row['status'];
@@ -854,7 +859,7 @@ $rejected = mysqli_num_rows($result3);
                                         </div>
                                     </div>
                                 </div>
-                        </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -916,7 +921,7 @@ $rejected = mysqli_num_rows($result3);
                     <ol class="list-group list-group-numbered" style="margin-bottom: 0;">
                         <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
                             <div class="ms-2 me-auto">
-                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Infra Coordinator Name</div>
+                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">INFRA Name</div>
                                 <b><span id="ifaculty_name" style="color: #555;"></span></b>
                             </div>
                         </li>
@@ -1016,8 +1021,9 @@ $rejected = mysqli_num_rows($result3);
             </div>
         </div>
     </div>
- <!-- After Image Modal -->
- <div class="modal fade" id="afterImageModal" tabindex="-1" role="dialog"
+
+    <!-- After Image Modal -->
+    <div class="modal fade" id="afterImageModal" tabindex="-1" role="dialog"
                                 aria-labelledby="afterImageModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
@@ -1067,7 +1073,7 @@ $rejected = mysqli_num_rows($result3);
                 <div class="modal-content">
                     <div class="modal-header" style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
                         <h5 class="modal-title" id="exampleModalLabel">
-                            Raise Complain</h5>
+                            Raise Complaint</h5>
                         <button type="button" class="close" data-dismiss="modal"
                             aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -1076,9 +1082,6 @@ $rejected = mysqli_num_rows($result3);
                     <div>
                         <form id="addnewuser" enctype="multipart/form-data" onsubmit="handleSubmit(event)">
                             <div class="modal-body">
-
-
-
                                 <div class="mb-3">
                                     <label for="block" class="form-label">Block <span style="color: red;">*</span></label>
                                     <input type="text" class="form-control" name="block_venue" placeholder="Eg:RK-206" required>
@@ -1107,7 +1110,7 @@ $rejected = mysqli_num_rows($result3);
                                         <option>Select</option>
                                         <option value="elecrtical">ELECTRICAL</option>
                                         <option value="civil">CIVIL</option>
-                                        <option value="itkm">ITKM </option>
+                                        <option value="itkm">IT INFRA </option>
                                         <option value="transport">TRANSPORT</option>
                                         <option value="house">HOUSE KEEPING </option>
                                     </select>
@@ -1135,8 +1138,8 @@ $rejected = mysqli_num_rows($result3);
             </div>
         </div>
 
-<!------------Rejected Reason modal-------------->
-<div class="modal fade" id="problemrejected" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!------------Rejected Reason modal-------------->
+        <div class="modal fade" id="problemrejected" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header" style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
@@ -1346,7 +1349,7 @@ $rejected = mysqli_num_rows($result3);
                     formdata1.append("reject_id", reject_id);
                     $.ajax({
                         type: "POST",
-                        url: 'cms_backend.php?action=rejfeedbackeo',
+                        url: 'cms_backend.php?action=rejectbtn',
                         data: formdata1,
                         processData: false,
                         contentType: false,
@@ -1390,18 +1393,16 @@ $rejected = mysqli_num_rows($result3);
                 e.preventDefault();
 
                 var approveid = $(this).val();
-                console.log(approveid);
 
                 alertify.confirm('Confirmation', 'Are you sure you want to approve this complaint?',
                     function() {
                         $.ajax({
                             type: "POST",
-                            url: 'cms_backend.php?action=eoaccept',
+                            url: 'cms_backend.php?action=approvebtn',
                             data: {
-                                'approveid': approveid
+                                'approve': approveid
                             },
                             success: function(response) {
-                                console.log(response);
                                 var res = jQuery.parseJSON(response);
                                 if (res.status == 500) {
                                     alertify.error(res.message);
@@ -1439,7 +1440,7 @@ $rejected = mysqli_num_rows($result3);
                 formData.append("hod", true);
                 $.ajax({
                     type: "POST",
-                    url: 'cms_backend.php?action=EOaddcomplaint',
+                    url: 'cms_backend.php?action=addcomplaint',
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -1519,7 +1520,7 @@ $rejected = mysqli_num_rows($result3);
                         console.log(res)
                         if (res.status == 500) {
                             alert(res.message);
-                        } else{
+                        } else {
                             $("#id").val(res.data.id);
                             $("#ifaculty_name").text(res.data.faculty_name);
                             $("#ifaculty_mail").text(res.data.faculty_mail);
@@ -1582,7 +1583,7 @@ $rejected = mysqli_num_rows($result3);
                 // Fetch the image from the server
                 $.ajax({
                     type: "POST",
-                    url: 'cms_backend.php?action=get_aimage',
+                  url: 'cms_backend.php?action=get_aimage',
                     data: {
                         'after_image': true,
                         'problem2_id': task_id
@@ -1641,7 +1642,7 @@ $rejected = mysqli_num_rows($result3);
                 $("#oth").val(finalValue);
             }
 
-            //Rejected Tab Reason
+            //Rejected Tab Feedback
             $(document).on('click', '#rejectedfeedback', function(e) {
                 e.preventDefault();
                 var user_idrej = $(this).val();
@@ -1668,6 +1669,9 @@ $rejected = mysqli_num_rows($result3);
             case '20':
                 rejectionReason = "Rejected by Principal";
                 break;
+            case '23':
+                rejectionReason = "Rejected by EO";
+                break;
             default:
                 rejectionReason = "Unknown rejection reason";
         }
@@ -1676,6 +1680,7 @@ $rejected = mysqli_num_rows($result3);
         $('#problemrejected').modal('show');
     }
 }
+
                 });
             });
         </script>
