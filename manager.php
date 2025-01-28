@@ -1004,7 +1004,7 @@ if (isset($_POST['fdept'])) {
                                                             </td>
                                                             <td class="text-center"> 
                                                                     <?php
-                                                                    if($row3['extend_date'] == 0 && $row3['status'] = '10'){
+                                                                    if($row3['extend_date'] == 0 && $row3['status'] == '10'){
                                                                         ?>
                                                                         <button
                                                                         class="btn btn-Secondary deadline_extend"
@@ -1030,17 +1030,17 @@ if (isset($_POST['fdept'])) {
                                                             </td>
                                                             <td class="text-center">
                                                                 <?php
-                                                                if($row3['status']==11){
+                                                                if($row3['status']=='10'){
                                                                     ?>
-                                                                    <span class="btn btn-success">Completed</span>
+                                                                    <span class="btn btn-warning">Inprogress</span>
                                                                 <?php
                                                             }
-                                                            elseif($row3['status']==10){
+                                                            elseif($row3['status']=='11'){
                                                                 ?>
-                                                                <span class="btn btn-warning">In Progress</span>
+                                                                <span class="btn btn-success">Completed</span>
                                                             <?php
                                                             }
-                                                            elseif($row3['status']==9){
+                                                            elseif($row3['status']=='9'){
                                                                 ?>
                                                                 <span class="btn btn-danger">Pending</span>
                                                                 <?php
