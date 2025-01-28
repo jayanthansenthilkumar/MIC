@@ -1,6 +1,8 @@
     <?php //include("h.php"); 
 //require 'fconfig.php';
 
+
+
 $query = "SELECT id,dept,role FROM faculty WHERE id='$s'";
 $query_run = mysqli_query($db, $query);
 if (mysqli_num_rows($query_run) > 0) {
@@ -50,6 +52,8 @@ if (mysqli_num_rows($query_run) > 0) {
                             alt="Dashboard Icon"><span class="hide-menu">&nbsp;Student</span></a></li>
                         <?php
                         if($fac_id==1141014){
+                    
+                        
                         ?>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="eo"
                         aria-expanded="false"><img src="images/icon/feedback1.png" class="custom-svg-icon"
@@ -59,12 +63,15 @@ if (mysqli_num_rows($query_run) > 0) {
                         ?>
                         <?php
                         if($fac_id==1112001){
+
                         ?>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="manager"
                         aria-expanded="false"><img src="images/icon/feedback1.png" class="custom-svg-icon"
                             alt="Dashboard Icon"><span class="hide-menu">&nbsp;Complaint</span></a></li>
                         <?php
                         }
+
+                        
                         $infraquery ="SELECT * FROM faculty WHERE role='infra' AND id='$fac_id'";
                         $infraqueryrun= mysqli_query($db,$infraquery);
 

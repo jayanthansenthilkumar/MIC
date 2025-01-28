@@ -1,11 +1,7 @@
 <?php
 require 'config.php';
 include("session.php");
-
 $eo_id = $fac_id;
-if(!($eo_id)){
-    header("Location:index.php");
-}
 $sql = "
 SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
 FROM complaints_detail cd
