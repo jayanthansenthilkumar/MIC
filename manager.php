@@ -1728,8 +1728,8 @@ if (isset($_POST['fdept'])) {
                                                 <select id="role" name="u_role"
                                                     style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
                                                     <option value="all">Select Role</option>
-                                                    <option value="infra">Infra</option>
-                                                    <option value="student">Student</option>
+                                                    <option value="infra">Faculty Infra Coordinator</option>
+                                                    <option value="student">Faculty</option>
                                                 </select>
                                             </div>
                                             <div class="modal-footer">
@@ -1984,7 +1984,7 @@ if (isset($_POST['fdept'])) {
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <div class="form-group">
-                                                        <label class="fw-bold" style="color: #007bff;">Infra
+                                                        <label class="fw-bold" style="color: #007bff;">Faculty Infra Coordinator
                                                             Name</label>
                                                         <div class="text-muted"><b id="faculty_name"></b></div>
                                                     </div>

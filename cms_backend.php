@@ -1525,13 +1525,28 @@ switch ($action) {
         $wname = $_POST['w_name'];
         $amt = $_POST['amt'];
         $name = current(array_filter([$oname, $wname]));
+        $date_of_completion = date('Y-m-d H:i:s');
+        $deadline_query = "SELECT * FROM complaints_detail WHERE id = (SELECT problem_id FROM manager WHERE task_id = '$taskId')";
+        $dead_run = mysqli_query($db,$deadline_query);
+        $dead_array = mysqli_fetch_array($dead_run);
+        $deadline = $dead_array['days_to_complete'];
+        $point= 0;
+       if(strtotime($date_of_completion)<= strtotime($deadline)){
+        $point = 1;
+       }
+        $worker_point = "UPDATE worker_details SET point= point+'$point' WHERE worker_id = '$wname'";
+        $point_run = mysqli_query($db,$worker_point);
+        
+        
 
-        $insertQuery = "UPDATE manager SET worker_id='$name' WHERE task_id='$taskId'";
+
+
+        $insertQuery = "UPDATE manager SET worker_id='$name',point='$point' WHERE task_id='$taskId'";
         if (mysqli_query($db, $insertQuery)) {
 
 
             $updateComplaintSql = "UPDATE complaints_detail 
-                                   SET status = 11,worker_id='$name',amount_spent='$amt', task_completion = ?,reason = ?,date_of_completion = NOW()
+                                   SET status = 11,worker_id='$name',amount_spent='$amt', task_completion = ?,reason = ?,date_of_completion = '$date_of_completion'
                                    WHERE id = (SELECT problem_id FROM manager WHERE task_id = ?)";
             if ($stmt = $db->prepare($updateComplaintSql)) {
                 $stmt->bind_param("ssi", $completionStatus, $reason, $taskId);

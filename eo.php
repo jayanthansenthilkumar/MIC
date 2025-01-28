@@ -598,21 +598,21 @@ $rejected = mysqli_num_rows($result3);
                                                                                             <?php
                                                                                             $statusMessages = [
                                                                                                 2 => 'Forwarded to HOD',
-                                                                                                4 => 'Forwaded to EO',
+                                                                                                4 => 'Forwaded to Estate Officer',
                                                                                                 5 => 'Rejected By HOD',
                                                                                                 6 => 'Sent to principal for approval',
                                                                                                 8 => 'Accepted by Principal',
                                                                                                 9 => 'Approved by Manager',
                                                                                                 10 => 'Approved By Worker',
                                                                                                 11 => 'Waiting for Approval',
-                                                                                                13 => 'Sent to infra for completion',
+                                                                                                13 => 'Sent to Faculty Infra Coordinator for completion',
                                                                                                 14 => 'Feedback by faculty',
                                                                                                 15 => 'Work is Reassigned',
                                                                                                 16 => 'Work is Completed',
                                                                                                 19 => 'Rejected By Principal',
                                                                                                 20 => 'Rejected by Manager',
                                                                                                 22 => 'Forwarded to Manager',
-                                                                                                23 => 'Rejected By EO',
+                                                                                                23 => 'Rejected By Estate Officer',
                                                                                             ];
 
                                                                                             $status = $row['status'];
@@ -916,7 +916,7 @@ $rejected = mysqli_num_rows($result3);
                     <ol class="list-group list-group-numbered" style="margin-bottom: 0;">
                         <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
                             <div class="ms-2 me-auto">
-                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">INFRA Name</div>
+                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Infra Coordinator Name</div>
                                 <b><span id="ifaculty_name" style="color: #555;"></span></b>
                             </div>
                         </li>
@@ -1107,7 +1107,7 @@ $rejected = mysqli_num_rows($result3);
                                         <option>Select</option>
                                         <option value="elecrtical">ELECTRICAL</option>
                                         <option value="civil">CIVIL</option>
-                                        <option value="itkm">IT INFRA </option>
+                                        <option value="itkm">ITKM </option>
                                         <option value="transport">TRANSPORT</option>
                                         <option value="house">HOUSE KEEPING </option>
                                     </select>
