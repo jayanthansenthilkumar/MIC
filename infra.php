@@ -2,15 +2,15 @@
 require 'config.php';
 include("session.php");
 $infra_id =  $fac_id;
-$hdept = "SELECT * FROM faculty WHERE id='$i_id'";
-$hdept_run = mysqli_query($db,$hdept);
-$hdept_data = mysqli_fetch_array($hdept_run);
-$dept = $hdept_data['dept'];
+$idept = "SELECT * FROM faculty WHERE id='$infra_id'";
+$idept_run = mysqli_query($db,$idept);
+$idept_data = mysqli_fetch_array($idept_run);
+$dept = $idept_data['dept'];
 $sql = "
 SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
 FROM complaints_detail cd
 JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
-WHERE cd.status = '2'AND faculty_details.department = '$dept'
+WHERE cd.status = '1'AND faculty_details.department = '$dept'
 ";
 $sql1 = "
 SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
@@ -222,7 +222,7 @@ $rejected = mysqli_num_rows($result3);
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="hod.php">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="infra">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Feedback Corner</li>
                                 </ol>
                             </nav>
@@ -483,8 +483,8 @@ $rejected = mysqli_num_rows($result3);
                                                                                         </center>
                                                                                     </td>
 
-                                                                                    <td>
-                                                                                        <center>
+                                                                                    <td class="text-center">
+                                                                                    
                                                                                             <button type="button"
                                                                                                 value="<?php echo $row['id']; ?>"
                                                                                                 id="detail_id"
@@ -498,7 +498,12 @@ $rejected = mysqli_num_rows($result3);
                                                                                                 data-target="#rejectmodal">
                                                                                                 <i class="fas fa-times"></i>
                                                                                             </button>
-                                                                                        </center>
+                                                                                            <button type="button"      
+                                                                                            value="<?php echo $row['id']; ?>"
+                                                                                            class="btn btn-info hodApproval"
+                                                                                            data-toggle="modal" data-target="#hod_approval">
+                                                                                            <i class="fas fa-paper-plane"></i></button>
+                                                                                        
                                                                                     </td>
                                                                                 <?php
                                                                                 $id++;
@@ -1044,6 +1049,37 @@ $rejected = mysqli_num_rows($result3);
                                 </div>
                             </div>
 
+                             <!-- HOD approval Modal -->
+    <div class="modal fade" id="hod_approval" tabindex="-1" role="dialog"
+                                aria-labelledby="hod_approvalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="hod_approvalLabel">Need Approval</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="principal_Form">
+                                                <input type="hidden" name="id" id="complaint_id89">
+                                                <div class="form-group">
+                                                    <label for="approvalReason" class="form-label">Reason for
+                                                        Approval</label>
+                                                    <textarea class="form-control" name="reason" id="approvalReason"
+                                                        rows="3" placeholder="Type the reason here..."></textarea>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-danger">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
     <div class="modal fade" id="bmodalImage" tabindex="-1"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -1173,6 +1209,7 @@ $rejected = mysqli_num_rows($result3);
             </div>
         </div>
 
+        
         <!-- ============================================================== -->
         <!-- All Jquery -->
         <!-- ============================================================== -->
@@ -1261,6 +1298,12 @@ $rejected = mysqli_num_rows($result3);
                 $('.btnreject').tooltip({
                     placement: 'top',
                     title: 'Reject'
+                });  
+
+                //hod approval
+                $('.hodApproval').tooltip({
+                    placement: 'top',
+                    title: 'HOD Approval'
                 });
             });
 
