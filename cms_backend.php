@@ -1687,7 +1687,7 @@ switch ($action) {
         $problem_description = mysqli_real_escape_string($db, $_POST['problem_description']);
         $itemno = mysqli_real_escape_string($db, $_POST['itemno']);
         $date_of_reg = mysqli_real_escape_string($db, $_POST['date_of_reg']);
-        $status = $_POST['status'];
+        $status = 1;
 
         // Handle file upload
         $images = "";
