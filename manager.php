@@ -1004,19 +1004,21 @@ if (isset($_POST['fdept'])) {
                                                             </td>
                                                             <td class="text-center"> 
                                                                     <?php
-                                                                    if($row3['extend_date'] == 0 && $row3['status'] == '10'){
+                                                                    if($row3['extend_date'] != 0 || $row3['status'] == '11'){
                                                                         ?>
-                                                                        <button
-                                                                        class="btn btn-Secondary deadline_extend"
-                                                                    value="<?php echo $row3["id"]; ?>" data-toggle="modal"
-                                                                    data-target="#extend_date">
+                                                                        <button class="btn">
 
                                                                     <?php echo $row3['days_to_complete'] ?></button>
                                                                     <?php
                                                                     }
                                                                     else{
                                                                     ?>
-                                                                     <button class="btn"><?php echo $row3['days_to_complete'] ?> </button>
+                                                                     <button
+                                                                        class="btn btn-primary deadline_extend"
+                                                                    value="<?php echo $row3["id"]; ?>" data-toggle="modal"
+                                                                    data-target="#extend_date">
+
+                                                                    <?php echo $row3['days_to_complete'] ?></button>
                                                                      <?php
                                                                      }
                                                                      ?>
