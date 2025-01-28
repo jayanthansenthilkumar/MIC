@@ -75,6 +75,7 @@ $sql1 = "
         cd.task_completion,
         cd.status,
         cd.feedback,
+        cd.extend_date,
         m.task_id,
         m.priority
     FROM 
@@ -720,7 +721,14 @@ $notcount = mysqli_num_rows($result4);
                                                                         <?php
                                                                         $count = 1;
                                                                         while ($row = $result1->fetch_assoc()) {
+                                                                            if($row['extend_date']==1){
+                                                                                echo "<tr style='background-color:#ffcccc'>";
+
+                                                                            }
+                                                                            else{
                                                                             echo "<tr>";
+                                                                            }
+                                                                            
                                                                             echo "<td class='text-center'>" . $count++ . "</td>";
                                                                             echo "<td class='text-center'>" . htmlspecialchars($row['date_of_reg']) . "</td>";
                                                                             echo "<td class='text-center'>" . htmlspecialchars($row['task_id']) . "</td>";
