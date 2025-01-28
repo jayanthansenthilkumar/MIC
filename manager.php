@@ -3204,7 +3204,7 @@ if (isset($_POST['fdept'])) {
                         url: 'cms_backend.php?action=manager_feedbacks',
                         data: {
                             'id':manfeed,
-                        }
+                        },
                         success: function(response) {
                             console.log(response);
                             var res = jQuery.parseJSON(response);

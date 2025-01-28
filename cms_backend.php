@@ -574,13 +574,16 @@ switch ($action) {
        }
         $worker_point = "UPDATE worker_details SET point= point+'$point' WHERE worker_id = '$wname'";
         $point_run = mysqli_query($db,$worker_point);
+
+        $q3 = "UPDATE complaints_detail SET status='16' WHERE id='$id' ";
+        $q3_run = mysqli_query($db,$q3);
         
         
 
 
 
         $insertQuery = "UPDATE manager SET point='$point' WHERE problem_id='$id'";
-        if(mysqli_query($insertQuery)){
+        if(mysqli_query($db,$insertQuery)){
             $res=[
                 "status"=>200,
                 "message"=>"done",
