@@ -598,7 +598,7 @@ $rejected = mysqli_num_rows($result3);
                                                                                             <?php
                                                                                             $statusMessages = [
                                                                                                 2 => 'Forwarded to HOD',
-                                                                                                4 => 'Forwaded to EO',
+                                                                                                4 => 'Forwaded to Estate Officer',
                                                                                                 5 => 'Rejected By HOD',
                                                                                                 6 => 'Sent to principal for approval',
                                                                                                 8 => 'Accepted by Principal',
@@ -612,7 +612,7 @@ $rejected = mysqli_num_rows($result3);
                                                                                                 19 => 'Rejected By Principal',
                                                                                                 20 => 'Rejected by Manager',
                                                                                                 22 => 'Forwarded to Manager',
-                                                                                                23 => 'Rejected By EO',
+                                                                                                23 => 'Rejected By Estate Officer',
                                                                                             ];
 
                                                                                             $status = $row['status'];

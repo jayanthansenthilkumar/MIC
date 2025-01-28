@@ -634,10 +634,10 @@ if (isset($_POST['facdet'])) {
                                                                             $statusMessage = 'Pending';
                                                                             break;
                                                                         case 2:
-                                                                            $statusMessage = 'Forwarded to Infra Coordinator';
+                                                                            $statusMessage = 'Forwarded to Faculty Infra Coordinator';
                                                                             break;
                                                                         case 4:
-                                                                            $statusMessage = 'Forwarded to EO';
+                                                                            $statusMessage = 'Forwarded to Estate Officer';
                                                                             break;
                                                                         case 6:
                                                                             $statusMessage = 'Forwarded to Principal';
