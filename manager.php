@@ -2739,7 +2739,6 @@ if (isset($_POST['fdept'])) {
                                 });
                                 // Close modal
                                 $("#principalModal").modal("hide");
-
                                 // Reset the form
                                 $("#principal_Form")[0].reset();
                                 // Force refresh the table body with cache bypass
@@ -2793,7 +2792,6 @@ if (isset($_POST['fdept'])) {
                             fac_id: fac_id,
                         },
                         success: function(response) {
-
                             var res = jQuery.parseJSON(response);
                             console.log(res);
                             if (res.status == 404) {
@@ -2803,17 +2801,14 @@ if (isset($_POST['fdept'])) {
                                 $("#id").text(res.data.id);
                                 $("#type_of_problem").text(res.data.type_of_problem);
                                 $("#problem_description").text(res.data.problem_description);
-                                $("#faculty_name").text(res.data.faculty_name);
-                                $("#faculty_mail").text(res.data.faculty_mail);
-                                $("#faculty_contact").text(res.data.faculty_contact);
+                                $("#faculty_name").text(res.data.fname);
+                                $("#faculty_mail").text(res.data.email);
+                                $("#faculty_contact").text(res.data.mobile);
                                 $("#block_venue").text(res.data.block_venue);
                                 $("#venue_name").text(res.data.venue_name);
-                                if (res.data1) {
-
-
-                                    $("#fac_name").text(res.data1.name);
-                                    $("#fac_id").text(res.data1.id);
-                                }
+                                $("#fac_name").text(res.data1.name);
+                                $("#fac_id").text(res.data1.id);
+                                
                                 $("#complaintDetailsModal").modal("show");
                             }
                         },

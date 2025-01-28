@@ -37,10 +37,10 @@ switch ($action) {
 
         // First query
         $query = "
-        SELECT cd.*, faculty_details.faculty_name, faculty_details.faculty_contact, 
-               faculty_details.faculty_mail, faculty_details.department, cd.block_venue
+        SELECT cd.*, b.fname, b.mobile, 
+               b.email, cd.block_venue
         FROM complaints_detail cd
-        JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
+        JOIN basic  b ON cd.faculty_id = b.id
         WHERE cd.id = ?
     ";
         $stmt = mysqli_prepare($db, $query);
