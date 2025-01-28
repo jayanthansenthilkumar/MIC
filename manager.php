@@ -3221,7 +3221,6 @@ if (isset($_POST['fdept'])) {
                                 $("#exampleModal").modal("hide");
 
                                 // Reset the form
-                                $("#manager_feedback")[0].reset();
                                 $('#finished_table').DataTable().destroy();
                                 $('#completed_table').DataTable().destroy();
                                 $('#record_table').DataTable().destroy();
@@ -3255,7 +3254,6 @@ if (isset($_POST['fdept'])) {
                                 // Display success message
                             } else if (res.status == 500) {
                                 $("#DoneModal").modal("hide");
-                                $("#manager_feedback")[0].reset();
                                 alert(res.message);
                             }
                         },
