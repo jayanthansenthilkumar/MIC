@@ -802,7 +802,7 @@ $notcount = mysqli_num_rows($result4);
                                                                 <input onchange="validateSize(this)" class="form-control" type="file" id="imgafter">
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label class="form-label">Amount Spent?(if Please specify)</label>
+                                                                <label class="form-label">Amount Spent(if Applicable)</label>
                                                                 <input class="form-control" type="text" id="amtspent">
                                                             </div>
                                                             <label class="form-label">Task Completion</label><br>

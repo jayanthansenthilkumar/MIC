@@ -1896,7 +1896,7 @@ switch ($action) {
         $newp = $_POST['pass'];
         $sql = "UPDATE faculty_details SET password = '$newp' WHERE faculty_id ='$fac_id'";
         if (mysqli_query($db, $sql)) {
-            $res = [
+            $res = [ 
                 "status" => 200,
                 "message" => "password changed",
             ];
