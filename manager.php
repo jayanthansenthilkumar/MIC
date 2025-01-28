@@ -15,7 +15,7 @@ $row_count1 = mysqli_num_rows($result1);
 $sql2 = "SELECT * FROM worker_details";
 $result2 = mysqli_query($db, $sql2);
 //worker details fetch panna
-$sql3 = "SELECT * FROM complaints_detail WHERE status IN ('7','10','11','13')";
+$sql3 = "SELECT * FROM complaints_detail WHERE status IN ('9','10','11')";
 $result3 = mysqli_query($db, $sql3);
 $row_count3 = mysqli_num_rows($result3);
 
@@ -1002,12 +1002,25 @@ if (isset($_POST['fdept'])) {
                                                                     echo $worker_name['worker_first_name']; ?>
                                                                 </button>
                                                             </td>
-                                                            <td class="text-center"> <button
-                                                                    class="btn btn-light deadline_extend"
+                                                            <td class="text-center"> 
+                                                                    <?php
+                                                                    if($row3['extend_date'] == 0 && $row3['status'] = '10'){
+                                                                        ?>
+                                                                        <button
+                                                                        class="btn btn-Secondary deadline_extend"
                                                                     value="<?php echo $row3["id"]; ?>" data-toggle="modal"
                                                                     data-target="#extend_date">
 
-                                                                    <?php echo $row3['days_to_complete'] ?></button></td>
+                                                                    <?php echo $row3['days_to_complete'] ?></button>
+                                                                    <?php
+                                                                    }
+                                                                    else{
+                                                                    ?>
+                                                                     <button class="btn"><?php echo $row3['days_to_complete'] ?> </button>
+                                                                     <?php
+                                                                     }
+                                                                     ?>
+                                                                    </td>
                                                             <td class="text-center">
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row3['id']; ?>" data-toggle="modal"
@@ -1015,8 +1028,25 @@ if (isset($_POST['fdept'])) {
                                                                     <i class="fas fa-image" style="font-size: 25px;"></i>
                                                                 </button>
                                                             </td>
-                                                            <td class="text-center"><span class="btn btn-warning">In
-                                                                    Progress</span></td>
+                                                            <td class="text-center">
+                                                                <?php
+                                                                if($row3['status']==11){
+                                                                    ?>
+                                                                    <span class="btn btn-success">Completed</span>
+                                                                <?php
+                                                            }
+                                                            elseif($row3['status']==10){
+                                                                ?>
+                                                                <span class="btn btn-warning">In Progress</span>
+                                                            <?php
+                                                            }
+                                                            elseif($row3['status']==9){
+                                                                ?>
+                                                                <span class="btn btn-danger">Pending</span>
+                                                                <?php
+                                                            }
+                                                                ?>
+                                                            </td>
 
                                                             <td class="text-center">
                                                                 <button type="button"
