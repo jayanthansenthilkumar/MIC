@@ -541,7 +541,7 @@ if (isset($_POST['facdet'])) {
                                                                     <option>Select</option>
                                                                     <option value="elecrtical">ELECTRICAL</option>
                                                                     <option value="civil">CIVIL</option>
-                                                                    <option value="itkm">IT INFRA </option>
+                                                                    <option value="itkm">ITKM </option>
                                                                     <option value="transport">TRANSPORT</option>
                                                                     <option value="house">HOUSE KEEPING </option>
                                                                 </select>
@@ -724,7 +724,7 @@ if (isset($_POST['facdet'])) {
                                             $statusMessage = 'Pending';
                                             break;
                                         case 2:
-                                            $statusMessage = 'Approved by Infra';
+                                            $statusMessage = 'Approved by Faculty Infra Coordinator';
                                             break;
                                         case 4:
                                             $statusMessage = 'Approved by HOD';
@@ -1023,7 +1023,7 @@ if (isset($_POST['facdet'])) {
                                                     $statusMessage = '';
                                                     switch ($row['status']) {
                                                         case 3:
-                                                            $statusMessage = 'Rejected by Infra';
+                                                            $statusMessage = 'Rejected by Faculty Infra Coordinator';
                                                             break;
                                                         case 5:
                                                             $statusMessage = 'Rejected by HOD';

@@ -662,7 +662,7 @@ $result11 = mysqli_query($db, $sql11);
                         </div>
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
-                                <label class="fw-bold" style="color: #007bff;">Infra Name</label>
+                                <label class="fw-bold" style="color: #007bff;">Faculty Infra Coordinator Name</label>
                                 <div class="text-muted"><b id="faculty_name"></b></div>
                             </div>
                         </div>
