@@ -1462,8 +1462,8 @@ switch ($action) {
         }
 
         $sql = "SELECT 
-        f.faculty_name, 
-        f.faculty_contact, 
+        b.fname, 
+        b.mobile, 
         cd.block_venue, 
         cd.venue_name, 
         cd.problem_description, 
@@ -1471,7 +1471,7 @@ switch ($action) {
     FROM 
         complaints_detail AS cd
     JOIN 
-        faculty_details AS f ON cd.faculty_id = f.faculty_id
+        basic AS b ON cd.faculty_id = b.id
     WHERE 
         cd.id = (SELECT problem_id FROM manager WHERE task_id = ?)
 ";
@@ -1487,8 +1487,8 @@ switch ($action) {
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $response = array(
-                'faculty_name' => $row['faculty_name'],
-                'faculty_contact' => $row['faculty_contact'],
+                'faculty_name' => $row['fname'],
+                'faculty_contact' => $row['mobile'],
                 'block_venue' => $row['block_venue'],
                 'venue_name' => $row['venue_name'],
                 'problem_description' => $row['problem_description'],
