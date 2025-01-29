@@ -179,11 +179,14 @@ $result4 = mysqli_query($db, $sql4);
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
                                     src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated">
+                            <a class="dropdown-item" href="#"><i class="fa fa-power-off m-r-5 m-l-5"></i>
+                            Download map</a>
                             <a class="dropdown-item" href="Logout"><i class="fa fa-power-off m-r-5 m-l-5"></i>
                             Logout</a>
                                 <div class="dropdown-divider"></div>
                             </div>
                         </li>
+                        
 
                     </ul>
                 </div>
