@@ -657,6 +657,7 @@ switch ($action) {
 
                 $row['completed_by'] = $worker_data['worker_first_name'] ?? 'N/A';
                 $row['department'] = $worker_data['worker_dept'] ?? 'N/A';
+                $row['point'] = $manager_data['point'];
 
                 $row['average_rating'] = ($row['rating'] && $row['mrating'])
                     ? round(($row['rating'] + $row['mrating']) / 2, 2)

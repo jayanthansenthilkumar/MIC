@@ -1525,9 +1525,8 @@ if (isset($_POST['fdept'])) {
                                                                         <th class="text-center"><b>Item No</b></th>
                                                                         <th class="text-center"><b>Amount Spent</b></th>
                                                                         <th class="text-center"><b>Faculty Feedback</b></th>
-                                                                        <th class="text-center"><b>Manager Feedback</b></th>
+                                                                        <th class="text-center"><b>Point</b></th>
                                                                         <th class="text-center"><b>Completed On</b></th>
-                                                                        <th class="text-center"><b>Average Rating</b></th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -3646,9 +3645,8 @@ if (isset($_POST['fdept'])) {
                             <td class="text-center">${row.itemno}</td>
                             <td class="text-center">${row.amount_spent}</td>
                             <td class="text-center">${row.feedback}<br>Ratings: ${row.rating}</td>
-                            <td class="text-center">${row.mfeedback}<br>Ratings: ${row.mrating}</td>
+                            <td class="text-center">${row.point}</td>
                             <td class="text-center">${row.date_of_completion}</td>
-                            <td class="text-center">${avgRating}</td>
                         </tr>
                     `);
                                 });
