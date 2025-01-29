@@ -1378,7 +1378,7 @@ $rejected = mysqli_num_rows($result3);
                     formdata1.append("reject_id", reject_id);
                     $.ajax({
                         type: "POST",
-                        url: 'cms_backend.php?action=rejectbtn',
+                        url: 'cms_backend.php?action=infrejectbtn',
                         data: formdata1,
                         processData: false,
                         contentType: false,

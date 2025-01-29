@@ -717,7 +717,7 @@ switch ($action) {
         }
         break;
 
-
+//infra approval
         case 'infapprovebtn':
             try {
                 $id = $_POST['approve'];
@@ -795,6 +795,47 @@ switch ($action) {
             echo json_encode($res);
         }
         break;
+
+        //Infra reject
+    case 'infrejectbtn':
+        try {
+            $id = $_POST['reject_id'];
+            $feedback = $_POST['rejfeed'];
+
+            // Prepare the SQL statement
+            $query = "UPDATE complaints_detail SET feedback = ?, status = ? WHERE id = ?";
+            $stmt = $db->prepare($query);
+
+            if (!$stmt) {
+                throw new Exception('Prepare statement failed: ' . $db->error);
+            }
+
+            // Bind parameters
+            $status = 3;
+            $stmt->bind_param('sii', $feedback, $status, $id);
+
+            // Execute the statement
+            if ($stmt->execute()) {
+                $res = [
+                    'status' => 200,
+                    'message' => 'Details Updated Successfully'
+                ];
+                echo json_encode($res);
+            } else {
+                throw new Exception('Execution failed: ' . $stmt->error);
+            }
+
+            // Close the statement
+            $stmt->close();
+        } catch (Exception $e) {
+            $res = [
+                'status' => 500,
+                'message' => 'Error: ' . $e->getMessage()
+            ];
+            echo json_encode($res);
+        }
+        break;
+
 
         //HOD seeproblem description
     case 'seeproblem':
