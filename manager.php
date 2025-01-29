@@ -3590,7 +3590,7 @@ if (isset($_POST['fdept'])) {
                                 // Add new rows dynamically
                                 res.data.forEach((row, index) => {
                                     var avgFacultyRating = row.avg_faculty_rating !== "N/A" ? row.avg_faculty_rating : "N/A";
-                                    var avgManagerRating = row.avg_manager_rating !== "N/A" ? row.avg_manager_rating : "N/A";
+        
                                     var totalpoints = row.totalpoints !== "N/A" ? row.totalpoints : "N/A";
 
                                     $("#Rworkers tbody").append(`
@@ -3601,7 +3601,6 @@ if (isset($_POST['fdept'])) {
                             <td class="text-center">${row.worker_dept}</td>
                             <td class="text-center">${row.total_completed_works}</td>
                             <td class="text-center">${avgFacultyRating}</td>
-                            <td class="text-center">${avgManagerRating}</td>
                             <td class="text-center">${totalpoints}</td>
                         </tr>
                     `);
