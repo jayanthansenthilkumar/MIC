@@ -7,10 +7,9 @@ $idept_run = mysqli_query($db,$idept);
 $idept_data = mysqli_fetch_array($idept_run);
 $dept = $idept_data['dept'];
 $sql = "
-SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
-FROM complaints_detail cd
-JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
-WHERE cd.status = '1'AND faculty_details.department = '$dept'
+SELECT cd.*, f.name, f.dept FROM complaints_detail cd
+JOIN faculty f ON cd.faculty_id = f.id
+WHERE cd.status = '1'AND f.dept = '$dept'
 ";
 $sql1 = "
 SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
@@ -457,7 +456,7 @@ $rejected = mysqli_num_rows($result3);
                                                                                                 class="btn btn-link faculty" id="facultyinfo"
                                                                                                 data-value="<?php echo $row['fac_id']; ?>"
                                                                                                 data-toggle="modal" value="<?php echo $row['id']; ?>"
-                                                                                                data-target="#facultymodal" style="text-decoration:none;"><?php echo $row['faculty_name']; ?>
+                                                                                                data-target="#facultymodal" style="text-decoration:none;"><?php echo $row['name']; ?>
                                                                                             </button>
                                                                                         </center>
                                                                                     </td>

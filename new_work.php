@@ -13,10 +13,8 @@ $dept = $srow['worker_dept'];
 $sql4 = "SELECT 
 cd.id,
 cd.faculty_id,
-faculty_details.faculty_name,
-faculty_details.department,
-faculty_details.faculty_contact,
-faculty_details.faculty_mail,
+f.name,
+f.dept,
 cd.block_venue,
 cd.venue_name,
 cd.type_of_problem,
@@ -34,7 +32,7 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 JOIN 
-faculty_details ON cd.faculty_id = faculty_details.faculty_id
+faculty f ON cd.faculty_id = f.id
 WHERE 
 (m.worker_dept = '$dept')
 AND 

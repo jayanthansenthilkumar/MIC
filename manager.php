@@ -4,9 +4,9 @@ include("session.php");
 //query for 1st table input 
 //Faculty complaint table
 $sql1 = "
-SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
+SELECT cd.*, f.name, f.dept
 FROM complaints_detail cd
-JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
+JOIN faculty f ON cd.faculty_id = f.id
 WHERE cd.status IN ('22','9')
 ";
 $result1 = mysqli_query($db, $sql1);
@@ -760,7 +760,7 @@ if (isset($_POST['fdept'])) {
                                                         <tr>
                                                             <td class="text-center"><?php echo $s ?></td>
                                                             <td class="text-center"><?php echo $row['date_of_reg'] ?></td>
-                                                            <td class="text-center"><?php echo $row['department'] ?> /
+                                                            <td class="text-center"><?php echo $row['dept'] ?> /
                                                                 <?php echo $row['block_venue'] ?></td>
 
                                                             <td class="text-center"><button type="button"

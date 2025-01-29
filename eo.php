@@ -3,9 +3,9 @@ require 'config.php';
 include("session.php");
 $eo_id = $fac_id;
 $sql = "
-SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
+SELECT cd.*, f.name,f.dept
 FROM complaints_detail cd
-JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
+JOIN faculty f ON cd.faculty_id = f.id
 WHERE cd.status = '4'
 ";
 $sql1 = "
