@@ -1697,7 +1697,6 @@ switch ($action) {
         //faculty raise complaint
     case 'facraisecomp':
         $faculty_id = mysqli_real_escape_string($db, $_POST['faculty_id']);
-        $fac_id = mysqli_real_escape_string($db, $_POST['cfaculty']);
         $block_venue = mysqli_real_escape_string($db, $_POST['block_venue']);
         $venue_name = mysqli_real_escape_string($db, $_POST['venue_name']);
         $type_of_problem = mysqli_real_escape_string($db, $_POST['type_of_problem']);
@@ -1743,8 +1742,8 @@ switch ($action) {
 
 
         // Insert data into the database
-        $query = "INSERT INTO complaints_detail (faculty_id,fac_id,block_venue, venue_name, type_of_problem, problem_description,itemno, images, date_of_reg, status) 
-              VALUES ('$faculty_id','$fac_id', '$block_venue', '$venue_name', '$type_of_problem', '$problem_description','$itemno', '$images', '$date_of_reg', '$status')";
+        $query = "INSERT INTO complaints_detail (faculty_id,block_venue, venue_name, type_of_problem, problem_description,itemno, images, date_of_reg, status) 
+              VALUES ('$faculty_id', '$block_venue', '$venue_name', '$type_of_problem', '$problem_description','$itemno', '$images', '$date_of_reg', '$status')";
 
         if (mysqli_query($db, $query)) {
             echo json_encode(['status' => 200, 'message' => 'Success']);
@@ -1887,26 +1886,6 @@ switch ($action) {
         $db->close();
         break;
 
-
-
-
-
-    case 'getfaculty':
-        $sql8 =  "SELECT * FROM faculty WHERE dept=(SELECT department FROM faculty_details WHERE faculty_id='$faculty_id')";
-        $result8 = mysqli_query($db, $sql8);
-
-        $options = '';
-        $options .= '<option value="">Select a Faculty</option>';
-
-
-
-        while ($row = mysqli_fetch_assoc($result8)) {
-            $options .= '<option value="' . $row['id'] . '">' . $row['id'] . ' - ' . $row['name'] . '</option>';
-        }
-
-
-        echo $options;
-        break;
 
         //password change for faculty
     case 'facchangepass':

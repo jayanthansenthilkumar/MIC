@@ -533,11 +533,7 @@ if (isset($_POST['facdet'])) {
                                                             
                                                             if(!empty($fac_id)){
                                                                 ?>
-                                                            <div class="form-group" style="margin-bottom: 15px;">
-                                                                <label for="faculty" class="font-weight-bold" style="display: block; margin-bottom: 5px;">Choose Faculty <span style="color: red;">*</span></label>
-                                                                <select class="form-control" name="cfaculty" id="cfaculty" style="width: 100%; height: 40px; border-radius: 4px; border: 1px solid #ccc;">
-                                                                </select>
-                                                            </div>
+                                                            
                                                             <input type="hidden" class="form-control" name="faculty_id" id="faculty_id" value="<?php echo $faculty_id; ?>" readonly>
 
                                                             <?php
@@ -547,7 +543,6 @@ if (isset($_POST['facdet'])) {
 
                                                             
                                                             ?>
-                                                            <input type="hidden" name="cfaculty" value="<?php echo $faculty_id; ?>">
                                                             <input type="hidden" name="faculty_id" id="faculty_id" value="<?php echo $faculty_id; ?>">
 
                                                             <?php
