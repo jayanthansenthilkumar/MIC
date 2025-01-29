@@ -418,6 +418,72 @@ if (isset($_POST['fdept'])) {
             color: gold;
             /* Color for lit stars */
         }
+        /*date filtter form in record's*/
+        .data_filter_form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    background: white; /* Violet-Blue Gradient */
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 100%;
+    font-family: Arial, sans-serif;
+    flex-wrap: wrap;
+}
+
+.data_filter_form div {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.data_filter_form label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #fff; /* White text for contrast */
+    margin-right: 10px;
+}
+
+.data_filter_form input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    color: #333;
+    width: 200px;
+}
+
+.data_filter_form button {
+    padding: 10px 25px;
+    background: #4a00e0; /* Deep Violet */
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.data_filter_form button:hover {
+    background: #6a11cb; /* Slightly lighter violet */
+}
+
+@media (max-width: 768px) {
+    .data_filter_form {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .data_filter_form div {
+        margin-bottom: 10px;
+    }
+}
+
+
     </style>
 </head>
 
@@ -1407,6 +1473,7 @@ if (isset($_POST['fdept'])) {
                                                     </div>
                                                 </div>
                                             </div>
+                                            </div>
 
                                             <div class="tab-content tabcontent-border">
 
@@ -1419,8 +1486,8 @@ if (isset($_POST['fdept'])) {
                                                             <h5 class="card-title">Work's Completed</h5>
 
                                                             <!-- Date Range Filter Form -->
-                                                            <form id="date-filter-form" style="margin: 20px auto; padding: 20px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 100%; max-width: 100%; font-family: Arial, sans-serif;">
-                                                                <div style="margin-bottom: 15px; padding: 0 20px;">
+                                                            <form class="data_filter_form" id="date-filter-form">
+                                                                <div>
                                                                     <label for="from_date" style="margin-right: 10px; font-weight: bold; font-size: 14px; color: #333;">From Date:</label>
                                                                     <input type="date" id="from_date" name="from_date"
                                                                         style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; width: 100%; max-width: 300px; font-size: 14px; color: #333;" required>
@@ -1480,7 +1547,7 @@ if (isset($_POST['fdept'])) {
                                                         <div class="table-responsive">
                                                             <h5 class="card-title">Worker's Record</h5>
 
-                                                            <form id="date-form" style="padding: 20px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: calc(100% - 50px); margin: 20px 0 20px 20px; font-family: Arial, sans-serif;">
+                                                            <form id="date-form" class="data_filter_form" >
                                                                 <div style="margin-bottom: 15px;">
                                                                     <label for="from_date" style="margin-right: 10px; font-weight: bold; font-size: 14px; color: #333;">From Date:</label>
                                                                     <input type="date" name="from_date" value="<?php echo $from_date; ?>"
@@ -1547,7 +1614,7 @@ if (isset($_POST['fdept'])) {
 
                                                     </div>
                                                 </div>
-                                            </div>
+                                            
                                         </div>
 
                                     </div>
