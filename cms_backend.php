@@ -603,7 +603,7 @@ switch ($action) {
             $sql19 = "SELECT worker_details.worker_id, worker_details.worker_first_name, worker_details.worker_dept, 
                             COUNT(complaints_detail.id) AS total_completed_works,
                             AVG(complaints_detail.rating) AS avg_faculty_rating, 
-                            AVG(complaints_detail.mrating) AS avg_manager_rating 
+                            worker_details.point AS totalpoints 
                           FROM worker_details 
                           INNER JOIN complaints_detail 
                           ON worker_details.worker_id = complaints_detail.worker_id 
@@ -620,10 +620,8 @@ switch ($action) {
             $data = [];
             while ($row = $result->fetch_assoc()) {
                 $row['avg_faculty_rating'] = $row['avg_faculty_rating'] ? round($row['avg_faculty_rating'], 2) : 'N/A';
-                $row['avg_manager_rating'] = $row['avg_manager_rating'] ? round($row['avg_manager_rating'], 2) : 'N/A';
-                $row['avg_rating'] = ($row['avg_faculty_rating'] != 'N/A' && $row['avg_manager_rating'] != 'N/A')
-                    ? round(($row['avg_faculty_rating'] + $row['avg_manager_rating']) / 2, 2)
-                    : 'N/A';
+                $row['totalpoints'] = $row['totalpoints'];
+
                 $data[] = $row;
             }
 

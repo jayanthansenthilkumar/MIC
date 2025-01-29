@@ -1596,14 +1596,10 @@ if (isset($_POST['fdept'])) {
                                                                         </th>
                                                                         <th class="text-center">
                                                                             <b>
-                                                                                <h5>Manager Ratings</h5>
+                                                                                <h5>Total Points</h5>
                                                                             </b>
                                                                         </th>
-                                                                        <th class="text-center">
-                                                                            <b>
-                                                                                <h5>average Rating</h5>
-                                                                            </b>
-                                                                        </th>
+                                                
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -3595,7 +3591,7 @@ if (isset($_POST['fdept'])) {
                                 res.data.forEach((row, index) => {
                                     var avgFacultyRating = row.avg_faculty_rating !== "N/A" ? row.avg_faculty_rating : "N/A";
                                     var avgManagerRating = row.avg_manager_rating !== "N/A" ? row.avg_manager_rating : "N/A";
-                                    var avgRating = row.avg_rating !== "N/A" ? row.avg_rating : "N/A";
+                                    var totalpoints = row.totalpoints !== "N/A" ? row.totalpoints : "N/A";
 
                                     $("#Rworkers tbody").append(`
                         <tr>
@@ -3606,7 +3602,7 @@ if (isset($_POST['fdept'])) {
                             <td class="text-center">${row.total_completed_works}</td>
                             <td class="text-center">${avgFacultyRating}</td>
                             <td class="text-center">${avgManagerRating}</td>
-                            <td class="text-center">${avgRating}</td>
+                            <td class="text-center">${totalpoints}</td>
                         </tr>
                     `);
                                 });
