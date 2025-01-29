@@ -572,12 +572,9 @@ if (isset($_POST['fdept'])) {
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#completed"
                                             role="tab"><span class="hidden-sm-up"></span><span
                                                 class="hidden-xs-down"><b>Completed works</b></span></a> </li>
-                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#record"
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#allrecords"
                                             role="tab"><span class="hidden-sm-up"></span> <span
-                                                class="hidden-xs-down"><b>Work Record</b></span></a> </li>
-                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#workersr"
-                                            role="tab"><span class="hidden-sm-up"></span> <span
-                                                class="hidden-xs-down"><b>Workers Record</b></span></a> </li>
+                                                class="hidden-xs-down"><b>Records</b></span></a> </li>
                                 </ul>
                             </div>
 
@@ -1002,27 +999,26 @@ if (isset($_POST['fdept'])) {
                                                                     echo $worker_name['worker_first_name']; ?>
                                                                 </button>
                                                             </td>
-                                                            <td class="text-center"> 
-                                                                    <?php
-                                                                    if($row3['extend_date'] != 0 || $row3['status'] == '11'){
-                                                                        ?>
-                                                                        <button class="btn">
+                                                            <td class="text-center">
+                                                                <?php
+                                                                if ($row3['extend_date'] != 0 || $row3['status'] == '11') {
+                                                                ?>
+                                                                    <button class="btn">
 
-                                                                    <?php echo $row3['days_to_complete'] ?></button>
-                                                                    <?php
-                                                                    }
-                                                                    else{
-                                                                    ?>
-                                                                     <button
+                                                                        <?php echo $row3['days_to_complete'] ?></button>
+                                                                <?php
+                                                                } else {
+                                                                ?>
+                                                                    <button
                                                                         class="btn btn-primary deadline_extend"
-                                                                    value="<?php echo $row3["id"]; ?>" data-toggle="modal"
-                                                                    data-target="#extend_date">
+                                                                        value="<?php echo $row3["id"]; ?>" data-toggle="modal"
+                                                                        data-target="#extend_date">
 
-                                                                    <?php echo $row3['days_to_complete'] ?></button>
-                                                                     <?php
-                                                                     }
-                                                                     ?>
-                                                                    </td>
+                                                                        <?php echo $row3['days_to_complete'] ?></button>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </td>
                                                             <td class="text-center">
                                                                 <button type="button" class="btn btn-light btn-sm showImage"
                                                                     value="<?php echo $row3['id']; ?>" data-toggle="modal"
@@ -1032,21 +1028,19 @@ if (isset($_POST['fdept'])) {
                                                             </td>
                                                             <td class="text-center">
                                                                 <?php
-                                                                if($row3['status']=='10'){
-                                                                    ?>
+                                                                if ($row3['status'] == '10') {
+                                                                ?>
                                                                     <span class="btn btn-warning">Inprogress</span>
                                                                 <?php
-                                                            }
-                                                            elseif($row3['status']=='11'){
+                                                                } elseif ($row3['status'] == '11') {
                                                                 ?>
-                                                                <span class="btn btn-success">Completed</span>
-                                                            <?php
-                                                            }
-                                                            elseif($row3['status']=='9'){
-                                                                ?>
-                                                                <span class="btn btn-danger">Pending</span>
+                                                                    <span class="btn btn-success">Completed</span>
                                                                 <?php
-                                                            }
+                                                                } elseif ($row3['status'] == '9') {
+                                                                ?>
+                                                                    <span class="btn btn-danger">Pending</span>
+                                                                <?php
+                                                                }
                                                                 ?>
                                                             </td>
 
@@ -1389,143 +1383,181 @@ if (isset($_POST['fdept'])) {
                                 </div>
 
 
-                                <!-- Record Table -->
+                                <!--All Records-->
+                                <div class="tab-pane p-20" id="allrecords" role="tabpanel">
 
-                                <div class="tab-pane p-20" id="record" role="tabpanel">
-                                    <div class="p-20">
-                                        <div class="table-responsive">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
 
-                                            <h5 class="card-title">Work's Completed</h5>
 
-                                            <!-- Date Range Filter Form -->
-                                            <form id="date-filter-form" style="margin: 20px auto; padding: 20px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 100%; max-width: 100%; font-family: Arial, sans-serif;">
-                                                <div style="margin-bottom: 15px; padding: 0 20px;">
-                                                    <label for="from_date" style="margin-right: 10px; font-weight: bold; font-size: 14px; color: #333;">From Date:</label>
-                                                    <input type="date" id="from_date" name="from_date"
-                                                        style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; width: 100%; max-width: 300px; font-size: 14px; color: #333;" required>
+                                                    <div class="d-flex justify-content-center">
+                                                        <!-- Nav tabs -->
+                                                        <ul class="nav nav-tabs" role="tablist" id="navlist2">
+
+                                                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#record"
+                                                                    role="tab"><span class="hidden-sm-up"></span> <span
+                                                                        class="hidden-xs-down"><b>Work Record</b></span></a> </li>
+                                                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#workersr"
+                                                                    role="tab"><span class="hidden-sm-up"></span> <span
+                                                                        class="hidden-xs-down"><b>Workers Record</b></span></a> </li>
+
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                                <div style="margin-bottom: 15px; padding: 0 20px;">
-                                                    <label for="to_date" style="margin-right: 10px; font-weight: bold; font-size: 14px; color: #333;">To Date:</label>
-                                                    <input type="date" id="to_date" name="to_date"
-                                                        style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; width: 100%; max-width: 300px; font-size: 14px; color: #333;" required>
+                                            </div>
+
+                                            <div class="tab-content tabcontent-border">
+
+                                                <!-- Record Table -->
+
+                                                <div class="tab-pane p-20 active" id="record" role="tabpanel">
+                                                    <div class="p-20">
+                                                        <div class="table-responsive">
+
+                                                            <h5 class="card-title">Work's Completed</h5>
+
+                                                            <!-- Date Range Filter Form -->
+                                                            <form id="date-filter-form" style="margin: 20px auto; padding: 20px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 100%; max-width: 100%; font-family: Arial, sans-serif;">
+                                                                <div style="margin-bottom: 15px; padding: 0 20px;">
+                                                                    <label for="from_date" style="margin-right: 10px; font-weight: bold; font-size: 14px; color: #333;">From Date:</label>
+                                                                    <input type="date" id="from_date" name="from_date"
+                                                                        style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; width: 100%; max-width: 300px; font-size: 14px; color: #333;" required>
+                                                                </div>
+                                                                <div style="margin-bottom: 15px; padding: 0 20px;">
+                                                                    <label for="to_date" style="margin-right: 10px; font-weight: bold; font-size: 14px; color: #333;">To Date:</label>
+                                                                    <input type="date" id="to_date" name="to_date"
+                                                                        style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; width: 100%; max-width: 300px; font-size: 14px; color: #333;" required>
+                                                                </div>
+                                                                <div style="text-align: center; padding: 10px;">
+                                                                    <button type="submit" class="btn btn-primary"
+                                                                        style="padding: 12px 30px; background-color: #007bff; border: none; border-radius: 8px; font-size: 16px; color: white; cursor: pointer; transition: background-color 0.3s ease;">
+                                                                        Filter
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+
+
+
+                                                            <!-- Download Button -->
+                                                            <button id="download" class="btn btn-success"
+                                                                style="float: right; padding: 10px 20px; background-color: #28a745; border: none; border-radius: 5px; color: white;">Download as Excel</button>
+                                                            <br><br>
+
+                                                            <h5 class="card-title">Work Completed Records</h5>
+
+                                                            <!-- Table for Displaying Results -->
+                                                            <table id="record_table" class="table table-striped table-bordered">
+                                                                <thead style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
+                                                                    <tr>
+                                                                        <th class="text-center"><b>S.No</b></th>
+                                                                        <th class="text-center"><b>Work ID</b></th>
+                                                                        <th class="text-center"><b>Venue Details</b></th>
+                                                                        <th class="text-center"><b>Completed Details</b></th>
+                                                                        <th class="text-center"><b>Item No</b></th>
+                                                                        <th class="text-center"><b>Amount Spent</b></th>
+                                                                        <th class="text-center"><b>Faculty Feedback</b></th>
+                                                                        <th class="text-center"><b>Manager Feedback</b></th>
+                                                                        <th class="text-center"><b>Completed On</b></th>
+                                                                        <th class="text-center"><b>Average Rating</b></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <!-- Rows will be dynamically added by jQuery -->
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div style="text-align: center; padding: 10px;">
-                                                    <button type="submit" class="btn btn-primary"
-                                                        style="padding: 12px 30px; background-color: #007bff; border: none; border-radius: 8px; font-size: 16px; color: white; cursor: pointer; transition: background-color 0.3s ease;">
-                                                        Filter
-                                                    </button>
+
+                                                <!-- Workers Record Table -->
+
+
+
+                                                <div class="tab-pane p-20" id="workersr" role="tabpanel">
+                                                    <div class="p-20">
+                                                        <div class="table-responsive">
+                                                            <h5 class="card-title">Worker's Record</h5>
+
+                                                            <form id="date-form" style="padding: 20px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: calc(100% - 50px); margin: 20px 0 20px 20px; font-family: Arial, sans-serif;">
+                                                                <div style="margin-bottom: 15px;">
+                                                                    <label for="from_date" style="margin-right: 10px; font-weight: bold; font-size: 14px; color: #333;">From Date:</label>
+                                                                    <input type="date" name="from_date" value="<?php echo $from_date; ?>"
+                                                                        style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; width: 100%; max-width: 300px; font-size: 14px; color: #333;" required>
+                                                                </div>
+                                                                <div style="margin-bottom: 15px;">
+                                                                    <label for="to_date" style="margin-right: 10px; font-weight: bold; font-size: 14px; color: #333;">To Date:</label>
+                                                                    <input type="date" name="to_date" value="<?php echo $to_date; ?>"
+                                                                        style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; width: 100%; max-width: 300px; font-size: 14px; color: #333;" required>
+                                                                </div>
+                                                                <div style="text-align: center; padding: 10px;">
+                                                                    <button type="submit" class="btn btn-primary"
+                                                                        style="padding: 12px 30px; background-color: #007bff; border: none; border-radius: 8px; font-size: 16px; color: white; cursor: pointer; transition: background-color 0.3s ease;">
+                                                                        Filter
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+
+                                                            <span style="float:right">
+                                                                <button id="download1" class="btn btn-success">Download as
+                                                                    Excel</button></span><br><br>
+
+                                                            <table id="Rworkers" class="table table-striped table-bordered">
+                                                                <thead
+                                                                    style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
+                                                                    <tr>
+                                                                        <th class="text-center"><b>
+                                                                                <h5>S.No</h5>
+                                                                            </b></th>
+                                                                        <th class="col-md-2 text-center"><b>
+                                                                                <h5>Worker ID</h5>
+                                                                            </b></th>
+                                                                        <th class="col-md-2 text-center"><b>
+                                                                                <h5>Worker Name</h5>
+                                                                            </b></th>
+                                                                        <th class="text-center"><b>
+                                                                                <h5>Department</h5>
+                                                                            </b></th>
+                                                                        <th class="text-center"><b>
+                                                                                <h5>Completed Works</h5>
+                                                                            </b></th>
+                                                                        <th class="text-center">
+                                                                            <b>
+                                                                                <h5>Faculty Ratings</h5>
+                                                                            </b>
+                                                                        </th>
+                                                                        <th class="text-center">
+                                                                            <b>
+                                                                                <h5>Manager Ratings</h5>
+                                                                            </b>
+                                                                        </th>
+                                                                        <th class="text-center">
+                                                                            <b>
+                                                                                <h5>average Rating</h5>
+                                                                            </b>
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
-                                            </form>
-
-
-
-                                            <!-- Download Button -->
-                                            <button id="download" class="btn btn-success"
-                                                style="float: right; padding: 10px 20px; background-color: #28a745; border: none; border-radius: 5px; color: white;">Download as Excel</button>
-                                            <br><br>
-
-                                            <h5 class="card-title">Work Completed Records</h5>
-
-                                            <!-- Table for Displaying Results -->
-                                            <table id="record_table" class="table table-striped table-bordered">
-                                                <thead style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
-                                                    <tr>
-                                                        <th class="text-center"><b>S.No</b></th>
-                                                        <th class="text-center"><b>Work ID</b></th>
-                                                        <th class="text-center"><b>Venue Details</b></th>
-                                                        <th class="text-center"><b>Completed Details</b></th>
-                                                        <th class="text-center"><b>Item No</b></th>
-                                                        <th class="text-center"><b>Amount Spent</b></th>
-                                                        <th class="text-center"><b>Faculty Feedback</b></th>
-                                                        <th class="text-center"><b>Manager Feedback</b></th>
-                                                        <th class="text-center"><b>Completed On</b></th>
-                                                        <th class="text-center"><b>Average Rating</b></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <!-- Rows will be dynamically added by jQuery -->
-                                                </tbody>
-                                            </table>
+                                            </div>
                                         </div>
+
                                     </div>
+
+
+
+
                                 </div>
 
-                                <!-- Workers Record Table -->
 
-
-
-                                <div class="tab-pane p-20" id="workersr" role="tabpanel">
-                                    <div class="p-20">
-                                        <div class="table-responsive">
-                                            <h5 class="card-title">Worker's Record</h5>
-
-                                            <form id="date-form" style="padding: 20px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: calc(100% - 50px); margin: 20px 0 20px 20px; font-family: Arial, sans-serif;">
-                                                <div style="margin-bottom: 15px;">
-                                                    <label for="from_date" style="margin-right: 10px; font-weight: bold; font-size: 14px; color: #333;">From Date:</label>
-                                                    <input type="date" name="from_date" value="<?php echo $from_date; ?>"
-                                                        style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; width: 100%; max-width: 300px; font-size: 14px; color: #333;" required>
-                                                </div>
-                                                <div style="margin-bottom: 15px;">
-                                                    <label for="to_date" style="margin-right: 10px; font-weight: bold; font-size: 14px; color: #333;">To Date:</label>
-                                                    <input type="date" name="to_date" value="<?php echo $to_date; ?>"
-                                                        style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; width: 100%; max-width: 300px; font-size: 14px; color: #333;" required>
-                                                </div>
-                                                <div style="text-align: center; padding: 10px;">
-                                                    <button type="submit" class="btn btn-primary"
-                                                        style="padding: 12px 30px; background-color: #007bff; border: none; border-radius: 8px; font-size: 16px; color: white; cursor: pointer; transition: background-color 0.3s ease;">
-                                                        Filter
-                                                    </button>
-                                                </div>
-                                            </form>
-
-                                            <span style="float:right">
-                                                <button id="download1" class="btn btn-success">Download as
-                                                    Excel</button></span><br><br>
-
-                                            <table id="Rworkers" class="table table-striped table-bordered">
-                                                <thead
-                                                    style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
-                                                    <tr>
-                                                        <th class="text-center"><b>
-                                                                <h5>S.No</h5>
-                                                            </b></th>
-                                                        <th class="col-md-2 text-center"><b>
-                                                                <h5>Worker ID</h5>
-                                                            </b></th>
-                                                        <th class="col-md-2 text-center"><b>
-                                                                <h5>Worker Name</h5>
-                                                            </b></th>
-                                                        <th class="text-center"><b>
-                                                                <h5>Department</h5>
-                                                            </b></th>
-                                                        <th class="text-center"><b>
-                                                                <h5>Completed Works</h5>
-                                                            </b></th>
-                                                        <th class="text-center">
-                                                            <b>
-                                                                <h5>Faculty Ratings</h5>
-                                                            </b>
-                                                        </th>
-                                                        <th class="text-center">
-                                                            <b>
-                                                                <h5>Manager Ratings</h5>
-                                                            </b>
-                                                        </th>
-                                                        <th class="text-center">
-                                                            <b>
-                                                                <h5>average Rating</h5>
-                                                            </b>
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                    </div>
-                                </div>
 
                             </div>
 
@@ -2209,7 +2241,7 @@ if (isset($_POST['fdept'])) {
                                 </div>
                             </div>
 
-                           
+
                             <!-- Reassign deadline Modal -->
                             <div class="modal fade" id="datePickerModal" tabindex="-1" role="dialog"
                                 aria-labelledby="datePickerModalLabel" aria-hidden="true">
@@ -2808,7 +2840,7 @@ if (isset($_POST['fdept'])) {
                                 $("#venue_name").text(res.data.venue_name);
                                 $("#fac_name").text(res.data1.name);
                                 $("#fac_id").text(res.data1.id);
-                                
+
                                 $("#complaintDetailsModal").modal("show");
                             }
                         },
@@ -3190,7 +3222,7 @@ if (isset($_POST['fdept'])) {
 
                 $(document).on("click", ".mfeed", function(e) {
                     e.preventDefault();
-                   
+
                     var manfeed = $(document).data("feedid")
                     console.log(manfeed);
 
@@ -3198,7 +3230,7 @@ if (isset($_POST['fdept'])) {
                         type: "POST",
                         url: 'cms_backend.php?action=manager_feedbacks',
                         data: {
-                            'id':manfeed,
+                            'id': manfeed,
                         },
                         success: function(response) {
                             console.log(response);
