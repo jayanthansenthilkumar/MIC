@@ -170,10 +170,10 @@ $result11 = mysqli_query($db, $sql11);
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="p_index"
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="principal"
                                 aria-expanded="false"><img src="images/icon/dash.png" class="custom-svg-icon"
                                     alt="Dashboard Icon"><span class="hide-menu">&nbsp;Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="complaint"
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link active" href="complaint"
                                 aria-expanded="false"><img src="images/icon/feedback1.png" class="custom-svg-icon"
                                     alt="Dashboard Icon"><span class="hide-menu">&nbsp;Complaints</span></a></li>
                     </ul>
