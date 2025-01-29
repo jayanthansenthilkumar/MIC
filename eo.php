@@ -134,20 +134,20 @@ $rejected = mysqli_num_rows($result3);
                     <!-- ============================================================== -->
                     <a class="navbar-brand" href="smain">
                         <!-- Logo icon -->
-     
+
                         <!--End Logo icon -->
-                         <!-- Logo text -->
+                        <!-- Logo text -->
                         <span class="logo-text">
-                             <!-- dark Logo text -->
-                             <img src="assets/images/srms33333.png" alt="homepage" class="light-logo" />
-                            
+                            <!-- dark Logo text -->
+                            <img src="assets/images/srms33333.png" alt="homepage" class="light-logo" />
+
                         </span>
                         <!-- Logo icon -->
                         <!-- <b class="logo-icon"> -->
-                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                            <!-- Dark Logo icon -->
-                            <!-- <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
-                            
+                        <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                        <!-- Dark Logo icon -->
+                        <!-- <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
+
                         <!-- </b> -->
                         <!--End Logo icon -->
                     </a>
@@ -198,9 +198,9 @@ $rejected = mysqli_num_rows($result3);
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
-        <?php 
-			
-            include("side.php"); 
+        <?php
+
+        include("side.php");
 
         ?>
         <!-- ============================================================== -->
@@ -330,7 +330,7 @@ $rejected = mysqli_num_rows($result3);
                                                                             <div class="stats-box text-center p-3" style="background-color:rgb(14, 86, 239);">
                                                                                 <i class="fas fa-check"></i>
                                                                                 <h1 class="font-light text-white">
-                                                                                <?php echo $approved;
+                                                                                    <?php echo $approved;
                                                                                     ?>
                                                                                 </h1>
                                                                                 <small class="font-light">Approved</small>
@@ -348,7 +348,7 @@ $rejected = mysqli_num_rows($result3);
                                                                             <div class="stats-box text-center p-3" style="background-color:rgb(70, 160, 70);">
                                                                                 <i class="mdi mdi-check-all"></i>
                                                                                 <h1 class="font-light text-white">
-                                                                                <?php echo $completed;
+                                                                                    <?php echo $completed;
                                                                                     ?>
                                                                                 </h1>
                                                                                 <small class="font-light">Completed</small>
@@ -367,7 +367,7 @@ $rejected = mysqli_num_rows($result3);
                                                                             <div class="stats-box text-center p-3" style="background-color:red;">
                                                                                 <i class="fas fa-exclamation"></i>
                                                                                 <h1 class="font-light text-white">
-                                                                                <?php echo $rejected;
+                                                                                    <?php echo $rejected;
                                                                                     ?>
                                                                                 </h1>
                                                                                 <small class="font-light">Rejected</small>
@@ -413,7 +413,7 @@ $rejected = mysqli_num_rows($result3);
                                                                                 </th>
                                                                                 <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white; width: 70px;">
-                                                                                    <b>Faculty Name</b>
+                                                                                    <b>Department / Venue</b>
                                                                                 </th>
                                                                                 <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
@@ -444,26 +444,16 @@ $rejected = mysqli_num_rows($result3);
                                                                                             <?php echo $row['date_of_reg']; ?>
                                                                                         </center>
                                                                                     </td>
-                                                                                    <td>
-                                                                                        <center>
-                                                                                            <button type="button"
-                                                                                                class="btn btn-link faculty" id="facultyinfo"
-                                                                                                data-value="<?php echo $row['fac_id']; ?>"
-                                                                                                data-toggle="modal" value="<?php echo $row['id']; ?>"
-                                                                                                data-target="#facultymodal" style="text-decoration:none;"><?php echo $row['faculty_name']; ?>
-                                                                                            </button>
-                                                                                        </center>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <center>
-                                                                                            <button type="button"
-                                                                                                data-problemid
-                                                                                                class="btn btndesc" id="seeproblem"
-                                                                                                data-toggle="modal" value='<?php echo $row['id']; ?>'
-                                                                                                data-target="#probdesc">
-                                                                                                <i class="fas fa-solid fa-eye" style="font-size: 20px;"></i>
-                                                                                            </button>
-                                                                                        </center>
+                                                                                    <td class="text-center"><?php echo $row['dept'] ?> /
+                                                                                        <?php echo $row['block_venue'] ?></td>
+                                                                                    <td class="text-center"><button type="button"
+                                                                                            value="<?php echo $row['id']; ?>"
+                                                                                            class="btn viewcomplaint"
+                                                                                            data-value="<?php echo $row['fac_id']; ?>"
+                                                                                            data-toggle="modal"
+                                                                                            data-target="#complaintDetailsModal"><i
+                                                                                                class="fas fa-eye"
+                                                                                                style="font-size: 25px;"></i></button>
                                                                                     </td>
                                                                                     <td>
                                                                                         <center>
@@ -529,7 +519,7 @@ $rejected = mysqli_num_rows($result3);
                                                                                 </th>
                                                                                 <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white; width: 70px;">
-                                                                                    <b>Faculty Name</b>
+                                                                                    <b>Department / venue</b>
                                                                                 </th>
                                                                                 <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
@@ -560,25 +550,16 @@ $rejected = mysqli_num_rows($result3);
                                                                                             <?php echo $row['date_of_reg']; ?>
                                                                                         </center>
                                                                                     </td>
-                                                                                    <td>
-                                                                                        <center>
-                                                                                            <button type="button"
-                                                                                                class="btn btn-link faculty" id="facultyinfo"
-                                                                                                data-value="<?php echo $row['fac_id']; ?>"
-                                                                                                data-toggle="modal" value="<?php echo $row['id']; ?>"
-                                                                                                data-target="#facultymodal" style="text-decoration:none;"><?php echo $row['faculty_name']; ?></button>
-                                                                                        </center>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <center>
-                                                                                            <button type="button"
-                                                                                                value='<?php echo $row['id']; ?>'
-                                                                                                class="btn btndesc"
-                                                                                                data-toggle="modal" id="seeproblem"
-                                                                                                data-target="#probdesc">
-                                                                                                <i class="fas fa-solid fa-eye" style="font-size: 20px;"></i>
-                                                                                            </button>
-                                                                                        </center>
+                                                                                    <td class="text-center"><?php echo $row['dept'] ?> /
+                                                                                        <?php echo $row['block_venue'] ?></td>
+                                                                                    <td class="text-center"><button type="button"
+                                                                                            value="<?php echo $row['id']; ?>"
+                                                                                            class="btn viewcomplaint"
+                                                                                            data-value="<?php echo $row['fac_id']; ?>"
+                                                                                            data-toggle="modal"
+                                                                                            data-target="#complaintDetailsModal"><i
+                                                                                                class="fas fa-eye"
+                                                                                                style="font-size: 25px;"></i></button>
                                                                                     </td>
                                                                                     <td>
                                                                                         <center>
@@ -657,7 +638,7 @@ $rejected = mysqli_num_rows($result3);
                                                                                 </th>
                                                                                 <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white; width: 70px;">
-                                                                                    <b>Faculty Name</b>
+                                                                                    <b>Department / venue</b>
                                                                                 </th>
                                                                                 <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
@@ -688,25 +669,16 @@ $rejected = mysqli_num_rows($result3);
                                                                                             <?php echo $row['date_of_reg']; ?>
                                                                                         </center>
                                                                                     </td>
-                                                                                    <td>
-                                                                                        <center>
-                                                                                            <button type="button"
-                                                                                                class="btn btn-link faculty" id="facultyinfo"
-                                                                                                data-value="<?php echo $row['fac_id']; ?>"
-                                                                                                data-toggle="modal" value="<?php echo $row['id']; ?>"
-                                                                                                data-target="#facultymodal" style="text-decoration:none;"><?php echo $row['faculty_name']; ?></button>
-                                                                                        </center>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <center>
-                                                                                            <button type="button"
-                                                                                                value="<?php echo $row['id']; ?>"
-                                                                                                class="btn btndesc"
-                                                                                                data-toggle="modal" id="seeproblem"
-                                                                                                data-target="#probdesc">
-                                                                                                <i class="fas fa-solid fa-eye" style="font-size: 20px;"></i>
-                                                                                            </button>
-                                                                                        </center>
+                                                                                    <td class="text-center"><?php echo $row['dept'] ?> /
+                                                                                        <?php echo $row['block_venue'] ?></td>
+                                                                                    <td class="text-center"><button type="button"
+                                                                                            value="<?php echo $row['id']; ?>"
+                                                                                            class="btn viewcomplaint"
+                                                                                            data-value="<?php echo $row['fac_id']; ?>"
+                                                                                            data-toggle="modal"
+                                                                                            data-target="#complaintDetailsModal"><i
+                                                                                                class="fas fa-eye"
+                                                                                                style="font-size: 25px;"></i></button>
                                                                                     </td>
                                                                                     <td>
                                                                                         <center>
@@ -767,7 +739,7 @@ $rejected = mysqli_num_rows($result3);
                                                                                 </th>
                                                                                 <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white; width: 70px;">
-                                                                                    <b>Faculty Name</b>
+                                                                                    <b>Department / venue</b>
                                                                                 </th>
                                                                                 <th class="text-center"
                                                                                     style="background-color: #7460ee; background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
@@ -798,25 +770,16 @@ $rejected = mysqli_num_rows($result3);
                                                                                             <?php echo $row['date_of_reg']; ?>
                                                                                         </center>
                                                                                     </td>
-                                                                                    <td>
-                                                                                        <center>
-                                                                                            <button type="button"
-                                                                                                class="btn btn-link faculty" id="facultyinfo"
-                                                                                                data-value="<?php echo $row['fac_id']; ?>"
-                                                                                                data-toggle="modal" value="<?php echo $row['id']; ?>"
-                                                                                                data-target="#facultymodal" style="text-decoration:none;"><?php echo $row['faculty_name']; ?></button>
-                                                                                        </center>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <center>
-                                                                                            <button type="button"
-                                                                                                value="<?php echo $row['id']; ?>"
-                                                                                                class="btn btndesc"
-                                                                                                data-toggle="modal" id="seeproblem"
-                                                                                                data-target="#probdesc">
-                                                                                                <i class="fas fa-solid fa-eye" style="font-size: 20px;"></i>
-                                                                                            </button>
-                                                                                        </center>
+                                                                                    <td class="text-center"><?php echo $row['dept'] ?> /
+                                                                                        <?php echo $row['block_venue'] ?></td>
+                                                                                    <td class="text-center"><button type="button"
+                                                                                            value="<?php echo $row['id']; ?>"
+                                                                                            class="btn viewcomplaint"
+                                                                                            data-value="<?php echo $row['fac_id']; ?>"
+                                                                                            data-toggle="modal"
+                                                                                            data-target="#complaintDetailsModal"><i
+                                                                                                class="fas fa-eye"
+                                                                                                style="font-size: 25px;"></i></button>
                                                                                     </td>
                                                                                     <td>
                                                                                         <center>
@@ -899,144 +862,142 @@ $rejected = mysqli_num_rows($result3);
         </div>
     </div>
 
-    <!--faculty info modal-->
-    <div class="modal fade" id="facultymodal" tabindex="-1"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header"
-                    style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
-                    <h5 class="modal-title" id="exampleModalLabel">Faculty Information</h5>
-                    <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="padding: 15px; font-size: 1.1em; color: #333; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                    <ol class="list-group list-group-numbered" style="margin-bottom: 0;">
-                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Infra Coordinator Name</div>
-                                <b><span id="ifaculty_name" style="color: #555;"></span></b>
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Name</div>
-                                <b><span id="faculty_name" style="color: #555;"></span></b>
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Department</div>
-                                <b><span id="faculty_dept" style="color: #555;"></span></b>
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Designation</div>
-                                <b><span id="faculty_desg" style="color: #555;"></span></b>
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Mobile Number</div>
-                                <b><span id="ifaculty_contact" style="color: #555;"></span></b>
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">E-mail</div>
-                                <b><span id="ifaculty_mail" style="color: #555;"></span></b>
-                            </div>
-                        </li>
-                    </ol>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+   
+      <!-- Complaint Details Modal -->
+      <div class="modal fade" id="complaintDetailsModal" tabindex="-1" role="dialog"
+                                aria-labelledby="complaintDetailsModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                    <div class="modal-content"
+                                        style="border-radius: 8px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); background-color: #f9f9f9;">
 
-    <!---view problem description modal-->
-    <div class="modal fade" id="probdesc" tabindex="-1"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
-                    <h5 class="modal-title" id="exampleModalLabel">
-                        Problem Description</h5>
-                    <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form id="addnewdetails">
-                    <div class="modal-body" style="padding: 15px; font-size: 1.1em; color: #333; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                        <ol class="list-group list-group-numbered" style="margin-bottom: 0;">
-                            <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Problem ID</div>
-                                    <b><span id="id" style="color: #555;"></span></b>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Type of Problem</div>
-                                    <b><span id="type_of_problem" style="color: #555;"></span></b>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Block</div>
-                                    <b><span id="block_venue" style="color: #555;"></span></b>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Venue Name</div>
-                                    <b><span id="venue_name" style="color: #555;"></span></b>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Problem Description</div>
-                                    <b><span id="pd" style="color: #555;padding-top:5px;"></span></b>
-                                </div>
-                            </li>
-                        </ol>
-                    </div>
-                </form>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
- <!-- After Image Modal -->
- <div class="modal fade" id="afterImageModal" tabindex="-1" role="dialog"
-                                aria-labelledby="afterImageModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="afterImageModalLabel">After Picture</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header"
+                                            style="background-color: #007bff; color: white; border-radius: 8px 8px 0 0; padding: 15px;">
+                                            <h5 class="modal-title" id="complaintDetailsModalLabel"
+                                                style="font-weight: 700; font-size: 1.4em; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                                                📋 Complaint Details
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                                style="color: white; font-size: 1.2em;">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <div class="modal-body text-center">
-                                            <img id="modalImage2" src="" alt="After" class="img-fluid">
+
+                                        <!-- Modal Body -->
+                                        <div class="modal-body"
+                                            style="padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+
+                                            <!-- Complaint Info Section arranged in two-column layout -->
+                                            <div class="row">
+                                                <!-- Left Column -->
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold" style="color: #007bff;">Complaint
+                                                            ID</label>
+                                                        <div class="text-muted"><b id="id" style="color: black;" ></b></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold" style="color: #007bff;">Faculty Name</label>
+                                                        <div class="text-muted"><b id="faculty_name" style="color: black;"></b></div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Right Column -->
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold" style="color: #007bff;">Mobile
+                                                            Number</label>
+                                                        <div class="text-muted"><b id="faculty_contact" style="color: black;" ></b></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold" style="color: #007bff;">E-mail</label>
+                                                        <div class="text-muted"><b id="faculty_mail" style="color: black;"></b></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold"
+                                                            style="color: #007bff;">Faculty  Infra Coordinator Name</label>
+                                                        <div class="text-muted"><b id="fac_name" style="color: black;"></b></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold"
+                                                            style="color: #007bff;">Faculty_ID</label>
+                                                        <div class="text-muted"><b id="fac_id" style="color: black;"></b></div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- New row for Venue and Type of Problem -->
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold" style="color: #007bff;">Venue
+                                                            Name</label>
+                                                        <div class="text-muted"><b id="venue_name" style="color: black;"></b></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold" style="color: #007bff;">Type of
+                                                            Problem</label>
+                                                        <div class="text-muted"><b id="type_of_problem" style="color: black;"></b></div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Full width for Problem Description -->
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="fw-bold" style="color: #007bff;">Problem
+                                                            Description</label>
+                                                        <div class="alert alert-light" role="alert"
+                                                            style="border-radius: 6px; background-color: #f1f1f1; padding: 15px; color: #333;">
+                                                            <span id="problem_description"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
+
+                                        <!-- Modal Footer with Save Button -->
+                                        <div class="modal-footer"
+                                            style="background-color: #f1f1f1; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; padding: 10px;">
+                                            <button type="button" class="btn btn-primary"
                                                 data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            
+    <!-- After Image Modal -->
+    <div class="modal fade" id="afterImageModal" tabindex="-1" role="dialog"
+        aria-labelledby="afterImageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="afterImageModalLabel">After Picture</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="modalImage2" src="" alt="After" class="img-fluid">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal fade" id="bmodalImage" tabindex="-1"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1135,8 +1096,8 @@ $rejected = mysqli_num_rows($result3);
             </div>
         </div>
 
-<!------------Rejected Reason modal-------------->
-<div class="modal fade" id="problemrejected" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!------------Rejected Reason modal-------------->
+        <div class="modal fade" id="problemrejected" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header" style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
@@ -1146,21 +1107,21 @@ $rejected = mysqli_num_rows($result3);
                         </button>
                     </div>
                     <form id="addnewdetails">
-                    <div class="modal-body" style="padding: 15px; font-size: 1.1em; color: #333; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                        <ol class="list-group list-group-numbered" style="margin-bottom: 0;">
-                            <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Rejected By</div>
-                                    <b><span id="pdrej2" style="color: #555;"></span></b>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Reason</div>
-                                    <b><span id="rejby" style="color: #555;"></span></b>
-                                </div>
-                            </li>
-                        </ol>
+                        <div class="modal-body" style="padding: 15px; font-size: 1.1em; color: #333; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                            <ol class="list-group list-group-numbered" style="margin-bottom: 0;">
+                                <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Rejected By</div>
+                                        <b><span id="pdrej2" style="color: #555;"></span></b>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Reason</div>
+                                        <b><span id="rejby" style="color: #555;"></span></b>
+                                    </div>
+                                </li>
+                            </ol>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
                                     data-dismiss="modal">Close</button>
@@ -1277,7 +1238,7 @@ $rejected = mysqli_num_rows($result3);
                 $('[data-toggle="tooltip"]').tooltip();
 
                 // You can also set options manually if needed
-                $('.btndesc').tooltip({
+                $('.viewcomplaint').tooltip({
                     placement: 'top',
                     title: 'Problem Description'
                 });
@@ -1469,81 +1430,55 @@ $rejected = mysqli_num_rows($result3);
                     }
                 });
             });
-            // problem description
-            $(document).on('click', '#seeproblem', function(e) {
-                e.preventDefault();
-                var user_id = $(this).val();
-                console.log(user_id)
-                $.ajax({
-                    type: "POST",
-                    url: "cms_backend.php?action=seeproblem",
-                    data: {
-                        'seedetails': true,
-                        'user_id': user_id
-                    },
-                    success: function(response) {
-                        var res = jQuery.parseJSON(response);
-                        console.log(res)
-                        if (res.status == 500) {
-                            alert(res.message);
-                        } else {
-                            $("#id").text(res.data.id);
-                            $("#type_of_problem").text(res.data.type_of_problem);
-                            $("#block_venue").text(res.data.block_venue);
-                            $("#venue_name").text(res.data.venue_name);
-                            $('#pd').text(res.data.problem_description);
-                            $('#probdesc').modal('show');
-                        }
-                    }
-                });
-            });
+           //jquerry for view complaint
+           $(document).on("click", ".viewcomplaint", function(e) {
+                    e.preventDefault();
+                    var user_id = $(this).val();
+                    var fac_id = $(this).data("value");
+                    console.log(user_id);
+                    // Clear the previously entered modal
+                    $("#id").text("");
+                    $("#type_of_problem").text("");
+                    $("#problem_description").text("");
+                    $("#faculty_name").text("");
+                    $("#faculty_mail").text("");
+                    $("#faculty_contact").text("");
+                    $("#block_venue").text("");
+                    $("#venue_name").text("");
+                    $("#fac_name").text("N/A");
+                    $("#fac_id").text("N/A");
+                    $.ajax({
+                        type: "POST",
+                        url: 'cms_backend.php?action=view_complaint',
+                        data: {
+                            user_id: user_id,
+                            fac_id: fac_id,
+                        },
+                        success: function(response) {
+                            var res = jQuery.parseJSON(response);
+                            console.log(res);
+                            if (res.status == 404) {
+                                alert(res.message);
+                            } else {
+                                //$('#student_id2').val(res.data.uid);
+                                $("#id").text(res.data.id);
+                                $("#type_of_problem").text(res.data.type_of_problem);
+                                $("#problem_description").text(res.data.problem_description);
+                                $("#faculty_name").text(res.data.fname);
+                                $("#faculty_mail").text(res.data.email);
+                                $("#faculty_contact").text(res.data.mobile);
+                                $("#block_venue").text(res.data.block_venue);
+                                $("#venue_name").text(res.data.venue_name);
+                                $("#fac_name").text(res.data1.name);
+                                $("#fac_id").text(res.data1.id);
 
-            // faculty info
-            $(document).on('click', '#facultyinfo', function(e) {
-                e.preventDefault();
-                var user_id = $(this).val();
-                var fac_id = $(this).data("value");
-
-                console.log(user_id);
-                console.log(fac_id);
-                $.ajax({
-                    type: "POST",
-                    url: 'cms_backend.php?action=facinfohod',
-                    data: {
-                        'facultydetails': true,
-                        'user_id': user_id,
-                        'fac_id': fac_id
-                    },
-                    success: function(response) {
-                        var res = jQuery.parseJSON(response);
-                        console.log(res)
-                        if (res.status == 500) {
-                            alert(res.message);
-                        } else{
-                            $("#id").val(res.data.id);
-                            $("#ifaculty_name").text(res.data.faculty_name);
-                            $("#ifaculty_mail").text(res.data.faculty_mail);
-                            $("#ifaculty_contact").text(res.data.faculty_contact);
-                            
-                            if(res.data1){
-                            $('#faculty_id').text(res.data1.id);
-                            $('#faculty_name').text(res.data1.name);
-                            $('#faculty_dept').text(res.data1.dept);
-                            $('#faculty_desg').text(res.data1.design);
+                                $("#complaintDetailsModal").modal("show");
                             }
-                            else{
-                                $('#faculty_id').text("N/A");
-
-                            $('#faculty_name').text("N/A");
-                            $('#faculty_dept').text("N/A");
-                            $('#faculty_desg').text("N/A");
-
-                            }
-                            $('#facultymodal').modal('show');
-                        }
-                    }
+                        },
+                    });
                 });
-            });
+
+           
 
             //Image Modal Ajax
             $(document).on('click', '.showImage', function() {
@@ -1655,27 +1590,27 @@ $rejected = mysqli_num_rows($result3);
 
                     },
                     success: function(response) {
-    var res = jQuery.parseJSON(response);
-    console.log(res);
-    if (res.status == 500) {
-        alert(res.message);
-    } else {
-        let rejectionReason = "";
-        switch (res.data2.status) {
-            case '19':
-                rejectionReason = "Rejected by Manager";
-                break;
-            case '20':
-                rejectionReason = "Rejected by Principal";
-                break;
-            default:
-                rejectionReason = "Unknown rejection reason";
-        }
-        $('#pdrej2').text(rejectionReason);
-        $('#rejby').text(res.data2.feedback);
-        $('#problemrejected').modal('show');
-    }
-}
+                        var res = jQuery.parseJSON(response);
+                        console.log(res);
+                        if (res.status == 500) {
+                            alert(res.message);
+                        } else {
+                            let rejectionReason = "";
+                            switch (res.data2.status) {
+                                case '19':
+                                    rejectionReason = "Rejected by Manager";
+                                    break;
+                                case '20':
+                                    rejectionReason = "Rejected by Principal";
+                                    break;
+                                default:
+                                    rejectionReason = "Unknown rejection reason";
+                            }
+                            $('#pdrej2').text(rejectionReason);
+                            $('#rejby').text(res.data2.feedback);
+                            $('#problemrejected').modal('show');
+                        }
+                    }
                 });
             });
         </script>

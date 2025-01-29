@@ -735,7 +735,7 @@ if (isset($_POST['fdept'])) {
                                                                 <h5>Raised Date</h5>
                                                             </b></th>
                                                         <th class="text-center"><b>
-                                                                <h5>Dept / Venue</h5>
+                                                                <h5>Department / Venue</h5>
                                                             </b></th>
 
                                                         <th class="col-md-2 text-center"><b>
@@ -2105,14 +2105,13 @@ if (isset($_POST['fdept'])) {
                                                     <div class="form-group">
                                                         <label class="fw-bold" style="color: #007bff;">Complaint
                                                             ID</label>
-                                                        <div class="text-muted"><b id="id"></b></div>
+                                                        <div class="text-muted"><b id="id" style="color: black;"></b></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <div class="form-group">
-                                                        <label class="fw-bold" style="color: #007bff;">Faculty Infra Coordinator
-                                                            Name</label>
-                                                        <div class="text-muted"><b id="faculty_name"></b></div>
+                                                        <label class="fw-bold" style="color: #007bff;">Faculty Name</label>
+                                                        <div class="text-muted"><b id="faculty_name" style="color: black;"></b></div>
                                                     </div>
                                                 </div>
 
@@ -2121,22 +2120,22 @@ if (isset($_POST['fdept'])) {
                                                     <div class="form-group">
                                                         <label class="fw-bold" style="color: #007bff;">Mobile
                                                             Number</label>
-                                                        <div class="text-muted"><b id="faculty_contact"></b></div>
+                                                        <div class="text-muted"><b id="faculty_contact" style="color: black;"></b></div>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-6 mb-3">
                                                     <div class="form-group">
                                                         <label class="fw-bold" style="color: #007bff;">E-mail</label>
-                                                        <div class="text-muted"><b id="faculty_mail"></b></div>
+                                                        <div class="text-muted"><b id="faculty_mail" style="color: black;"></b></div>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-6 mb-3">
                                                     <div class="form-group">
                                                         <label class="fw-bold"
-                                                            style="color: #007bff;">Faculty_name</label>
-                                                        <div class="text-muted"><b id="fac_name"></b></div>
+                                                            style="color: #007bff;">Faculty Infra Coordinator Name</label>
+                                                        <div class="text-muted"><b id="fac_name" style="color: black;"></b></div>
                                                     </div>
                                                 </div>
 
@@ -2144,7 +2143,7 @@ if (isset($_POST['fdept'])) {
                                                     <div class="form-group">
                                                         <label class="fw-bold"
                                                             style="color: #007bff;">Faculty_ID</label>
-                                                        <div class="text-muted"><b id="fac_id"></b></div>
+                                                        <div class="text-muted"><b id="fac_id" style="color: black;"></b></div>
                                                     </div>
                                                 </div>
 
@@ -2153,14 +2152,14 @@ if (isset($_POST['fdept'])) {
                                                     <div class="form-group">
                                                         <label class="fw-bold" style="color: #007bff;">Venue
                                                             Name</label>
-                                                        <div class="text-muted"><b id="venue_name"></b></div>
+                                                        <div class="text-muted"><b id="venue_name" style="color: black;"></b></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <div class="form-group">
                                                         <label class="fw-bold" style="color: #007bff;">Type of
                                                             Problem</label>
-                                                        <div class="text-muted"><b id="type_of_problem"></b></div>
+                                                        <div class="text-muted"><b id="type_of_problem" style="color: black;"></b></div>
                                                     </div>
                                                 </div>
 
