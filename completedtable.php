@@ -832,6 +832,7 @@ if (isset($_POST['facdet'])) {
                                                             <th class="text-center"><b>Problem description</b></th>
                                                             <th class="text-center"><b>Date Of submission</b></th>
                                                             <th class="text-center"><b>Deadline</b></th>
+                                                            <th class="text-center"><b>Image</b></th>
                                                             <th class="text-center"><b>Worker Details</b></th>
                                                             <th class="text-center"><b>Feedback</b></th>
                                                         </tr>
@@ -859,6 +860,13 @@ if (isset($_POST['facdet'])) {
                                                                     <?php } else { ?>
                                                                         <?php echo $row['days_to_complete']; ?>
                                                                     <?php } ?>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                <button value="<?php echo $row['id']; ?>" type="button"
+                                                                    class="btn btn-light btn-sm imgafter"
+                                                                    data-toggle="modal">
+                                                                    <i class="fas fa-images" style="font-size: 25px;"></i>
+                                                                </button>
                                                                 </td>
 
 
@@ -1038,6 +1046,29 @@ if (isset($_POST['facdet'])) {
                                         </div>
                                     </div>
                                 </div>
+
+
+                                 <!-- After Image Modal -->
+                            <div class="modal fade" id="afterImageModal" tabindex="-1" role="dialog"
+                                aria-labelledby="afterImageModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="afterImageModalLabel">After Picture</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            <img id="modalImage2" src="" alt="After" class="img-fluid">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                                 <!---------------------Completed Work Table Ends------------------------------>
 
 
@@ -1526,6 +1557,40 @@ if (isset($_POST['facdet'])) {
             // You can then send this data to the backend or process it further
             $("#oth").val(finalValue);
         }
+
+        //after image
+        $(document).on("click", ".imgafter", function() {
+                    var problem_id = $(this).val(); // Get the problem_id from button value
+                    console.log(problem_id); // Ensure this logs correctly
+                    $.ajax({
+                        type: "POST",
+                        url: 'cms_backend.php?action=get_aimage',
+                        data: {
+                            problem2_id: problem_id, // Correct POST key
+                        },
+                        dataType: "json", // Automatically parses JSON responses
+                        success: function(response) {
+                            console.log(response); // Log the parsed JSON response
+                            if (response.status == 200) { // Use 'response' instead of 'res'
+                                // Dynamically set the image source
+                                $("#modalImage2").attr("src", response.data.after_photo);
+                                // Show the modal
+                                $("#afterImageModal").modal("show");
+                            } else {
+                                // Handle case where no image is found
+                                alert(response.message ||
+                                    "An error occurred while retrieving the image.");
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX Error: ", status, error);
+                        }
+                    });
+                });
+                $('#afterImageModal').on('hidden.bs.modal', function() {
+                    // Reset the image source to a default or blank placeholder
+                    $("#modalImage2").attr("src", "path/to/placeholder_image.jpg");
+                });
     </script>
 
     <script>
