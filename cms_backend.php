@@ -1422,10 +1422,10 @@ switch ($action) {
 
         // First query
         $query = "
-        SELECT cd.*, faculty_details.faculty_name, faculty_details.faculty_contact, 
-               faculty_details.faculty_mail, faculty_details.department, cd.block_venue
+        SELECT cd.*, basic.fname, basic.mobile, 
+               basic.email,cd.block_venue
         FROM complaints_detail cd
-        JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
+        JOIN basic ON cd.faculty_id = basic.id
         WHERE cd.id = ?
     ";
         $stmt = mysqli_prepare($db, $query);

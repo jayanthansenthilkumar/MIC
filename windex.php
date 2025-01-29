@@ -19,10 +19,8 @@ $sql = "
     SELECT 
         cd.id,
         cd.faculty_id,
-        faculty_details.faculty_name,
-        faculty_details.department,
-        faculty_details.faculty_contact,
-        faculty_details.faculty_mail,
+        faculty.name,
+        faculty.dept,
         cd.block_venue,
         cd.venue_name,
         cd.type_of_problem,
@@ -40,7 +38,7 @@ $sql = "
     JOIN 
         manager AS m ON cd.id = m.problem_id
     JOIN 
-        faculty_details ON cd.faculty_id = faculty_details.faculty_id
+        faculty ON cd.faculty_id = faculty.id
     WHERE 
         (m.worker_dept='$dept')
     AND 
@@ -58,10 +56,8 @@ $sql1 = "
     SELECT 
         cd.id,
         cd.faculty_id,
-        faculty_details.faculty_name,
-        faculty_details.department,
-        faculty_details.faculty_contact,
-        faculty_details.faculty_mail,
+        faculty.name,
+        faculty.dept,
         cd.block_venue,
         cd.venue_name,
         cd.type_of_problem,
@@ -79,7 +75,7 @@ $sql1 = "
     JOIN 
         manager AS m ON cd.id = m.problem_id
     JOIN 
-        faculty_details ON cd.faculty_id = faculty_details.faculty_id
+        faculty ON cd.faculty_id = faculty.id
     WHERE 
         (m.worker_dept='$dept')
     AND 
@@ -97,10 +93,8 @@ $sql2 = "
     SELECT 
         cd.id,
         cd.faculty_id,
-        faculty_details.faculty_name,
-        faculty_details.department,
-        faculty_details.faculty_contact,
-        faculty_details.faculty_mail,
+        faculty.name,
+        faculty.dept,
         cd.block_venue,
         cd.venue_name,
         cd.type_of_problem,
@@ -110,7 +104,6 @@ $sql2 = "
         cd.days_to_complete,
         cd.task_completion,
         cd.status,
-        cd.reason,
         cd.feedback,
         m.task_id,
         m.priority
@@ -119,7 +112,7 @@ $sql2 = "
     JOIN 
         manager AS m ON cd.id = m.problem_id
     JOIN 
-        faculty_details ON cd.faculty_id = faculty_details.faculty_id
+        faculty ON cd.faculty_id = faculty.id
     WHERE 
         (m.worker_dept='$dept')
     AND 
@@ -137,10 +130,8 @@ $sql3 = "
     SELECT 
         cd.id,
         cd.faculty_id,
-        faculty_details.faculty_name,
-        faculty_details.department,
-        faculty_details.faculty_contact,
-        faculty_details.faculty_mail,
+        faculty.name,
+        faculty.dept,
         cd.block_venue,
         cd.venue_name,
         cd.type_of_problem,
@@ -149,7 +140,6 @@ $sql3 = "
         cd.date_of_reg,
         cd.days_to_complete,
         cd.task_completion,
-        cd.date_of_completion,
         cd.status,
         cd.feedback,
         m.task_id,
@@ -159,7 +149,7 @@ $sql3 = "
     JOIN 
         manager AS m ON cd.id = m.problem_id
     JOIN 
-        faculty_details ON cd.faculty_id = faculty_details.faculty_id
+        faculty ON cd.faculty_id = faculty.id
     WHERE 
         (m.worker_dept='$dept')
     AND 
@@ -177,10 +167,8 @@ $sql4 = "
     SELECT 
         cd.id,
         cd.faculty_id,
-        faculty_details.faculty_name,
-        faculty_details.department,
-        faculty_details.faculty_contact,
-        faculty_details.faculty_mail,
+        faculty.name,
+        faculty.dept,
         cd.block_venue,
         cd.venue_name,
         cd.type_of_problem,
@@ -189,7 +177,6 @@ $sql4 = "
         cd.date_of_reg,
         cd.days_to_complete,
         cd.task_completion,
-        cd.date_of_completion,
         cd.status,
         cd.feedback,
         m.task_id,
@@ -199,7 +186,7 @@ $sql4 = "
     JOIN 
         manager AS m ON cd.id = m.problem_id
     JOIN 
-        faculty_details ON cd.faculty_id = faculty_details.faculty_id
+        faculty ON cd.faculty_id = faculty.id
     WHERE 
         (m.worker_dept='$dept')
     AND 

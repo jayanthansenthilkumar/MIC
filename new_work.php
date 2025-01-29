@@ -293,7 +293,7 @@ $result4 = mysqli_query($db, $sql4);
                                                             <tr>
                                                                 <th><b>S.No</b></th>
                                                                 <th><b>Raised Date</b></th>
-                                                                <th><b>Venue</b></th>
+                                                                <th><b>Department/Venue</b></th>
                                                                 <th><b>Complaint</b></th>
                                                                 <th><b>Picture</b></th>
                                                                 <th><b>Action</b></th>
@@ -308,7 +308,7 @@ $result4 = mysqli_query($db, $sql4);
                                                             <tr>
                                                                 <td><?php echo $s ?></td>
                                                                 <td><?php echo $row4['date_of_reg'] ?></td>
-                                                                <td><?php echo $row4['block_venue'] ?></td>
+                                                                <td><?php echo $row4['dept'] ?>/<?php echo $row4['block_venue'] ?></td>
                                                                 <td>
                                                                     <button type="button"
                                                                         value="<?php echo $row4['id']; ?>"
@@ -934,9 +934,9 @@ $result4 = mysqli_query($db, $sql4);
                         $("#id").val(res.data.id);
                         $("#type_of_problem").text(res.data.type_of_problem);
                         $("#problem_description").text(res.data.problem_description);
-                        $("#faculty_name").text(res.data.faculty_name);
-                        $("#faculty_mail").text(res.data.faculty_mail);
-                        $("#faculty_contact").text(res.data.faculty_contact);
+                        $("#faculty_name").text(res.data.fname);
+                        $("#faculty_mail").text(res.data.email);
+                        $("#faculty_contact").text(res.data.mobile);
                         $("#block_venue").text(res.data.block_venue);
                         $("#venue_name").text(res.data.venue_name);
                         $("#complaintDetailsModal").modal("show");
