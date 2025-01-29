@@ -1639,8 +1639,7 @@ switch ($action) {
                 if (move_uploaded_file($_FILES['img_after']['tmp_name'], $uploadFile)) {
                     echo "File successfully uploaded: " . $imgAfterName;
 
-                    $insertTaskDetSql = "INSERT INTO worker_taskdet (task_id, task_completion, after_photo, work_completion_date) 
-                                         VALUES (?, ?, ?, NOW())";
+                    $insertTaskDetSql = "UPDATE worker_taskdet SET task_id=?,task_completion=?,after_photo=?,work_completion_date=NOW()";
                     if ($stmt = $db->prepare($insertTaskDetSql)) {
                         $stmt->bind_param("sss", $taskId, $completionStatus, $imgAfterName);
                         if (!$stmt->execute()) {
