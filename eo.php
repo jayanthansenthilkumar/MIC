@@ -2,6 +2,10 @@
 require 'config.php';
 include("session.php");
 $eo_id = $fac_id;
+if(!($eo_id)){
+    header("Location:index.php");
+
+}
 $sql = "
 SELECT cd.*, f.name,f.dept
 FROM complaints_detail cd

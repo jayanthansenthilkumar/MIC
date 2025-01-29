@@ -2,6 +2,10 @@
 require "config.php";
 include("session.php");
 $worker_id = $s;
+if(!($worker_id)){
+    header("Location:index.php");
+
+}
 
 // fetching worker details using department in session
 $qry = "SELECT * FROM worker_details WHERE worker_id='$worker_id'";

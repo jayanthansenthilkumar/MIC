@@ -2,6 +2,10 @@
 require 'config.php';
 include("session.php");
 $infra_id =  $fac_id;
+if(!($infra_id)){
+    header("Location:index.php");
+
+}
 $idept = "SELECT * FROM faculty WHERE id='$infra_id'";
 $idept_run = mysqli_query($db,$idept);
 $idept_data = mysqli_fetch_array($idept_run);

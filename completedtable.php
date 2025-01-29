@@ -2,19 +2,18 @@
 require 'config.php';
 include("session.php");
 
+
 if (!empty($fac_id)) {
     $faculty_id = $fac_id;
     $qrydata = "SELECT dept FROM faculty WHERE id = '$faculty_id'";
     $run = mysqli_query($db, $qrydata);
     $runs = mysqli_fetch_array($run);
     $dept = $runs['dept'];
-} elseif (!empty($sid)) {
-    $faculty_id = $sid;
-    $qrydata = "SELECT dept FROM student WHERE sid = '$faculty_id'";
-    $run = mysqli_query($db, $qrydata);
-    $runs = mysqli_fetch_array($run);
-    $dept = $runs['dept'];
+} else{
+    header("Location:index.php");
+
 }
+
 
 
 

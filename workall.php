@@ -4,7 +4,10 @@ include("session.php");
 
 
 $worker_id = $s;
+if(!($worker_id)){
+    header("Location:index.php");
 
+}
 
 //fetching worker head details using session v ar
 $qry = "SELECT * FROM worker_details WHERE worker_id='$worker_id'";
