@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $redirectUrl = ($type == "student") ? "smain" : 
     (($myusername == "hroffice") ? "hr" : 
-    (($myusername == "principal") ? "p_index" : 
+    (($myusername == "principal") ? "principal" : 
     (($myusername == "hr") ? "Codes/HRM/HR/dash.php" : 
     (($myusername == "busadmin") ? "busadmin/index" : 
     (in_array($myusername, ["civil", "electrical", "itkm", "transport", "house"]) ? "windex" : "main")))));
