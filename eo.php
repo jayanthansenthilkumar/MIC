@@ -9,21 +9,21 @@ JOIN faculty f ON cd.faculty_id = f.id
 WHERE cd.status = '4'
 ";
 $sql1 = "
-SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
+SELECT cd.*, f.name, f.dept
 FROM complaints_detail cd
-JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
+JOIN faculty f ON cd.faculty_id = f.id
 WHERE cd.status IN (6,8,9, 7, 10, 11, 15,14, 22)
 ";
 $sql2 = "
-SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
+SELECT cd.*, f.name, f.dept
 FROM complaints_detail cd
-JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
+JOIN faculty f ON cd.faculty_id = f.id
 WHERE cd.status = '16'
 ";
 $sql3 = "
-SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
+SELECT cd.*, f.name,f.dept
 FROM complaints_detail cd
-JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
+JOIN faculty f ON cd.faculty_id = f.id
 WHERE cd.status IN (19, 20)
 ";
 $result = mysqli_query($db, $sql);
