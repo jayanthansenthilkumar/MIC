@@ -680,7 +680,8 @@ $notcount = mysqli_num_rows($result4);
                                                                         $count = 1;
                                                                         while ($row = $result1->fetch_assoc()) {
                                                                             if($row['extend_date']==1){
-                                                                                echo "<tr style='background-color:#ffcccc'>";
+                                                                                echo "<tr style='background-color:      #c2f0c2
+'>";
 
                                                                             }
                                                                             else{

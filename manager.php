@@ -554,9 +554,7 @@ if (isset($_POST['fdept'])) {
                                 <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal"
                                     data-target="#manageworkermodal"><i class="ti-user m-r-5 m-l-5"></i>
                                     Manager Worker</a>
-                                <a class="dropdown-item fetchdept" href="javascript:void(0)" data-toggle="modal"
-                                    data-target="#manageusermodal"><i class="ti-user m-r-5 m-l-5"></i>
-                                    Manager User</a>
+                               
                                 <a class="dropdown-item" href="Logout"><i class="fa fa-power-off m-r-5 m-l-5"></i>
                                     Logout</a>
                             </div>
@@ -1625,105 +1623,7 @@ if (isset($_POST['fdept'])) {
 
                             <!--Modals-->
 
-                            <!-- manage user Modal -->
-                            <div class="modal fade" id="manageusermodal" tabindex="-1" role="dialog"
-                                aria-labelledby="manageusermodalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                    <div class="modal-content"
-                                        style="border-radius: 8px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); background-color: #f9f9f9;">
-
-                                        <!-- Modal Header -->
-                                        <div class="modal-header"
-                                            style="background-color: #007bff; color: white; border-radius: 8px 8px 0 0; padding: 15px;">
-                                            <h5 class="modal-title" id="manageusermodalLabel"
-                                                style="font-weight: 700; font-size: 1.4em; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                                                📋Manage User's
-                                            </h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                                style="color: white; font-size: 1.2em;">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-
-                                        <!-- Modal Body -->
-                                        <div class="modal-body"
-                                            style="padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-
-
-                                            <button class="btn btn-primary" data-toggle="modal"
-                                                data-target="#adduser"><i class="ti-user m-r-5 m-l-5"></i>
-                                                Add User</button>
-
-                                            <div class="tab-pane active p-20" id="complain" role="tabpanel">
-                                                <div class="p-20">
-                                                    <div class="table-responsive">
-                                                        <table id="user_display"
-                                                            class="table table-striped table-bordered">
-                                                            <thead
-                                                                style="background: linear-gradient(to bottom right, #cc66ff 1%, #0033cc 100%); color: white;">
-                                                                <tr>
-
-                                                                    <th class="text-center"><b>
-                                                                            <h5>S.No</h5>
-                                                                        </b></th>
-                                                                    <th class="col-md-2 text-center"><b>
-                                                                            <h5>Name</h5>
-                                                                        </b></th>
-                                                                    <th class="text-center"><b>
-                                                                            <h5>Department</h5>
-                                                                        </b></th>
-
-                                                                    <th class="col-md-2 text-center"><b>
-                                                                            <h5>Role</h5>
-                                                                        </b></th>
-                                                                    <th class=" col-md-2 text-center"><b>
-                                                                            <h5>Action</h5>
-                                                                        </b></th>
-
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <?php
-                                                                $s = 1;
-                                                                while ($row = mysqli_fetch_assoc($result10)) {
-                                                                ?>
-                                                                    <tr>
-                                                                        <td class="text-center"><?php echo $s ?></td>
-                                                                        <td class="text-center">
-                                                                            <?php echo $row['faculty_name'] ?></td>
-                                                                        <td class="text-center">
-                                                                            <?php echo $row['department'] ?></td>
-                                                                        <td class="text-center"><?php echo $row['role'] ?>
-                                                                        </td>
-                                                                        <td class="text-center"><button tupe="button"
-                                                                                class="btn btn-danger deleteuser"
-                                                                                value="<?php echo $row["id"] ?>">Delete</button>
-                                                                        </td>
-                                                                    </tr>
-                                                                <?php
-                                                                    $s++;
-                                                                }
-                                                                ?>
-                                                            </tbody>
-
-                                                        </table>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-
-                                        <!-- Modal Footer with Save Button -->
-                                        <div class="modal-footer"
-                                            style="background-color: #f1f1f1; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; padding: 10px;">
-                                            <button type="button" class="btn btn-primary"
-                                                data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
 
                             <!-- manage wo Modal -->
                             <div class="modal fade" id="manageworkermodal" tabindex="-1" role="dialog"
