@@ -717,6 +717,45 @@ switch ($action) {
         }
         break;
 
+
+        case 'infapprovebtn':
+            try {
+                $id = $_POST['approve'];
+    
+                // Prepare the SQL statement
+                $query = "UPDATE complaints_detail SET status = ?,fac_id='$fac_id' WHERE id = ?";
+                $stmt = $db->prepare($query);
+    
+                if (!$stmt) {
+                    throw new Exception('Prepare statement failed: ' . $db->error);
+                }
+    
+                // Bind parameters (status and id)
+                $status = 4;
+                $stmt->bind_param('ii', $status, $id);
+    
+                // Execute the statement
+                if ($stmt->execute()) {
+                    $res = [
+                        'status' => 200,
+                        'message' => 'Details Updated Successfully'
+                    ];
+                    echo json_encode($res);
+                } else {
+                    throw new Exception('Execution failed: ' . $stmt->error);
+                }
+    
+                // Close the statement
+                $stmt->close();
+            } catch (Exception $e) {
+                $res = [
+                    'status' => 500,
+                    'message' => 'Error: ' . $e->getMessage()
+                ];
+                echo json_encode($res);
+            }
+            break;
+
         //HOD reject
     case 'rejectbtn':
         try {
@@ -876,23 +915,12 @@ switch ($action) {
             $student_id1 = $_POST['user_id'];
             $fac_id = $_POST['fac_id'];
 
-            // Query 1: Fetch data from faculty table
-            $query1 = "SELECT * FROM faculty WHERE id = ?";
-            $stmt1 = $db->prepare($query1);
-
-            if (!$stmt1) {
-                throw new Exception('Prepare statement for faculty failed: ' . $db->error);
-            }
-
-            $stmt1->bind_param('i', $fac_id);
-            $stmt1->execute();
-            $result1 = $stmt1->get_result();
-            $fac_data = $result1->fetch_assoc();
+           
 
             // Query 2: Fetch data by joining complaints_detail and faculty_details tables
-            $query = "SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
+            $query = "SELECT cd.*, basic.fname, basic.mobile, basic.email
                                       FROM complaints_detail cd
-                                      JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
+                                      JOIN basic ON cd.faculty_id = basic.id
                                       WHERE cd.id = ?";
             $stmt = $db->prepare($query);
 
@@ -905,12 +933,11 @@ switch ($action) {
             $result = $stmt->get_result();
             $User_data = $result->fetch_assoc();
 
-            if ($User_data || $fac_data) {
+            if ($User_data) {
                 $res = [
                     'status' => 200,
                     'message' => 'Details fetched successfully by ID',
                     'data' => $User_data,
-                    'data1' => $fac_data
                 ];
             } else {
                 $res = [
@@ -1904,7 +1931,7 @@ switch ($action) {
         $id = mysqli_real_escape_string($db,
         $_POST['id']);
         $reason = mysqli_real_escape_string($db,$_POST['reason']);
-        $sql = "UPDATE complaints_detail SET h_reason='$reason',status='2',faculty_id='$fac_id' WHERE id = '$id'";
+        $sql = "UPDATE complaints_detail SET h_reason='$reason',status='2',fac_id='$fac_id' WHERE id = '$id'";
         if(mysqli_query($db,$sql)){
             $res=[
                 "status"=>200,

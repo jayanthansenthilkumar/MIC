@@ -12,22 +12,22 @@ JOIN faculty f ON cd.faculty_id = f.id
 WHERE cd.status = '1'AND f.dept = '$dept'
 ";
 $sql1 = "
-SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
+SELECT cd.*, f.name, f.dept
 FROM complaints_detail cd
-JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
-WHERE cd.status IN (4, 6, 7, 10, 11, 13, 14, 15, 17, 18, 22) AND faculty_details.department = '$dept'
+JOIN faculty f ON cd.faculty_id = f.id
+WHERE cd.status IN (4, 6, 7, 10, 11, 13, 14, 15, 17, 18, 22) AND f.dept = '$dept'
 ";
 $sql2 = "
-SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
+SELECT cd.*, f.name, f.dept 
 FROM complaints_detail cd
-JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
-WHERE cd.status = '16' AND faculty_details.department = '$dept'
+JOIN faculty f ON cd.faculty_id = f.id
+WHERE cd.status = '16' AND f.dept = '$dept'
     ";
 $sql3 = "
-SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
+SELECT cd.*, f.name, f.dept
 FROM complaints_detail cd
-JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
-WHERE cd.status IN (19, 20, 23) AND faculty_details.department = '$dept'
+JOIN faculty f ON cd.faculty_id = f.id
+WHERE cd.status IN (19, 20, 23) AND f.dept = '$dept'
 ";
 $result = mysqli_query($db, $sql);
 $pending = mysqli_num_rows($result);
@@ -454,7 +454,7 @@ $rejected = mysqli_num_rows($result3);
                                                                                         <center>
                                                                                             <button type="button"
                                                                                                 class="btn btn-link faculty" id="facultyinfo"
-                                                                                                data-value="<?php echo $row['fac_id']; ?>"
+                                                                                                data-value="<?php echo $row['faculty_id']; ?>"
                                                                                                 data-toggle="modal" value="<?php echo $row['id']; ?>"
                                                                                                 data-target="#facultymodal" style="text-decoration:none;"><?php echo $row['name']; ?>
                                                                                             </button>
@@ -575,9 +575,9 @@ $rejected = mysqli_num_rows($result3);
                                                                                         <center>
                                                                                             <button type="button"
                                                                                                 class="btn btn-link faculty" id="facultyinfo"
-                                                                                                data-value="<?php echo $row['fac_id']; ?>"
+                                                                                                data-value="<?php echo $row['faculty_id']; ?>"
                                                                                                 data-toggle="modal" value="<?php echo $row['id']; ?>"
-                                                                                                data-target="#facultymodal" style="text-decoration:none;"><?php echo $row['faculty_name']; ?></button>
+                                                                                                data-target="#facultymodal" style="text-decoration:none;"><?php echo $row['name']; ?></button>
                                                                                         </center>
                                                                                     </td>
                                                                                     <td>
@@ -703,9 +703,9 @@ $rejected = mysqli_num_rows($result3);
                                                                                         <center>
                                                                                             <button type="button"
                                                                                                 class="btn btn-link faculty" id="facultyinfo"
-                                                                                                data-value="<?php echo $row['fac_id']; ?>"
+                                                                                                data-value="<?php echo $row['faculty_id']; ?>"
                                                                                                 data-toggle="modal" value="<?php echo $row['id']; ?>"
-                                                                                                data-target="#facultymodal" style="text-decoration:none;"><?php echo $row['faculty_name']; ?></button>
+                                                                                                data-target="#facultymodal" style="text-decoration:none;"><?php echo $row['name']; ?></button>
                                                                                         </center>
                                                                                     </td>
                                                                                     <td>
@@ -813,9 +813,9 @@ $rejected = mysqli_num_rows($result3);
                                                                                         <center>
                                                                                             <button type="button"
                                                                                                 class="btn btn-link faculty" id="facultyinfo"
-                                                                                                data-value="<?php echo $row['fac_id']; ?>"
+                                                                                                data-value="<?php echo $row['faculty_id']; ?>"
                                                                                                 data-toggle="modal" value="<?php echo $row['id']; ?>"
-                                                                                                data-target="#facultymodal" style="text-decoration:none;"><?php echo $row['faculty_name']; ?></button>
+                                                                                                data-target="#facultymodal" style="text-decoration:none;"><?php echo $row['name']; ?></button>
                                                                                         </center>
                                                                                     </td>
                                                                                     <td>
@@ -927,40 +927,23 @@ $rejected = mysqli_num_rows($result3);
                     <ol class="list-group list-group-numbered" style="margin-bottom: 0;">
                         <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
                             <div class="ms-2 me-auto">
-                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">INFRA Name</div>
-                                <b><span id="ifaculty_name" style="color: #555;"></span></b>
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                            <div class="ms-2 me-auto">
                                 <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Name</div>
                                 <b><span id="faculty_name" style="color: #555;"></span></b>
                             </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
                             <div class="ms-2 me-auto">
-                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Department</div>
-                                <b><span id="faculty_dept" style="color: #555;"></span></b>
+                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty mobile</div>
+                                <b><span id="faculty_mobile" style="color: #555;"></span></b>
                             </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
                             <div class="ms-2 me-auto">
-                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Designation</div>
-                                <b><span id="faculty_desg" style="color: #555;"></span></b>
+                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Faculty Email</div>
+                                <b><span id="faculty_email" style="color: #555;"></span></b>
                             </div>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">Mobile Number</div>
-                                <b><span id="ifaculty_contact" style="color: #555;"></span></b>
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 10px; background-color: #fff;">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold" style="font-size: 1.2em; font-weight: 600; color: #007bff;">E-mail</div>
-                                <b><span id="ifaculty_mail" style="color: #555;"></span></b>
-                            </div>
-                        </li>
+                       
                     </ol>
                 </div>
                 <div class="modal-footer">
@@ -1444,7 +1427,7 @@ $rejected = mysqli_num_rows($result3);
                     function() {
                         $.ajax({
                             type: "POST",
-                            url: 'cms_backend.php?action=approvebtn',
+                            url: 'cms_backend.php?action=infapprovebtn',
                             data: {
                                 'approve': approveid
                             },
@@ -1549,17 +1532,17 @@ $rejected = mysqli_num_rows($result3);
             $(document).on('click', '#facultyinfo', function(e) {
                 e.preventDefault();
                 var user_id = $(this).val();
-                var fac_id = $(this).data("value");
+                var faculty_id = $(this).data("value");
 
                 console.log(user_id);
-                console.log(fac_id);
+                console.log(faculty_id);
                 $.ajax({
                     type: "POST",
                     url: 'cms_backend.php?action=facinfohod',
                     data: {
                         'facultydetails': true,
                         'user_id': user_id,
-                        'fac_id': fac_id
+                        'fac_id': faculty_id
                     },
                     success: function(response) {
                         var res = jQuery.parseJSON(response);
@@ -1568,24 +1551,11 @@ $rejected = mysqli_num_rows($result3);
                             alert(res.message);
                         } else {
                             $("#id").val(res.data.id);
-                            $("#ifaculty_name").text(res.data.faculty_name);
-                            $("#ifaculty_mail").text(res.data.faculty_mail);
-                            $("#ifaculty_contact").text(res.data.faculty_contact);
+                            $("#faculty_name").text(res.data.fname);
+                            $("#faculty_email").text(res.data.email);
+                            $("#faculty_mobile").text(res.data.mobile);
                             
-                            if(res.data1){
-                            $('#faculty_id').text(res.data1.id);
-                            $('#faculty_name').text(res.data1.name);
-                            $('#faculty_dept').text(res.data1.dept);
-                            $('#faculty_desg').text(res.data1.design);
-                            }
-                            else{
-                                $('#faculty_id').text("N/A");
-
-                            $('#faculty_name').text("N/A");
-                            $('#faculty_dept').text("N/A");
-                            $('#faculty_desg').text("N/A");
-
-                            }
+                           
                             $('#facultymodal').modal('show');
                         }
                     }
