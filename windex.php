@@ -2,6 +2,10 @@
 require "config.php";
 include("session.php");
 $worker_id = $s;
+if(!($worker_id)){
+    header("Location:index.php");
+
+}
 
 // fetching worker details using department in session
 $qry = "SELECT * FROM worker_details WHERE worker_id='$worker_id'";
@@ -19,10 +23,8 @@ $sql = "
     SELECT 
         cd.id,
         cd.faculty_id,
-        faculty_details.faculty_name,
-        faculty_details.department,
-        faculty_details.faculty_contact,
-        faculty_details.faculty_mail,
+        faculty.name,
+        faculty.dept,
         cd.block_venue,
         cd.venue_name,
         cd.type_of_problem,
@@ -40,7 +42,7 @@ $sql = "
     JOIN 
         manager AS m ON cd.id = m.problem_id
     JOIN 
-        faculty_details ON cd.faculty_id = faculty_details.faculty_id
+        faculty ON cd.faculty_id = faculty.id
     WHERE 
         (m.worker_dept='$dept')
     AND 
@@ -58,10 +60,8 @@ $sql1 = "
     SELECT 
         cd.id,
         cd.faculty_id,
-        faculty_details.faculty_name,
-        faculty_details.department,
-        faculty_details.faculty_contact,
-        faculty_details.faculty_mail,
+        faculty.name,
+        faculty.dept,
         cd.block_venue,
         cd.venue_name,
         cd.type_of_problem,
@@ -79,7 +79,7 @@ $sql1 = "
     JOIN 
         manager AS m ON cd.id = m.problem_id
     JOIN 
-        faculty_details ON cd.faculty_id = faculty_details.faculty_id
+        faculty ON cd.faculty_id = faculty.id
     WHERE 
         (m.worker_dept='$dept')
     AND 
@@ -97,10 +97,8 @@ $sql2 = "
     SELECT 
         cd.id,
         cd.faculty_id,
-        faculty_details.faculty_name,
-        faculty_details.department,
-        faculty_details.faculty_contact,
-        faculty_details.faculty_mail,
+        faculty.name,
+        faculty.dept,
         cd.block_venue,
         cd.venue_name,
         cd.type_of_problem,
@@ -110,7 +108,6 @@ $sql2 = "
         cd.days_to_complete,
         cd.task_completion,
         cd.status,
-        cd.reason,
         cd.feedback,
         m.task_id,
         m.priority
@@ -119,7 +116,7 @@ $sql2 = "
     JOIN 
         manager AS m ON cd.id = m.problem_id
     JOIN 
-        faculty_details ON cd.faculty_id = faculty_details.faculty_id
+        faculty ON cd.faculty_id = faculty.id
     WHERE 
         (m.worker_dept='$dept')
     AND 
@@ -137,10 +134,8 @@ $sql3 = "
     SELECT 
         cd.id,
         cd.faculty_id,
-        faculty_details.faculty_name,
-        faculty_details.department,
-        faculty_details.faculty_contact,
-        faculty_details.faculty_mail,
+        faculty.name,
+        faculty.dept,
         cd.block_venue,
         cd.venue_name,
         cd.type_of_problem,
@@ -149,7 +144,6 @@ $sql3 = "
         cd.date_of_reg,
         cd.days_to_complete,
         cd.task_completion,
-        cd.date_of_completion,
         cd.status,
         cd.feedback,
         m.task_id,
@@ -159,7 +153,7 @@ $sql3 = "
     JOIN 
         manager AS m ON cd.id = m.problem_id
     JOIN 
-        faculty_details ON cd.faculty_id = faculty_details.faculty_id
+        faculty ON cd.faculty_id = faculty.id
     WHERE 
         (m.worker_dept='$dept')
     AND 
@@ -177,10 +171,8 @@ $sql4 = "
     SELECT 
         cd.id,
         cd.faculty_id,
-        faculty_details.faculty_name,
-        faculty_details.department,
-        faculty_details.faculty_contact,
-        faculty_details.faculty_mail,
+        faculty.name,
+        faculty.dept,
         cd.block_venue,
         cd.venue_name,
         cd.type_of_problem,
@@ -189,7 +181,6 @@ $sql4 = "
         cd.date_of_reg,
         cd.days_to_complete,
         cd.task_completion,
-        cd.date_of_completion,
         cd.status,
         cd.feedback,
         m.task_id,
@@ -199,7 +190,7 @@ $sql4 = "
     JOIN 
         manager AS m ON cd.id = m.problem_id
     JOIN 
-        faculty_details ON cd.faculty_id = faculty_details.faculty_id
+        faculty ON cd.faculty_id = faculty.id
     WHERE 
         (m.worker_dept='$dept')
     AND 
@@ -284,6 +275,8 @@ $notcount = mysqli_num_rows($result4);
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
                                     src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated">
+                            <a class="dropdown-item" href="#"><i class="fa fa-power-off m-r-5 m-l-5"></i>
+                            Download map</a>
                             <a class="dropdown-item" href="Logout"><i class="fa fa-power-off m-r-5 m-l-5"></i>
                             Logout</a>
                                 <div class="dropdown-divider"></div>

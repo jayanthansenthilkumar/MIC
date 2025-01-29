@@ -37,10 +37,10 @@ switch ($action) {
 
         // First query
         $query = "
-        SELECT cd.*, faculty_details.faculty_name, faculty_details.faculty_contact, 
-               faculty_details.faculty_mail, faculty_details.department, cd.block_venue
+        SELECT cd.*, b.fname, b.mobile, 
+               b.email, cd.block_venue
         FROM complaints_detail cd
-        JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
+        JOIN basic  b ON cd.faculty_id = b.id
         WHERE cd.id = ?
     ";
         $stmt = mysqli_prepare($db, $query);
@@ -557,24 +557,42 @@ switch ($action) {
 
         //Manager feedback for complited work
     case 'manager_feedbacks':
-        try {
-            $id = $_POST['id'];
-            $feedback = $_POST['feedback12'];
-            $rating = $_POST['ratings'];
+        $id = $_POST['id'];
+        $deadline_query = "SELECT * FROM complaints_detail WHERE id ='$id'";
+        $dead_run = mysqli_query($db,$deadline_query);
+        $dead_array = mysqli_fetch_array($dead_run);
+        $deadline = $dead_array['days_to_complete'];
+        $date_of_completion = $dead_array['date_of_completion'];
+        $point= 0;
+        $q2 = "SELECT * FROM manager WHERE problem_id='$id'";
+        $q2_run = mysqli_query($db,$q2);
+        $q2_res = mysqli_fetch_array($q2_run);
+        $wname = $q2_res['worker_id'];
 
-            $query = "UPDATE complaints_detail SET mfeedback = ?, mrating = ?, status = '16' WHERE id = ?";
-            $stmt = $db->prepare($query);
-            $stmt->bind_param('ssi', $feedback, $rating, $id);
+       if(strtotime($date_of_completion)<= strtotime($deadline)){
+        $point = 1;
+       }
+        $worker_point = "UPDATE worker_details SET point= point+'$point' WHERE worker_id = '$wname'";
+        $point_run = mysqli_query($db,$worker_point);
 
-            if ($stmt->execute()) {
-                echo json_encode(['status' => 200]);
-            } else {
-                throw new Exception('Query Failed: ' . $stmt->error);
-            }
-        } catch (Exception $e) {
-            echo json_encode(['status' => 500, 'message' => 'Error: ' . $e->getMessage()]);
+        $q3 = "UPDATE complaints_detail SET status='16' WHERE id='$id' ";
+        $q3_run = mysqli_query($db,$q3);
+        
+        
+
+
+
+        $insertQuery = "UPDATE manager SET point='$point' WHERE problem_id='$id'";
+        if(mysqli_query($db,$insertQuery)){
+            $res=[
+                "status"=>200,
+                "message"=>"done",
+            ];
+            echo json_encode($res);
+        
         }
         break;
+
 
         //get workers record
     case 'dateapply':
@@ -585,7 +603,7 @@ switch ($action) {
             $sql19 = "SELECT worker_details.worker_id, worker_details.worker_first_name, worker_details.worker_dept, 
                             COUNT(complaints_detail.id) AS total_completed_works,
                             AVG(complaints_detail.rating) AS avg_faculty_rating, 
-                            AVG(complaints_detail.mrating) AS avg_manager_rating 
+                            worker_details.point AS totalpoints 
                           FROM worker_details 
                           INNER JOIN complaints_detail 
                           ON worker_details.worker_id = complaints_detail.worker_id 
@@ -602,10 +620,8 @@ switch ($action) {
             $data = [];
             while ($row = $result->fetch_assoc()) {
                 $row['avg_faculty_rating'] = $row['avg_faculty_rating'] ? round($row['avg_faculty_rating'], 2) : 'N/A';
-                $row['avg_manager_rating'] = $row['avg_manager_rating'] ? round($row['avg_manager_rating'], 2) : 'N/A';
-                $row['avg_rating'] = ($row['avg_faculty_rating'] != 'N/A' && $row['avg_manager_rating'] != 'N/A')
-                    ? round(($row['avg_faculty_rating'] + $row['avg_manager_rating']) / 2, 2)
-                    : 'N/A';
+                $row['totalpoints'] = $row['totalpoints'];
+
                 $data[] = $row;
             }
 
@@ -641,6 +657,7 @@ switch ($action) {
 
                 $row['completed_by'] = $worker_data['worker_first_name'] ?? 'N/A';
                 $row['department'] = $worker_data['worker_dept'] ?? 'N/A';
+                $row['point'] = $manager_data['point'];
 
                 $row['average_rating'] = ($row['rating'] && $row['mrating'])
                     ? round(($row['rating'] + $row['mrating']) / 2, 2)
@@ -700,6 +717,45 @@ switch ($action) {
         }
         break;
 
+//infra approval
+        case 'infapprovebtn':
+            try {
+                $id = $_POST['approve'];
+    
+                // Prepare the SQL statement
+                $query = "UPDATE complaints_detail SET status = ?,fac_id='$fac_id' WHERE id = ?";
+                $stmt = $db->prepare($query);
+    
+                if (!$stmt) {
+                    throw new Exception('Prepare statement failed: ' . $db->error);
+                }
+    
+                // Bind parameters (status and id)
+                $status = 4;
+                $stmt->bind_param('ii', $status, $id);
+    
+                // Execute the statement
+                if ($stmt->execute()) {
+                    $res = [
+                        'status' => 200,
+                        'message' => 'Details Updated Successfully'
+                    ];
+                    echo json_encode($res);
+                } else {
+                    throw new Exception('Execution failed: ' . $stmt->error);
+                }
+    
+                // Close the statement
+                $stmt->close();
+            } catch (Exception $e) {
+                $res = [
+                    'status' => 500,
+                    'message' => 'Error: ' . $e->getMessage()
+                ];
+                echo json_encode($res);
+            }
+            break;
+
         //HOD reject
     case 'rejectbtn':
         try {
@@ -739,6 +795,47 @@ switch ($action) {
             echo json_encode($res);
         }
         break;
+
+        //Infra reject
+    case 'infrejectbtn':
+        try {
+            $id = $_POST['reject_id'];
+            $feedback = $_POST['rejfeed'];
+
+            // Prepare the SQL statement
+            $query = "UPDATE complaints_detail SET feedback = ?, status = ? WHERE id = ?";
+            $stmt = $db->prepare($query);
+
+            if (!$stmt) {
+                throw new Exception('Prepare statement failed: ' . $db->error);
+            }
+
+            // Bind parameters
+            $status = 3;
+            $stmt->bind_param('sii', $feedback, $status, $id);
+
+            // Execute the statement
+            if ($stmt->execute()) {
+                $res = [
+                    'status' => 200,
+                    'message' => 'Details Updated Successfully'
+                ];
+                echo json_encode($res);
+            } else {
+                throw new Exception('Execution failed: ' . $stmt->error);
+            }
+
+            // Close the statement
+            $stmt->close();
+        } catch (Exception $e) {
+            $res = [
+                'status' => 500,
+                'message' => 'Error: ' . $e->getMessage()
+            ];
+            echo json_encode($res);
+        }
+        break;
+
 
         //HOD seeproblem description
     case 'seeproblem':
@@ -859,23 +956,12 @@ switch ($action) {
             $student_id1 = $_POST['user_id'];
             $fac_id = $_POST['fac_id'];
 
-            // Query 1: Fetch data from faculty table
-            $query1 = "SELECT * FROM faculty WHERE id = ?";
-            $stmt1 = $db->prepare($query1);
-
-            if (!$stmt1) {
-                throw new Exception('Prepare statement for faculty failed: ' . $db->error);
-            }
-
-            $stmt1->bind_param('i', $fac_id);
-            $stmt1->execute();
-            $result1 = $stmt1->get_result();
-            $fac_data = $result1->fetch_assoc();
+           
 
             // Query 2: Fetch data by joining complaints_detail and faculty_details tables
-            $query = "SELECT cd.*, faculty_details.faculty_name, faculty_details.department, faculty_details.faculty_contact, faculty_details.faculty_mail
+            $query = "SELECT cd.*, basic.fname, basic.mobile, basic.email
                                       FROM complaints_detail cd
-                                      JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
+                                      JOIN basic ON cd.faculty_id = basic.id
                                       WHERE cd.id = ?";
             $stmt = $db->prepare($query);
 
@@ -888,12 +974,11 @@ switch ($action) {
             $result = $stmt->get_result();
             $User_data = $result->fetch_assoc();
 
-            if ($User_data || $fac_data) {
+            if ($User_data) {
                 $res = [
                     'status' => 200,
                     'message' => 'Details fetched successfully by ID',
                     'data' => $User_data,
-                    'data1' => $fac_data
                 ];
             } else {
                 $res = [
@@ -1405,10 +1490,10 @@ switch ($action) {
 
         // First query
         $query = "
-        SELECT cd.*, faculty_details.faculty_name, faculty_details.faculty_contact, 
-               faculty_details.faculty_mail, faculty_details.department, cd.block_venue
+        SELECT cd.*, basic.fname, basic.mobile, 
+               basic.email,cd.block_venue
         FROM complaints_detail cd
-        JOIN faculty_details ON cd.faculty_id = faculty_details.faculty_id
+        JOIN basic ON cd.faculty_id = basic.id
         WHERE cd.id = ?
     ";
         $stmt = mysqli_prepare($db, $query);
@@ -1444,8 +1529,8 @@ switch ($action) {
         }
 
         $sql = "SELECT 
-        f.faculty_name, 
-        f.faculty_contact, 
+        b.fname, 
+        b.mobile, 
         cd.block_venue, 
         cd.venue_name, 
         cd.problem_description, 
@@ -1453,7 +1538,7 @@ switch ($action) {
     FROM 
         complaints_detail AS cd
     JOIN 
-        faculty_details AS f ON cd.faculty_id = f.faculty_id
+        basic AS b ON cd.faculty_id = b.id
     WHERE 
         cd.id = (SELECT problem_id FROM manager WHERE task_id = ?)
 ";
@@ -1469,8 +1554,8 @@ switch ($action) {
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $response = array(
-                'faculty_name' => $row['faculty_name'],
-                'faculty_contact' => $row['faculty_contact'],
+                'faculty_name' => $row['fname'],
+                'faculty_contact' => $row['mobile'],
                 'block_venue' => $row['block_venue'],
                 'venue_name' => $row['venue_name'],
                 'problem_description' => $row['problem_description'],
@@ -1523,25 +1608,10 @@ switch ($action) {
         $p_id = $_POST['p_id'];
         $oname = $_POST['o_name'];
         $wname = $_POST['w_name'];
+        $date_of_completion = date('Y-m-d H:i:s');
         $amt = $_POST['amt'];
         $name = current(array_filter([$oname, $wname]));
-        $date_of_completion = date('Y-m-d H:i:s');
-        $deadline_query = "SELECT * FROM complaints_detail WHERE id = (SELECT problem_id FROM manager WHERE task_id = '$taskId')";
-        $dead_run = mysqli_query($db,$deadline_query);
-        $dead_array = mysqli_fetch_array($dead_run);
-        $deadline = $dead_array['days_to_complete'];
-        $point= 0;
-       if(strtotime($date_of_completion)<= strtotime($deadline)){
-        $point = 1;
-       }
-        $worker_point = "UPDATE worker_details SET point= point+'$point' WHERE worker_id = '$wname'";
-        $point_run = mysqli_query($db,$worker_point);
-        
-        
-
-
-
-        $insertQuery = "UPDATE manager SET worker_id='$name',point='$point' WHERE task_id='$taskId'";
+        $insertQuery = "UPDATE manager SET worker_id='$name' WHERE task_id='$taskId'";
         if (mysqli_query($db, $insertQuery)) {
 
 
@@ -1569,8 +1639,7 @@ switch ($action) {
                 if (move_uploaded_file($_FILES['img_after']['tmp_name'], $uploadFile)) {
                     echo "File successfully uploaded: " . $imgAfterName;
 
-                    $insertTaskDetSql = "INSERT INTO worker_taskdet (task_id, task_completion, after_photo, work_completion_date) 
-                                         VALUES (?, ?, ?, NOW())";
+                    $insertTaskDetSql = "UPDATE worker_taskdet SET task_id=?,task_completion=?,after_photo=?,work_completion_date=NOW()";
                     if ($stmt = $db->prepare($insertTaskDetSql)) {
                         $stmt->bind_param("sss", $taskId, $completionStatus, $imgAfterName);
                         if (!$stmt->execute()) {
@@ -1695,7 +1764,6 @@ switch ($action) {
         //faculty raise complaint
     case 'facraisecomp':
         $faculty_id = mysqli_real_escape_string($db, $_POST['faculty_id']);
-        $fac_id = mysqli_real_escape_string($db, $_POST['cfaculty']);
         $block_venue = mysqli_real_escape_string($db, $_POST['block_venue']);
         $venue_name = mysqli_real_escape_string($db, $_POST['venue_name']);
         $type_of_problem = mysqli_real_escape_string($db, $_POST['type_of_problem']);
@@ -1741,8 +1809,8 @@ switch ($action) {
 
 
         // Insert data into the database
-        $query = "INSERT INTO complaints_detail (faculty_id,fac_id,block_venue, venue_name, type_of_problem, problem_description,itemno, images, date_of_reg, status) 
-              VALUES ('$faculty_id','$fac_id', '$block_venue', '$venue_name', '$type_of_problem', '$problem_description','$itemno', '$images', '$date_of_reg', '$status')";
+        $query = "INSERT INTO complaints_detail (faculty_id,block_venue, venue_name, type_of_problem, problem_description,itemno, images, date_of_reg, status) 
+              VALUES ('$faculty_id', '$block_venue', '$venue_name', '$type_of_problem', '$problem_description','$itemno', '$images', '$date_of_reg', '$status')";
 
         if (mysqli_query($db, $query)) {
             echo json_encode(['status' => 200, 'message' => 'Success']);
@@ -1886,26 +1954,6 @@ switch ($action) {
         break;
 
 
-
-
-
-    case 'getfaculty':
-        $sql8 =  "SELECT * FROM faculty WHERE dept=(SELECT department FROM faculty_details WHERE faculty_id='$faculty_id')";
-        $result8 = mysqli_query($db, $sql8);
-
-        $options = '';
-        $options .= '<option value="">Select a Faculty</option>';
-
-
-
-        while ($row = mysqli_fetch_assoc($result8)) {
-            $options .= '<option value="' . $row['id'] . '">' . $row['id'] . ' - ' . $row['name'] . '</option>';
-        }
-
-
-        echo $options;
-        break;
-
         //password change for faculty
     case 'facchangepass':
         $newp = $_POST['pass'];
@@ -1923,7 +1971,7 @@ switch ($action) {
         $id = mysqli_real_escape_string($db,
         $_POST['id']);
         $reason = mysqli_real_escape_string($db,$_POST['reason']);
-        $sql = "UPDATE complaints_detail SET h_reason='$reason',status='2',faculty_id='$fac_id' WHERE id = '$id'";
+        $sql = "UPDATE complaints_detail SET h_reason='$reason',status='2',fac_id='$fac_id' WHERE id = '$id'";
         if(mysqli_query($db,$sql)){
             $res=[
                 "status"=>200,

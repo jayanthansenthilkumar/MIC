@@ -2,7 +2,10 @@
 require "config.php";
 include ("session.php");
 $worker_id = $s;
+if(!($worker_id)){
+    header("Location:index.php");
 
+}
 //fetching worker details using department in session
 $qry = "SELECT * FROM worker_details WHERE worker_id='$worker_id'";
 $qry_run = mysqli_query($db,$qry);
@@ -13,10 +16,8 @@ $dept = $srow['worker_dept'];
 $sql4 = "SELECT 
 cd.id,
 cd.faculty_id,
-faculty_details.faculty_name,
-faculty_details.department,
-faculty_details.faculty_contact,
-faculty_details.faculty_mail,
+f.name,
+f.dept,
 cd.block_venue,
 cd.venue_name,
 cd.type_of_problem,
@@ -34,7 +35,7 @@ complaints_detail AS cd
 JOIN 
 manager AS m ON cd.id = m.problem_id
 JOIN 
-faculty_details ON cd.faculty_id = faculty_details.faculty_id
+faculty f ON cd.faculty_id = f.id
 WHERE 
 (m.worker_dept = '$dept')
 AND 
@@ -178,11 +179,14 @@ $result4 = mysqli_query($db, $sql4);
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
                                     src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated">
+                            <a class="dropdown-item" href="#"><i class="fa fa-power-off m-r-5 m-l-5"></i>
+                            Download map</a>
                             <a class="dropdown-item" href="Logout"><i class="fa fa-power-off m-r-5 m-l-5"></i>
                             Logout</a>
                                 <div class="dropdown-divider"></div>
                             </div>
                         </li>
+                        
 
                     </ul>
                 </div>
@@ -295,7 +299,7 @@ $result4 = mysqli_query($db, $sql4);
                                                             <tr>
                                                                 <th><b>S.No</b></th>
                                                                 <th><b>Raised Date</b></th>
-                                                                <th><b>Venue</b></th>
+                                                                <th><b>Department/Venue</b></th>
                                                                 <th><b>Complaint</b></th>
                                                                 <th><b>Picture</b></th>
                                                                 <th><b>Action</b></th>
@@ -310,7 +314,7 @@ $result4 = mysqli_query($db, $sql4);
                                                             <tr>
                                                                 <td><?php echo $s ?></td>
                                                                 <td><?php echo $row4['date_of_reg'] ?></td>
-                                                                <td><?php echo $row4['block_venue'] ?></td>
+                                                                <td><?php echo $row4['dept'] ?>/<?php echo $row4['block_venue'] ?></td>
                                                                 <td>
                                                                     <button type="button"
                                                                         value="<?php echo $row4['id']; ?>"
@@ -936,9 +940,9 @@ $result4 = mysqli_query($db, $sql4);
                         $("#id").val(res.data.id);
                         $("#type_of_problem").text(res.data.type_of_problem);
                         $("#problem_description").text(res.data.problem_description);
-                        $("#faculty_name").text(res.data.faculty_name);
-                        $("#faculty_mail").text(res.data.faculty_mail);
-                        $("#faculty_contact").text(res.data.faculty_contact);
+                        $("#faculty_name").text(res.data.fname);
+                        $("#faculty_mail").text(res.data.email);
+                        $("#faculty_contact").text(res.data.mobile);
                         $("#block_venue").text(res.data.block_venue);
                         $("#venue_name").text(res.data.venue_name);
                         $("#complaintDetailsModal").modal("show");

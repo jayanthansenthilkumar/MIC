@@ -4,7 +4,10 @@ include("session.php");
 
 
 $worker_id = $s;
+if(!($worker_id)){
+    header("Location:index.php");
 
+}
 
 //fetching worker head details using session v ar
 $qry = "SELECT * FROM worker_details WHERE worker_id='$worker_id'";
@@ -15,43 +18,7 @@ $dept = $srow['worker_dept'];
 
 
 
-//New task query
-$sql = "
-    SELECT 
-        cd.id,
-        cd.faculty_id,
-        faculty_details.faculty_name,
-        faculty_details.department,
-        faculty_details.faculty_contact,
-        faculty_details.faculty_mail,
-        cd.block_venue,
-        cd.venue_name,
-        cd.type_of_problem,
-        cd.problem_description,
-        cd.images,
-        cd.date_of_reg,
-        cd.days_to_complete,
-        cd.task_completion,
-        cd.status,
-        cd.feedback,
-        m.task_id,
-        m.priority
-    FROM 
-        complaints_detail AS cd
-    JOIN 
-        manager AS m ON cd.id = m.problem_id
-    JOIN 
-        faculty_details ON cd.faculty_id = faculty_details.faculty_id
-    WHERE 
-        (m.worker_dept='$dept')
-    AND 
-        cd.status = '7'
-";
 
-$stmt = $db->prepare($sql);
-$stmt->execute();
-$result = $stmt->get_result();
-$newcount = mysqli_num_rows($result);
 
 
 
@@ -61,10 +28,8 @@ $sql1 = "
     SELECT 
         cd.id,
         cd.faculty_id,
-        faculty_details.faculty_name,
-        faculty_details.department,
-        faculty_details.faculty_contact,
-        faculty_details.faculty_mail,
+        faculty.name,
+        faculty.dept,
         cd.block_venue,
         cd.venue_name,
         cd.type_of_problem,
@@ -83,7 +48,7 @@ $sql1 = "
     JOIN 
         manager AS m ON cd.id = m.problem_id
     JOIN 
-        faculty_details ON cd.faculty_id = faculty_details.faculty_id
+        faculty ON cd.faculty_id = faculty.id
     WHERE 
         (m.worker_dept='$dept')
     AND 
@@ -100,10 +65,8 @@ $sql2 = "
     SELECT 
         cd.id,
         cd.faculty_id,
-        faculty_details.faculty_name,
-        faculty_details.department,
-        faculty_details.faculty_contact,
-        faculty_details.faculty_mail,
+        faculty.name,
+        faculty.dept,
         cd.block_venue,
         cd.venue_name,
         cd.type_of_problem,
@@ -113,8 +76,8 @@ $sql2 = "
         cd.days_to_complete,
         cd.task_completion,
         cd.status,
-        cd.reason,
         cd.feedback,
+        cd.reason,
         m.task_id,
         m.priority
     FROM 
@@ -122,7 +85,7 @@ $sql2 = "
     JOIN 
         manager AS m ON cd.id = m.problem_id
     JOIN 
-        faculty_details ON cd.faculty_id = faculty_details.faculty_id
+        faculty ON cd.faculty_id = faculty.id
     WHERE 
         (m.worker_dept='$dept')
     AND 
@@ -140,10 +103,8 @@ $sql3 = "
     SELECT 
         cd.id,
         cd.faculty_id,
-        faculty_details.faculty_name,
-        faculty_details.department,
-        faculty_details.faculty_contact,
-        faculty_details.faculty_mail,
+        faculty.name,
+        faculty.dept,
         cd.block_venue,
         cd.venue_name,
         cd.type_of_problem,
@@ -151,8 +112,8 @@ $sql3 = "
         cd.images,
         cd.date_of_reg,
         cd.days_to_complete,
-        cd.task_completion,
         cd.date_of_completion,
+        cd.task_completion,
         cd.status,
         cd.feedback,
         m.task_id,
@@ -162,7 +123,7 @@ $sql3 = "
     JOIN 
         manager AS m ON cd.id = m.problem_id
     JOIN 
-        faculty_details ON cd.faculty_id = faculty_details.faculty_id
+        faculty ON cd.faculty_id = faculty.id
     WHERE 
         (m.worker_dept='$dept')
     AND 
@@ -180,10 +141,8 @@ $sql4 = "
     SELECT 
         cd.id,
         cd.faculty_id,
-        faculty_details.faculty_name,
-        faculty_details.department,
-        faculty_details.faculty_contact,
-        faculty_details.faculty_mail,
+        faculty.name,
+        faculty.dept,
         cd.block_venue,
         cd.venue_name,
         cd.type_of_problem,
@@ -192,7 +151,6 @@ $sql4 = "
         cd.date_of_reg,
         cd.days_to_complete,
         cd.task_completion,
-        cd.date_of_completion,
         cd.status,
         cd.feedback,
         m.task_id,
@@ -202,7 +160,7 @@ $sql4 = "
     JOIN 
         manager AS m ON cd.id = m.problem_id
     JOIN 
-        faculty_details ON cd.faculty_id = faculty_details.faculty_id
+        faculty ON cd.faculty_id = faculty.id
     WHERE 
         (m.worker_dept='$dept')
     AND 
@@ -346,6 +304,8 @@ $notcount = mysqli_num_rows($result4);
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
                                     src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated">
+                            <a class="dropdown-item" href="#"><i class="fa fa-power-off m-r-5 m-l-5"></i>
+                            Download map</a>
                                 <a class="dropdown-item" href="Logout"><i class="fa fa-power-off m-r-5 m-l-5"></i>
                                     Logout</a>
                                 <div class="dropdown-divider"></div>
@@ -513,7 +473,7 @@ $notcount = mysqli_num_rows($result4);
                                                                 echo "<td class='text-center'>" . $count++ . "</td>";
                                                                 echo "<td class='text-center'>" . htmlspecialchars($row['date_of_reg']) . "</td>";
                                                                 echo "<td class='text-center'>" . htmlspecialchars($row['task_id']) . "</td>";
-                                                                echo "<td class='text-center'>" . htmlspecialchars($row['department']) . "</td>";
+                                                                echo "<td class='text-center'>" . htmlspecialchars($row['dept']) . "</td>";
                                                             ?>
                                                                 <td class='text-center'>
                                                                     <button type='button' class='btn btn margin-5 view-complaint
@@ -626,7 +586,7 @@ $notcount = mysqli_num_rows($result4);
                                                                             echo "<td class='text-center'>" . $count++ . "</td>";
                                                                             echo "<td class='text-center'>" . htmlspecialchars($row['date_of_reg']) . "</td>";
                                                                             echo "<td class='text-center'>" . htmlspecialchars($row['task_id']) . "</td>";
-                                                                            echo "<td class='text-center'>" . htmlspecialchars($row['department']) . "</td>";
+                                                                            echo "<td class='text-center'>" . htmlspecialchars($row['dept']) . "</td>";
                                                                         ?>
                                                                             <td class='text-center'>
                                                                                 <button type='button' class='btn btn margin-5 view-complaint
@@ -722,7 +682,8 @@ $notcount = mysqli_num_rows($result4);
                                                                         $count = 1;
                                                                         while ($row = $result1->fetch_assoc()) {
                                                                             if($row['extend_date']==1){
-                                                                                echo "<tr style='background-color:#ffcccc'>";
+                                                                                echo "<tr style='background-color:      #c2f0c2
+'>";
 
                                                                             }
                                                                             else{
@@ -732,7 +693,7 @@ $notcount = mysqli_num_rows($result4);
                                                                             echo "<td class='text-center'>" . $count++ . "</td>";
                                                                             echo "<td class='text-center'>" . htmlspecialchars($row['date_of_reg']) . "</td>";
                                                                             echo "<td class='text-center'>" . htmlspecialchars($row['task_id']) . "</td>";
-                                                                            echo "<td class='text-center'>" . htmlspecialchars($row['department']) . "</td>";
+                                                                            echo "<td class='text-center'>" . htmlspecialchars($row['dept']) . "</td>";
                                                                         ?>
                                                                             <td class='text-center'>
                                                                                 <button type='button' class='btn btn margin-5 view-complaint
@@ -894,7 +855,7 @@ $notcount = mysqli_num_rows($result4);
                                                                 echo "<td class='text-center'>" . $count++ . "</td>";
                                                                 echo "<td class='text-center'>" . htmlspecialchars($row['date_of_reg']) . "</td>";
                                                                 echo "<td class='text-center'>" . htmlspecialchars($row['task_id']) . "</td>";
-                                                                echo "<td class='text-center'>" . htmlspecialchars($row['department']) . "</td>";
+                                                                echo "<td class='text-center'>" . htmlspecialchars($row['dept']) . "</td>";
                                                             ?>
                                                                 <td class='text-center'>
                                                                     <button type='button' class='btn btn margin-5 view-complaint
